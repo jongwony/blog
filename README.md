@@ -1,0 +1,2 @@
+# blog
+blog.jongwony.com
