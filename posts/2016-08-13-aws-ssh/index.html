@@ -1,0 +1,60 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="/blog/about.html">About me</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>EC2 SSH 접속 포트 변경</h1>
+<p>2016-08-13 00:00:00</p>
+<p>AWS의 인스턴스를 생성할 때 Security Group을 생성하고</p>
+<p>Keypair를 생성하는 등의 보안 절차가 있습니다.</p>
+<p>Security Group은 방화벽, Keypair는 비밀키라고 생각하시면 됩니다.</p>
+<p>보통 Security Group에서 포트를 열 때 집에서 진득하게 작업하는 환경이 아니라면</p>
+<p><img alt="" src="/image/aws/anywhere.png" /></p>
+<p>이렇게 포트는 모든 IP를 허용하게 되는데</p>
+<p>좀 더 보안을 강화 할 수 있도록 SSH 접속 포트를 일반적이지 않은 포트로 변경하는 방법입니다.</p>
+<hr />
+<h2>Security Group</h2>
+<p>먼저 <a href="/2016/05/24/aws-ec2.html">생성한 AWS 인스턴스</a>의 Security Group 설정으로 들어갑니다.</p>
+<p><img src='/image/aws/secgrp.png' style='width:300px' /></p>
+<p><strong>기존 22번 SSH 포트 외 추가로</strong> 모든 IP를 허용하는 Inbound 조건을 추가합니다.</p>
+<p>10000번 포트 이상을 권장합니다.</p>
+<p><img alt="" src="/image/aws/inbound.png" /></p>
+<h2>SSH 설정 변경</h2>
+<p>Putty(Windows) 또는 SSH(Linux)를 이용하여 22번 포트로 접속합니다.</p>
+<p><code>bash
+vi /etc/ssh/sshd_config</code></p>
+<p>Port 22라고 되어있는 항목을 AWS 콘솔에서 변경했던 IP로 변경합니다.</p>
+<p>그 후 서비스를 재시작합니다.</p>
+<p><code>bash
+sudo service ssh restart</code></p>
+<p>이렇게 하면 기존 세션은 유지되지만 다음 SSH 접속은 바뀐 포트로만 가능합니다.</p>
+<p>AWS 콘솔의 Security Group 설정의 SSH 22번 포트는 지우셔도 좋습니다.</p>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="/blog/about.html">About me</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>Python 콘솔에서 Google 번역</h1>
+<p>2017-03-13 00:00:00</p>
+<p><a class="gitribbon" href="//github.com/lastone9182/hypertrans"></a></p>
+<p><a href="//translate.google.com">Google Translate</a> + HTTP/2</p>
+<p>HTTP/2를 통해 Python 콘솔로 구글 번역 페이지를 우회하는 프로그램입니다.</p>
+<p>간단한 문장을 번역할 때 구글 번역기를 쓰는 경우가 있습니다.
+저는 마크다운으로 포스팅을 하며 글을 작성하는데 번역시 간단한 단어나 문장을 추가로 크롬 브라우저를 켜서 translate.google.com을 쳐서 매번 들어가기 귀찮았습니다.
+그래서 Python을 통해 작동하도록 간단하게 기능만 가져왔습니다. 저는 Windows 사용자라 Visual Studio Code를 사용하고, 여기서 터미널을 지원하기에 노트북 사용시 따로 브라우저를 켜지 않는다면 엄청난(?) 배터리 절약도 할 수 있겠습니다.</p>
+<p><img alt="battery_usage" src="/image/battery_usage.png" /></p>
+<p>최근 HTTP/2 표준이 어마어마한 속도를 자랑하고 있다기에 ~~<em>requests</em> 라이브러리에~~ 추가해 보았습니다. <a href="//www.popit.kr/%EB%82%98%EB%A7%8C-%EB%AA%A8%EB%A5%B4%EA%B3%A0-%EC%9E%88%EB%8D%98-http2/">관련 블로그 포스트</a></p>
+<h2>Bug report</h2>
+<p>Python <em>requests</em> 라이브러리와 <em>hyper</em>를 결합하는 방법이 <em>hyper</em> 라이브러리 페이지에 소개되어 있었습니다.
+하지만 이렇게 사용할 경우 <a href="//github.com/Lukasa/hyper/issues/306"><code>close()</code>가 호출이 안되는 현상</a>이 발생하였습니다.</p>
+<p>그렇다고 연결을 계속 유지하자니 <a href="//github.com/Lukasa/hyper/issues/291">연결이 자동으로 끊기는</a> 현상이 발생합니다.</p>
+<p>내용을 읽어보면 아직 HTTP/2의 Python 구현이 완벽하게 되지 않은 것으로 보입니다.
+기본적인 구현으로 해결할 수 있는 문제라 <em>request</em> 라이브러리를 사용하지 않고 순수 <em>hyper</em> 라이브러리만 사용하게 되었습니다.</p>
+<h2>Requirements</h2>
+<p><strong>Python 3.6</strong> 버전에서 생성한 프로젝트입니다.</p>
+<p><code>hyper==0.7.0
+beautifulsoup4==4.5.3</code></p>
+<h4>Virtualenv install</h4>
+<p>```
+pip install virtualenv
+virtualenv _hypertrans</p>
+<p>(Windows) <code>.\_hypertrans\Scripts\activate</code></p>
+<p>pip install hyper
+pip install beautifulsoup4</p>
+<p>pip freeze
+```</p>
+<h2>Usage</h2>
+<p><code>python main.py</code></p>
+<h4>Options</h4>
+<p>| Option | key |<br />
+|:---|:---|<br />
+| Quit | 'q' |<br />
+| Swap | 's' |<br />
+| Custom | 'c' |</p>
+<p><code>en-&gt;ko: i am great
+나는 잘 지내고있어
+en-&gt;ko: s
+I'm doing well.
+ko-&gt;en: s
+나는 잘하고 있어요.
+en-&gt;ko: c
+Source Language: 
+Destination Language: ja
+en-&gt;ja: i'm doing well
+私はうまくやってる</code></p>
+<h2>Reference</h2>
+<ul>
+<li><a href="//cloud.google.com/translate/docs/">Google Translation API</a>  </li>
+<li><a href="//docs.python-requests.org/en/master/user/quickstart/">Quickstart requests</a>  </li>
+<li><a href="//hyper.readthedocs.io/en/latest/quickstart.html">Quickstart hyper</a>  </li>
+<li><a href="//github.com/ssut/py-googletrans">GitHub: py-googletrans</a></li>
+</ul>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>
