@@ -1,0 +1,121 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>vim 자동완성 플러그인 사용</h1>
+<p>2016-08-15 00:00:00</p>
+<p>vim 에디터는 가볍고, 어디에나 설치되어 있지만 약간 이용하기에는 불편합니다.</p>
+<p>하지만 확장성이 뛰어나 불편한 부분은 찾아서 원하는 플러그인을 설치하면 됩니다.</p>
+<p>앞서 Pycharm을 이용한 원격 인터프리터 연결로 EC2내의 라이브러리를 이용하였습니다.</p>
+<p>EC2 프리티어에서는 램 부족으로 Pycharm을 설치할 수 없지만</p>
+<p>Vim 자동완성 플러그인을 설치하여 어디서나 원격접속만 된다면 그나마 에디터로서의 역할이 되게끔 해보았습니다.</p>
+<p>Ubuntu 14.04 LTS(EC2 Free Tier) 환경에서 테스트하였고</p>
+<p>다른환경이더라도 중간에 첨부한 링크로 다양한 방법으로 설치할 수 있으니 참고하시기 바랍니다.</p>
+<hr />
+<h2>Vundle</h2>
+<p><a href="//jedi.jedidjah.ch/en/latest/docs/usage.html">jedi</a> 플러그인을 이용합니다.</p>
+<p>저는 vim을 주로 이용하기 때문에 jedi-vim(Python), YouCompleteMe(Auto Completion) 두 플러그인을 Vundle을 이용하여 설치할 것입니다.</p>
+<div class='def'>
+deoplete-jedi는 neovim 전용입니다.
+</div>
+
+<p>먼저 자동완성 플러그인인 <a href="http://valloric.github.io/YouCompleteMe/">YouCompleteMe</a> 설치 홈페이지에서 각 OS별 설치 방법이 나와있습니다.</p>
+<p>먼저 <a href="https://github.com/VundleVim/Vundle.vim">Vundle</a>을 설치하라고 합니다.</p>
+<p><code>bash
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></p>
+<p>.vim/bundle 디렉터리 경로에 프로젝트를 다운로드 하게 됩니다.</p>
+<p>홈 디렉터리에 .vimrc 파일을 만들고 Vundle을 참조한 다음 저장 후에 vim 에서 :PluginInstall 명령어로 플러그인을 설치합니다.</p>
+<p>아래는 제가 필요한 플러그인을 나타낸 예시입니다.</p>
+<p>```vim
+set nocompatible
+filetype off</p>
+<p>set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()</p>
+<p>"VundleVim/Vundle.vim
+Plugin 'gmarik/Vundle.vim'
+"After install YouCompleteMe
+Plugin 'Valloric/YouCompleteMe'
+"PreInstalled Markdown Plugin
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+"After install jedi-vim
+Plugin 'davidhalter/jedi-vim'
+"After install NERDTree plugin
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'</p>
+<p>call vundle#end()
+filetype plugin indent on</p>
+<p>syntax on
+colo desert
+set nu
+set mouse=a
+set tabstop=2</p>
+<p>"au VimEnter * NERDTree
+```</p>
+<div class="def">
+주석에도 나타냈지만 일부 플러그인은 clone project를 해야합니다.
+</div>
+
+<div class="warn">
+<code>set mouse=a</code> 기능을 이용하면 putty를 사용할 경우 오른쪽 클릭으로 붙여넣기 하는 기능이<br>
+shift + 오른쪽 클릭으로 바뀝니다.<br>
+<a href='//stackoverflow.com/questions/4608161/copy-text-out-of-vim-with-set-mouse-a-enabled' target='_blank'>stackoverflow 참조</a>
+</div>
+
+<h2>YouCompleteMe</h2>
+<p>YouCompleteMe는 자동완성을 위한 플러그인입니다.</p>
+<p>이 플러그인을 설치하기 위해서는 다음과 같은 패키지가 필요합니다.</p>
+<p><code>bash
+sudo apt-get install build-essential cmake
+sudo apt-get install python-dev</code></p>
+<p>.vim/bundle 경로에 프로젝트를 클론합니다.</p>
+<p><code>bash
+git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe</code></p>
+<p>그런 다음 install.py를 실행시키면 됩니다.</p>
+<p><code>bash
+cd ~/.vim/bundle/YouCompleteMe
+./install.py</code></p>
+<div class='def'>
+git submodule을 이용하여 서드파티를 설치하라는 메시지가 나오면 그대로 입력하셔서 설치하면 됩니다.<br>
+<a href='http://valloric.github.io/YouCompleteMe'>YouCompleteMe</a>에 커스터마이징을 위한 자세한 설치가 나와있습니다.
+</div>
+
+<p>위에 반영한 .vimrc 파일처럼 YouCompleteMe 내용을 입력합니다.</p>
+<p>vim을 실행하고 :PluginInstall로 플러그인을 설치합니다.</p>
+<h2>jedi-vim</h2>
+<p><a href="//github.com/davidhalter/jedi-vim">jedi-vim</a>은 vim을 위한 python 자동완성 플러그인입니다.</p>
+<p>마찬가지로 프로젝트를 ~/.vim/bundle 경로에 클론한 뒤에 내용을 ~/.vimrc에 기록해서 :PluginInstall로 플러그인을 설치합니다.</p>
+<h2>NERDTree</h2>
+<p>이 플러그인은 디렉터리 구조를 계층적으로 보여주는 vim을 에디터스럽게 만들어주는 플러그인입니다.</p>
+<p>마찬가지로 Vundle로 설치하시면 됩니다.</p>
+<p><a href="//github.com/scrooloose/nerdtree">NERDTree Github</a></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/u3jLbKtzXuA" frameborder="0" allowfullscreen></iframe>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

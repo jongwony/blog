@@ -1,0 +1,237 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>Hadoop Fully Distributed Setup</h1>
+<p>2017-05-06 00:00:00</p>
+<h2>Note</h2>
+<ul>
+<li>Hadoop 2.7.3 버전입니다.</li>
+<li>기본적인 데이터 저장 방식만 고려하여 <em>yarn</em> 설정을 하지 않았습니다.</li>
+<li><a href="//releases.ubuntu.com/16.04/">우분투 16.04</a> 이미지를 사용하였습니다.</li>
+<li>기본적으로 싱글 노드에서 테스트하는 Standalone이나 Pseudo-Distributed의 매뉴얼은 <a href="//hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html">이곳</a>에서 그대로 따라 진행하시면 어렵지 않게 설치가 가능합니다.</li>
+<li>하둡 자바 호환 버전이 <a href="//wiki.apache.org/hadoop/HadoopJavaVersions">이곳</a>에 나타나 있지만 1.8 버전으로 진행해도 기본적인 부분은 동작이 잘 되었기 때문에 1.8 버전으로 설치하였습니다.</li>
+</ul>
+<h2>HDFS Architecture</h2>
+<p>하둡의 파일 시스템인 HDFS는 일반적으로 하나의 NameNode와 다수의 DataNode가 master/slave 구조로 이루어진 구조입니다.</p>
+<p><img alt="hdfs_arch" src="/image/hadoop/hdfsarchitecture.gif" /></p>
+<p>내부적으로 DataNode는 큰 파일을 안정적으로 저장하기 위해 블록 구조로 이루어져 있습니다. 이 블록은 복제되며 기본적으로 64MB로 설정됩니다.</p>
+<p>기본적으로 이 정도만 알고 있어도 스스로 네트워크를 구축하는 데 문제가 없습니다.
+자세한 아키텍쳐는 <a href="//hadoop.apache.org/docs/r1.2.1/hdfs_design.html">하둡 아키텍처 가이드</a>를 참조하시기 바랍니다.</p>
+<h2>Prototype Modeling</h2>
+<p>하둡은 대용량 데이터를 처리하기 위해 물리적인 저장 공간인 랙(rack) 내부에 여러 데이터 노드가 있으며 다른 랙에 있는 노드 간의 통신은 스위치를 거쳐야 합니다.</p>
+<p>아키텍처에 따라 간단하게 노트북에서 가상화로 가능한 네트워크 토폴로지를 구성해 보도록 하겠습니다.</p>
+<p><img alt="test" src="/image/hadoop/testtopology.png" /></p>
+<p>저는 가상화 도구로 <em>Hyper-V</em>를 사용했으며 다른 가상화 도구를 사용하더라도 차이는 없습니다.</p>
+<h2>OS, Network Setup</h2>
+<p>Windows의 경우 기본적으로 네트워크 공유가 비활성화 되어 있습니다.
+다음 설정이 되어 있어야 합니다.</p>
+<p><img alt="share" src="/image/hadoop/sharenetwork.png" /></p>
+<p>이 작업을 통해 내부 스위치를 통해 외부로 인터넷 접속이 가능합니다.</p>
+<p>Hyper-V에서 내부 스위치를 생성한 다음 서브넷 마스크를 고려하여 다음과 같이 설정합니다.</p>
+<p><img alt="internal_switch" src="/image/hadoop/internalswitch.png" /></p>
+<p>이제 OS를 설치합니다. <a href="//releases.ubuntu.com/16.04/">우분투 16.04</a> 이미지를 사용하였습니다. 저의 경우 파티션은 자동으로 나누었으며 <code>hadoop</code> 유저 생성과 ssh 및 기본 패키지 매니저만 같이 설치하였습니다.</p>
+<p>설치가 완료되었으면 호스트를 설정합니다.</p>
+<p><code>namenode</code></p>
+<h6>/etc/hostname</h6>
+<p><code>127.0.0.1       localhost
+192.168.137.11  namenode
+192.168.137.12  datanode1
+192.168.137.13  datanode2
+...</code></p>
+<h6>/etc/hosts</h6>
+<p><code>audo eth0
+iface eth0 inet static
+    address 192.168.137.11
+    ...
+    gateway 192.168.137.1
+    dns-nameservers 192.168.137.1</code></p>
+<h6>/etc/network/interfaces</h6>
+<p>재부팅 후 네트워크 공유 설정이 잘 되었는지 ping을 통해 확인해 봅니다.</p>
+<p>NameNode 네트워크 설정이 끝났습니다. 이제 putty로 내부 인스턴스로 접근이 가능하며
+동시에 내부 네트워크에서 <code>apt</code> 패키지 설치가 가능하게 됩니다.</p>
+<h2>Hadoop Prerequisites</h2>
+<p>하둡을 설치하기 전에 먼저 자바 최신 버전을 설치합니다.
+다른 버전 설치는 다음 두 링크를 참조하시기 바랍니다.</p>
+<ul>
+<li><a href="//www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u21-b07-oth-JPR">http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u21-b07-oth-JPR</a></li>
+<li><a href="//www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04">https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04</a></li>
+</ul>
+<p><code>sudo apt update
+sudo apt install default-jdk</code></p>
+<p>현재 Java 1.8 버전이 <code>/usr/lib/jvm</code> 경로에 설치됩니다.</p>
+<p><code>echo "export JAVA_HOME=/usr/lib/jvm/default-java" &gt;&gt; ~/.profile
+source ~/.profile</code></p>
+<h6>JAVA_HOME 환경변수 설정</h6>
+<p><a href="//apache.mirror.cdnetworks.com/hadoop/common/">미러 주소</a>에서 하둡을 다운로드 합니다. 2.7.3 버전을 다운로드 하였습니다.</p>
+<p>```
+wget http://mirror.apache-kr.org/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz</p>
+<p>tar -xzf hadoop-2.7.3.tar.gz
+```</p>
+<p>글로벌로 하둡 환경변수를 추가하였습니다.</p>
+<p><code>export HADOOP_PREFIX=/home/hadoop/hadoop-2.7.3
+export HADOOP_HOME=$HADOOP_PREFIX
+export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop</code></p>
+<h6>/etc/profile.d/hadoop-prefix.sh</h6>
+<p><code>sudo source /etc/profile</code></p>
+<p>여기까지 설치했으면 이제 가상 인스턴스를 여러개로 복사하여 host IP 주소만 바꾼 DataNode를 만들기만 하면 됩니다.</p>
+<h2>ssh Connection</h2>
+<p>내부 네트워크로 노드 간의 통신을 위해 ssh를 설정합니다.</p>
+<p>토폴로지로 구상한 대로라면 NameNode의 비밀키를 통해 각 DataNode의 공개키로 접근하면 됩니다. <code>scp</code> 명령을 통해 공개키를 전송합니다.</p>
+<div class='def'>
+이제부터 NameNode와 DataNode 설정에 혼란을 방지하기 위해 코드에 해당 노드의 캡션을 추가하였습니다.
+</div>
+
+<p><code>ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+scp ~/.ssh/id_rsa.pub hadoop@datanode1:/home/hadoop/.ssh/id_rsa.pub
+scp ~/.ssh/id_rsa.pub hadoop@datanode2:/home/hadoop/.ssh/id_rsa.pub</code></p>
+<h6>namenode</h6>
+<p><code>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+chmod 0600 ~/.ssh/authorized_keys</code></p>
+<h6>datanode1, datanode2</h6>
+<p><code>ssh datanode1
+ssh datanode2</code></p>
+<h6>namenode: ssh establish</h6>
+<p>이제 비밀번호 없이 ssh를 통해 namenode에서 datanode로 접속이 가능하게 됩니다.</p>
+<h2>Configuration</h2>
+<p>하둡은 자동으로 설정해준 네트워크 토폴로지를 인식하지 못합니다.</p>
+<p><strong>모든 노드</strong>에 파일시스템 주소를 지정하여 IPC를 통해 통신하도록 지정합니다.</p>
+<p>```xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;</p>
+<p><configuration>
+        <property>
+                <name>fs.default.name</name>
+                <value>hdfs://namenode:9000</value>
+        </property>
+</configuration>
+```</p>
+<h6>everynode(rack): $HADOOP_PREFIX/etc/hadoop/core-site.xml</h6>
+<p>데몬을 실행할 때의 환경 변수를 지정합니다. 여기서는 가상머신의 RAM이 1GB밖에 안되기 때문에 기본값이 1000으로 지정된 하둡 힙 사이즈를 그대로 쓰면 JVM에서 오류가 발생할 수 있습니다. 기본적인 변수에 대한 자세한 내용은 <a href="//hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/ClusterSetup.html">공식 문서</a>를 참조하시기 바랍니다.</p>
+<p><code>sh
+export JAVA_HOME=/usr/lib/jvm/default-java
+export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop
+export HADOOP_HEAPSIZE=512</code></p>
+<h6>namenode: $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh</h6>
+<p>```xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;</p>
+<p><configuration>
+        <property>
+                <name>dfs.replication</name>
+                <value>2</value>
+        </property>
+        <property>
+                <name>dfs.name.dir</name>
+                <value>/home/hadoop/hadoop-2.7.3/hdfs/name</value>
+        </property>
+        <property>
+                <name>dfs.namenode.secondary.http-address</name>
+                <value>192.168.137.11:50090</value>
+        </property>
+        <property>
+                <name>dfs.permissions</name>
+                <value>false</value>
+        </property>
+</configuration>
+```</p>
+<h6>namenode: $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml</h6>
+<p>DataNode가 2개이므로 블록을 2개로 복제하도록 하고 secondary namenode가 기본적으로 <code>0.0.0.0</code> 주소로 지정되기 때문에 변경해 주었습니다.</p>
+<p>각 DataNode에도 마찬가지로 데이터 경로만 지정해 주면 됩니다.</p>
+<p>```xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;</p>
+<p><configuration>
+        <property>
+                <name>dfs.permissions</name>
+                <value>false</value>
+        </property>
+        <property>
+                <name>dfs.datanode.data.dir</name>
+                <value>/home/hadoop/hadoop-2.7.3/hdfs/data</value>
+        </property>
+</configuration>
+```</p>
+<p>마지막으로 slave 호스트를 지정해 줍니다.</p>
+<p><code>datanode1
+datanode2</code></p>
+<h6>$HADOOP_PREFIX/etc/hadoop/slaves</h6>
+<h2>Testing</h2>
+<p>이제 NameNode에서 하둡을 차근차근 오류 없이 구동이 되면 성공입니다.
+먼저 파일 시스템을 포맷합니다.</p>
+<p><code>$HADOOP_PREFIX/bin/hdfs namenode -format &lt;cluster_name&gt;</code></p>
+<p>NameNode 데몬을 구동합니다.</p>
+<p><code>$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode</code></p>
+<p>그 후 NameNode에서 DataNode 데몬을 구동합니다.</p>
+<p><code>$HADOOP_PREFIX/sbin/hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode</code></p>
+<p>여기서 뜨는 로그를 확인하셔서 오류메시지 없이 다음과 같은 로그가 나오면 제대로 구동이 된 것입니다.</p>
+<p><img alt="log" src="/image/hadoop/namenodelog.png" /></p>
+<p>앞의 데몬 구동 명령과 중복되는 부분이 있지만 secondary namenode까지 완전히 구동하는 스크립트는 <code>start-dfs.sh</code> 파일입니다.</p>
+<p><code>$HADOOP_PREFIX/sbin/start-dfs.sh</code></p>
+<p>구동이 되면 <a href="//hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html">공식 문서</a>의 <em>Pseudo-Distributed Operation</em>에서 MapReduce 작업을 테스트하는 과정을 따라가봅니다.</p>
+<p><code>bin/hdfs dfs -mkdir /user
+bin/hdfs dfs -mkdir /user/jongwon
+bin/hdfs dfs -put etc/hadoop /user/jongwon
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar grep /user/jongwon/hadoop /user/hadoop/output 'dfs[a-z.]+'
+bin/hdfs dfs -ls /user/hadoop/output
+bin/hdfs dfs -cat /user/hadoop/output/part-r-00000</code></p>
+<p><img alt="result" src="/image/hadoop/result.png" /></p>
+<p>보시다시피 <code>dfs[a-z.]+</code> 정규표현식을 <code>grep</code>하는 테스트도 정상적으로 동작함을 알 수 있습니다.</p>
+<h2>Trouble Shooting</h2>
+<div class='warn'>
+-put 옵션만 동작하지 않습니다 could only be replicated to 0 nodes, instead of 1.
+</div>
+
+<p>보통 데몬 구동 중 잘못 포맷을 하거나 해서 발생하는 DataNode 문제입니다. 포맷 뿐 아니라 <code>/tmp/hadoop-user</code> 디렉터리를 제거하면 정상적으로 동작합니다. </p>
+<ul>
+<li>
+<p><a href="//stackoverflow.com/questions/27147096/hadoop-put-command-throws-could-only-be-replicated-to-0-nodes-instead-of-1">http://stackoverflow.com/questions/27147096/hadoop-put-command-throws-could-only-be-replicated-to-0-nodes-instead-of-1</a></p>
+</li>
+<li>
+<p><a href="//stackoverflow.com/questions/11889261/datanode-process-not-running-in-hadoop">http://stackoverflow.com/questions/11889261/datanode-process-not-running-in-hadoop</a></p>
+</li>
+</ul>
+<div class='warn'>
+Error: Could not create the Java Virtual Machine.<br>
+Error: A fatal exception has occurred. Program will exit.
+</div>
+
+<p>HEAPSIZE를 잘못 설정하였거나 명령어를 잘못 입력했을 때 발생합니다.</p>
+<div class='warn'>
+WARN hdfs.DFSClient: Caught exception
+java.lang.InterruptedException
+</div>
+
+<p>이는 버그이며 무시 할 수 있습니다.</p>
+<ul>
+<li><a href="//issues.apache.org/jira/browse/HDFS-10429">https://issues.apache.org/jira/browse/HDFS-10429</a></li>
+</ul>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

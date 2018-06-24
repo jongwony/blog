@@ -1,0 +1,129 @@
+@charset "UTF-8";
+html {
+  direction: ltr;
+  box-sizing: border-box;
+  /* IE Scroll */
+  scrollbar-3dLight-Color: #efefef;
+  scrollbar-arrow-color: #dfdfdf;
+  scrollbar-base-color: #efefef;
+  scrollbar-Face-Color: #dfdfdf;
+  scrollbar-Track-Color: #efefef;
+  scrollbar-DarkShadow-Color: #efefef;
+  scrollbar-Highlight-Color: #efefef;
+  scrollbar-Shadow-Color: #efefef; }
+
+body {
+  font-family: "나눔 고딕", "Nanum Gothic", "맑은 고딕", "Malgun Gothic", "Apple Gothic", "돋움", Dotum, "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
+
+ul {
+  list-style-image: url("/images/base/sqorange.gif");
+  margin-top: 1.2em;
+  line-height: 1.8em; }
+
+ol {
+  margin-top: 1.2em;
+  line-height: 1.8em; }
+
+#tag {
+  text-decoration: none; }
+
+#index-table {
+  line-height: 2.4em;
+  margin-top: 4.8em;
+  margin-bottom: 4.8em; }
+
+a {
+  padding-left: 2.4em; }
+
+h2 {
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 3em;
+  margin-bottom: 1.2em; }
+
+.dropdown-toggle {
+  cursor: pointer; }
+
+.dropdown-menu {
+  opacity: 0;
+  display: block; }
+
+.open .dropdown-menu {
+  opacity: 1;
+  -webkit-transition: all 0.5s, 0.3s;
+  transition: all 0.5s, 0.3s; }
+
+.post {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto 80px auto;
+  padding-bottom: 60px;
+  border-bottom: #EBF2F6 1px solid;
+  word-break: break-word; }
+  .post section {
+    padding: 0; }
+
+.copyright {
+  text-align: center;
+  margin: 16px auto;
+  opacity: 0.8; }
+
+.title {
+  color: #F4F4F3;
+  text-align: center;
+  cursor: default;
+  text-shadow: 1px 1px 2px black, 0 0 12px #FAF5E1, 0 0 2px darkblue; }
+
+#animlist {
+  list-style-type: none;
+  position: relative;
+  transition: 0.5s; }
+  #animlist ::before {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    transition: 0.5s; }
+
+.def {
+  padding: 20px;
+  border-radius: 6px;
+  background: #7e6d42 linear-gradient(to bottom, #7e6d42 0%, #5c4e35 100%);
+  color: #FFF;
+  line-height: 2;
+  margin: 2em 0;
+  opacity: 0.7;
+  font-size: 14px;
+  letter-spacing: 1px; }
+
+.warn {
+  padding: 20px;
+  border-radius: 6px;
+  background: #9e2812 linear-gradient(to bottom, #9e2812 0%, #6f0d0d 100%);
+  color: #FFF;
+  line-height: 2;
+  margin: 2em 0;
+  opacity: 0.7;
+  font-size: 14px;
+  letter-spacing: 1px; }
+  .warn a {
+    font-weight: 600; }
+
+.footnotes {
+  font-size: 12px; }
+
+table {
+  width: 100%;
+  margin-top: 2em; }
+
+th {
+  background-color: #efe0e0;
+  padding: 15px; }
+
+td {
+  padding: 15px; }
+
+tr {
+  border-bottom: 1px solid #dddddd; }
+
+/*# sourceMappingURL=custom.css.map */

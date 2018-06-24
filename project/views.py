@@ -13,7 +13,7 @@ def home():
     return render_template('index.html', pages=sorted_posts)
 
 
-@app.route('/<path:path>/')
+@app.route('/pages/<path:path>/')
 def page(path):
     # path is the filename of a page, without the file extension
     page = pages.get_or_404(path)

@@ -1,0 +1,71 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>Anaconda 없이 Tensorflow 설치</h1>
+<p>2017-05-01 00:00:00</p>
+<p>설치 시간 <strong>3분</strong></p>
+<p><a href="//chocolatey.org/install">Chocolatey 설치</a></p>
+<h4>PowerShell</h4>
+<p>Windows에서 Tensorflow 3.5.x 버전만 호환됩니다. 저는 3.6이 설치되어 있기 때문에 강제로 3.5 버전을 설치합니다.</p>
+<p><a href="//www.tensorflow.org/install/install_windows#installing_with_native_pip">Installing with native pip</a></p>
+<p><code>choco install python -version 3.5.2.20161029 --force</code></p>
+<p>보통 <code>C:\Python35</code>에 설치가 됩니다. 경로를 알아야 이 버전으로 실행합니다.</p>
+<h4>pip 9.0.1, virtualenv</h4>
+<p><code>pip install --upgrade pip
+pip install virtualenv</code></p>
+<h4>Install tensorflow</h4>
+<p><code>cd %WORK_DIR%
+virtualenv _tf --python=C:\\Python35\\python.exe
+.\_tf\Scripts\activate
+pip install --upgrade tensorflow</code></p>
+<p>이는 CPU-Only 설치이며 GPU가 있다면 <code>pip install --upgrade tensorflow-gpu</code><br />
+그전에!! CUDA 및 NVIDIA toolkit이 설치 되어 있어야 합니다.</p>
+<p><code>numpy</code>, <code>werkzeug</code>, <code>protobuf</code>는 자동 설치됩니다.</p>
+<h4>Success</h4>
+<p>```python
+(_tf) &gt; python
+Python 3.5.2</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import tensorflow as tf
+tf.<strong>version</strong>
+'1.1.0'
+import numpy as np
+np.<strong>version</strong>
+'1.12.1'
+```</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>또는 <code>pip freeze</code>로 확인합니다.</p>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>Git Bash 인코딩 및 홈 디렉터리 변경</h1>
+<p>2017-01-17 00:00:00</p>
+<p>윈도우에서 <code>Git</code>을 설치해서 <code>Git-bash</code>를 이용한다면 굳이 <code>MinGW</code>를 사용할 필요가 없습니다.</p>
+<p><code>Git-bash</code>의 인코딩 및 홈 폴더 변경 바로가기 생성 등을 소개합니다.</p>
+<h2>Change Encoding UTF-8</h2>
+<p>레지스트리 편집기를 실행합니다.</p>
+<p><code>시작 - 실행 - regedit</code></p>
+<p><code>[HKEY_LOCAL_MACHINE\Software\Microsoft\Command Processor\Autorun]</code>의 값을 바꿉니다.</p>
+<p>없으면 <code>새로 만들기 - 문자열 값</code>으로 <code>Autorun</code>을 생성합니다.</p>
+<p>이는 <code>cmd</code>가 실행 될 때마다 자동으로 실행되는 값입니다.</p>
+<p><code>Autorun</code>의 값을 다음과 같이 수정합니다.</p>
+<p><code>bash
+chcp 949</code></p>
+<p>~~사진과 같이 인코딩이 <code>UTF-8</code>로 변경되어 한글을 볼 수 있습니다.~~</p>
+<p>한글 NT 3.51은 설계 당시부터 명령 프롬프트에서 한글을 입력할 수 없게 되어 있습니다.
+하지만 <code>chcp 949</code>로 <code>cmd</code>에 한국어 입력이 가능해 집니다.</p>
+<div class='warn'>
+chcp 65001로 유니코드로 전환할 수 있지만 콘솔의 인코딩이 바뀌면 인코딩 충돌로 인한 특정 pip 모듈의 설치가 안될 수 있습니다.
+</div>
+
+<p><img alt="" src="/image/cmd/gitbash_property.png" /></p>
+<p><a href="//superuser.com/questions/269818/change-default-code-page-of-windows-console-to-utf-8">참고</a></p>
+<h2>Git Bash Shortcuts</h2>
+<p>작업 표시줄에 바로가기를 만들 경우 <code>win-T</code> 또는 <code>win-번호</code>로 실행할 수 있어 편리합니다. 원하지 않을 경우 건너뛰어도 좋습니다.</p>
+<p><code>git-bash.exe</code>를 작업표시줄에 고정하게 되면 다시 실행할 경우 그냥 <code>cmd</code>만 실행이 됩니다. 이는 사실 실행되는 프로세스는 <code>cmd</code>이며 <code>git</code>이 설치된 폴더 내부의 <code>sh.exe</code>를 추가로 실행하기 때문입니다.</p>
+<p>작업 표시줄에 바로가기를 만든 후 <code>속성</code>으로 들어가셔서 <strong>대상 및 시작위치</strong> 를 다음과 같이 수정합니다.</p>
+<p><code>대상(T): %windir%\system32\cmd.exe /C "Git이 설치된 디렉터리"\bin\sh.exe
+시작 위치(S): "원하는 경로"</code></p>
+<p>이러면 작업 표시줄의 명령 프롬프트만 <code>Autorun</code>이 실행되어 유니코드가 적용된 <code>Git-bash</code>가 실행됩니다.</p>
+<h2>Apply bashrc</h2>
+<p>원하는 경로로 실행되긴 했지만 홈 디렉터리는 아닙니다. <code>ls</code>가 색도 안나오고... <code>vi</code>로 <code>vim</code>도 실행이 안되고...</p>
+<p>명령 프롬프트가 실행 됨과 동시에 스크립트를 실행하려면 다음과 같이 <code>.bashrc</code>를 추가합니다.</p>
+<p>```bash
+cd /D %HOMEDRIVE%%HOMEPATH%
+vim .bashrc</p>
+<p>alias ls='ls --color=auto'  # ls
+alias ll='ls -l'            # ll = ls -l
+alias vi='vim -N $*'        # vi = vim
+export HOME=/d
+```</p>
+<p>위와 같이 한 이유는 실제 홈 디렉터리는 <code>%HOMEDRIVE%%HOMEPATH%(C:\Users\"USERNAME")</code>이며 <strong>작업 표시줄의 바로가기 명령프롬프트를 실행할 때만</strong> 홈 디렉터리의 경로를 잠시 바꿔 주기 위해서 입니다.</p>
+<p>이외에 추가로 경로를 지정하거나 스크립트를 작성하셔도 좋습니다.</p>
+<p>저는 작업 표시줄에 명령 프롬프트만 있고 바로가기 디렉터리를 환경변수에 추가하여 <code>start</code> 명령을 통해 실행하는 편입니다.</p>
+<p><a href="//stackoverflow.com/questions/31164253/how-to-open-url-in-microsoft-edge-from-the-command-line">참고</a></p>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

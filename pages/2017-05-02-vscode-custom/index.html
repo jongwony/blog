@@ -1,0 +1,87 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>Customize vscode keybinding</h1>
+<p>2017-05-02 00:00:00</p>
+<h2>Key binding example</h2>
+<p>| <code>Ctrl+p</code> -&gt; <code>keybindings.json</code> |</p>
+<p>```json
+[
+    {
+        "key": "ctrl+y",
+        "command": "redo",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+left",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "workbench.action.terminal.focus",
+        "when": "!terminalFocus"
+    }</p>
+<p>]
+```</p>
+<h6>keybindings.json</h6>
+<p>위 코드는 제가 필요한 부분을 커스텀한 것입니다.</p>
+<p>VSCode에서 에디터에서 터미널로 커서를 옮기기가 불편해서 <code>Ctrl+방향키</code>로 활성화 창을 옮깁니다.
+되돌아오는 경우는 기본적으로 <code>Ctrl+1</code>로 기본 설정이 되어 있었습니다.</p>
+<p>많은 단축키가 기본으로 설정되어 있으며 커스터마이즈 할 수 있습니다.
+하단의 홈페이지들을 참고하시면 됩니다.</p>
+<h2>Python Interpreter Setting</h2>
+<ul>
+<li>Marketplace에서 Python 설치 <a href="//github.com/DonJayamanne/pythonVSCode/wiki">pythonVSCode</a></li>
+</ul>
+<p>| <code>Ctrl+p</code> -&gt; <code>settings.json</code> |</p>
+<p><code>json
+{
+    "python.pythonPath": "%WORKDIR%/test/_tf/Scripts/python.exe"
+}</code></p>
+<h6>settings.json</h6>
+<p>위는 기본 설정된 Python 외에 virtualenv를 설정할 경우의 경로를 인식합니다.
+이렇게 설정하여 코드 자동완성을 따라갈 수 있습니다.</p>
+<h2>Reference</h2>
+<ul>
+<li><a href="//github.com/Microsoft/vscode-tips-and-tricks?wt.mc_id=DX_881390#extension-recommendations">GitHub vscode-tips-and-tricks</a></li>
+<li><a href="//code.visualstudio.com/docs/getstarted/keybindings">Key Bindings for VSCode</a></li>
+<li><a href="//code.visualstudio.com/docs/editor/integrated-terminal">Integrated Terminal</a></li>
+<li><a href="//github.com/DonJayamanne/pythonVSCode/wiki/Miscellaneous#select-an-interpreter">Select Python Interpreter</a></li>
+<li><a href="//github.com/DonJayamanne/pythonVSCode/wiki/Python-Path-and-Version#virtual-environments">Virtual Environments</a></li>
+</ul>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

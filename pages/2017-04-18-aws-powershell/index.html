@@ -1,0 +1,87 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>PowerShell에서 EC2 인스턴스 접속</h1>
+<p>2017-04-18 00:00:00</p>
+<p>Windows 사용자라면 Visual Studio Code 내부에서 PowerShell 터미널을 이용할 수 있습니다.
+그간 편집기와 putty 창을 따로 켜셨던 분들이 생각보다 많을 겁니다.</p>
+<p><img alt="putty창" src="/image/aws/frompowershell.png" /></p>
+<p>이런 화면 없이 터미널에서 바로 접속하는 방법입니다.</p>
+<p>실행 정책을 스크립트를 실행 가능하도록 합니다.</p>
+<p>```powershell</p>
+<h1>Run Administrator</h1>
+<p>Set-ExecutionPolicy BYPASS
+```</p>
+<p>관리자 권한으로 PowerShell을 실행한 후 <em>Chocolatey</em>를 사용하여 <em>putty</em>를 설치합니다.</p>
+<p>```powershell</p>
+<h1>Run Administrator</h1>
+<p>choco install putty
+```</p>
+<p>터미널에서 <code>plink</code> 키워드로 실행할 수 있습니다.<br />
+(개인적으로 이런 터미널 스타트 명령어쯤은 chocolatey 설치 페이지에 같이 소개했으면 하는 바람이...)</p>
+<p>추가로 <code>pscp</code>, <code>psftp</code> 명령을 실행할 수도 있습니다.</p>
+<p><code>plink --help</code></p>
+<p>간단한 사용 예(ubuntu, 운영체제마다 AWS Connect 참조)</p>
+<p><code>plink -ssh -i [puttygen으로 keypair pem -&gt; ppk 변환] ubuntu@[AWS Instance Public DNS]</code></p>
+<h2>Trouble?</h2>
+<div class='warn'>
+글자가 깨지고 <code>vim</code> 명령이 되지 않습니다.
+</div>
+
+<p>이 경우에는 기존의 레거시 콘솔 설정을 사용하고 있기 떄문입니다. 아래와 같이 체크 해제를 해 주시면 정상적으로 동작합니다.</p>
+<p><img alt="legacy check 해제" src="/image/aws/legacy.png" /></p>
+<div class='warn'>
+<code>SIGINT</code> 인터럽트를 전달했지만 AWS 접속을 끊습니다.
+</div>
+
+<p>PowerShell 인터럽트가 먼저 처리되어 종료되는 것 같습니다. 저의 경우는 <code>stty</code>를 통해 키맵을 변경하였습니다. 예를 들어 Ubuntu에서</p>
+<p><code>stty intr ^W</code></p>
+<h6>.profile(SIGINT를 Ctrl + W로 변경)</h6>
+<p><code>stty -a</code>를 통해 모든 옵션을 확인할 수 있으며 다른 충돌 사항도 변경할 수 있습니다.</p>
+<div class='warn'>
+vim에서 동작이 안되는 키가 있습니다.
+</div>
+
+<p>vim에서의 키 매핑을 <code>map</code> 명령으로 할 수 있습니다.</p>
+<p>예를 들어 <code>insert</code> 모드에서의 키맵은</p>
+<p><code>imap `` &lt;Esc&gt;</code></p>
+<h6>` 두번 입력으로 ESC 역할 변경</h6>
+<p><code>:nmap - Display normal mode maps
+:imap - Display insert mode maps
+:vmap - Display visual and select mode maps
+:smap - Display select mode maps
+:xmap - Display visual mode maps
+:cmap - Display command-line mode maps
+:omap - Display operator pending mode maps</code></p>
+<p>위와 같이 다양한 모드에서의 키 변경을 할 수 있습니다.</p>
+<p>더 자세한 정보는 <a href="//vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)">Mapping keys in Vim</a> 튜토리얼을 참고하시기 바랍니다.</p>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>
