@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -80,26 +81,28 @@ Production? 항목에서 프리티어를 사용하실 경우 꼭 Dev/Test를 선
 <p>RDS로 설치한 데이터베이스 버전이 11.2.0.4.7이므로</p>
 <p>Oracle 홈페이지에서 EC2 운영체제 버전과, RDS 데이터베이스 버전에 맞추어 다운 받습니다.</p>
 <p>ftp나 wget등을 통해 다음 두 파일을 전송합니다.</p>
-<pre class="codehilite"><code># Instant Client Package - Basic
+<div class="codehilite"><pre><span></span># Instant Client Package - Basic
 wget https://github.com/lastone9182/notes/blob/master/file/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm?raw=true --no-check-certificate</p>
 <h1>Instant Client Package - SQL*Plus</h1>
 <p>wget https://github.com/lastone9182/notes/blob/master/file/oracle-instantclient11.2-sqlplus-11.2.0.4.0-1.x86_64.rpm?raw=true --no-check-certificate</p>
 <h1>Package Install</h1>
-<p>sudo rpm -Uvh oracle-instantclient11.2-*</code></pre></p>
+<p>sudo rpm -Uvh oracle-instantclient11.2-*
+</pre></div></p>
 <p>저 같은 경우는 wget이 쓰기 편해서 github 서버로 다운로드 한 뒤에 옮기는 거라서 다운로드 한 파일을 옮긴다는 것은 똑같습니다.</p>
 
 <p>~/.bash_profile 환경변수를 수정해줍니다.</p>
 
-<pre class="codehilite"><code class="language-bash"># ~/.bash_profile
-PATH=$PATH:$HOME/.local/bin:$HOME/bin:/usr/bin:/usr/lib/oracle/11.2/client64/bin
-export PATH
-export LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib:$LD_LIBRARY_PATH
-export SQLPATH=/usr/lib/oracle/11.2/client64/lib:$SQLPATH
-export NLS_LANG=AMERICAN_AMERICA.UTF8
-export TNS_ADMIN=/usr/lib/oracle/11.2/client64/network/admin
+<div class="codehilite"><pre><span></span><span class="c1"># ~/.bash_profile</span>
+<span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/.local/bin:<span class="nv">$HOME</span>/bin:/usr/bin:/usr/lib/oracle/11.2/client64/bin
+<span class="nb">export</span> PATH
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/lib/oracle/11.2/client64/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+<span class="nb">export</span> <span class="nv">SQLPATH</span><span class="o">=</span>/usr/lib/oracle/11.2/client64/lib:<span class="nv">$SQLPATH</span>
+<span class="nb">export</span> <span class="nv">NLS_LANG</span><span class="o">=</span>AMERICAN_AMERICA.UTF8
+<span class="nb">export</span> <span class="nv">TNS_ADMIN</span><span class="o">=</span>/usr/lib/oracle/11.2/client64/network/admin
 
-# apply
-source ~/.bash_profile</code></pre>
+<span class="c1"># apply</span>
+<span class="nb">source</span> ~/.bash_profile
+</pre></div>
 
 <p>SQL*Plus Instant Client 설치에 필요한 자세한 내용은 <a href="//docs.oracle.com/cd/B19306_01/server.102/b14357/ape.htm">Oracle docs</a>를 참고하시기 바랍니다.</p>
 
@@ -107,37 +110,41 @@ source ~/.bash_profile</code></pre>
 
 <p><a href="/2016/02/18/sqlpluscript.html">sql 스크립트 참조</a></p>
 
-<pre class="codehilite"><code class="language-sql">-- sudo vi $ORACLE_HOME/sqlplus/admin/glogin.sql
-define _editor=vi
+<div class="codehilite"><pre><span></span><span class="c1">-- sudo vi $ORACLE_HOME/sqlplus/admin/glogin.sql</span>
+<span class="n">define</span> <span class="n">_editor</span><span class="o">=</span><span class="n">vi</span>
 
-set sqlprompt '_user&gt; '
-set time on
+<span class="k">set</span> <span class="n">sqlprompt</span> <span class="s1">&#39;_user&gt; &#39;</span>
+<span class="k">set</span> <span class="n">time</span> <span class="k">on</span>
 
-set linesize 130
-set pagesize 999</code></pre>
+<span class="k">set</span> <span class="n">linesize</span> <span class="mi">130</span>
+<span class="k">set</span> <span class="n">pagesize</span> <span class="mi">999</span>
+</pre></div>
 
 <p>그리고 RDS 데이터베이스의 TNS 정보를 등록합니다.</p>
 
-<pre class="codehilite"><code># TNS_ADMIN 경로는 지정한 곳과 일치하면 됩니다.
-(sudo) mkdir -p $ORACLE_HOME/network/admin</code></pre>
+<div class="codehilite"><pre><span></span># TNS_ADMIN 경로는 지정한 곳과 일치하면 됩니다.
+(sudo) mkdir -p $ORACLE_HOME/network/admin
+</pre></div>
 
-<pre class="codehilite"><code class="language-sql">-- (sudo) vi $TNS_ADMIN/tnsnames.ora
-MYDB = (DESCRIPTION=
-          (CONNECT_DATA=
-            (SERVICE_NAME=orcl)
-          )
-          (ADDRESS=
-            (PROTOCOL=TCP)
-            (HOST=*RDS의 Endpoint 문자열*)
-            (PORT=1521)
-          )
-        )</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1">-- (sudo) vi $TNS_ADMIN/tnsnames.ora</span>
+<span class="n">MYDB</span> <span class="o">=</span> <span class="p">(</span><span class="n">DESCRIPTION</span><span class="o">=</span>
+          <span class="p">(</span><span class="n">CONNECT_DATA</span><span class="o">=</span>
+            <span class="p">(</span><span class="n">SERVICE_NAME</span><span class="o">=</span><span class="n">orcl</span><span class="p">)</span>
+          <span class="p">)</span>
+          <span class="p">(</span><span class="n">ADDRESS</span><span class="o">=</span>
+            <span class="p">(</span><span class="n">PROTOCOL</span><span class="o">=</span><span class="n">TCP</span><span class="p">)</span>
+            <span class="p">(</span><span class="k">HOST</span><span class="o">=*</span><span class="n">RDS의</span> <span class="n">Endpoint</span> <span class="err">문자열</span><span class="o">*</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">PORT</span><span class="o">=</span><span class="mi">1521</span><span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
 
 <p>sqlplus {Master User}@{TNS Alias}로 접속합니다.</p>
 
-<pre class="codehilite"><code>sqlplus dbajongwon@mydb
+<div class="codehilite"><pre><span></span>sqlplus dbajongwon@mydb
 
-show parameter db_name</code></pre>
+show parameter db_name
+</pre></div>
 
 <p>아래와 같은 화면이 나오면 성공적으로 Amazon Linux EC2와 Oracle RDS를 연결하였습니다.</p>
 

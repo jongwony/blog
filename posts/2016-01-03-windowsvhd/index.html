@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -40,7 +41,8 @@
 <p>USB으로 부팅 한 뒤 [Shift+F10]을 누르면 다음과 같은 화면이 나타납니다.</p>
 <p><img alt="Windows_usb_boot" src="/image/Windows_usb_boot.png" /></p>
 <p>VHD파일은 <strong>DISKPART</strong> 에서 만듭니다.</p>
-<pre class="codehilite"><code>create vdisk file=&quot;{PATH}{custom name}.vhd&quot; maximum={size} [type=expandable]</code></pre></p>
+<div class="codehilite"><pre><span></span>create vdisk file=&quot;{PATH}{custom name}.vhd&quot; maximum={size} [type=expandable]
+</pre></div></p>
 <p>디스크 파일을 원하는 경로{PATH} 에 {custom name}.vhd로 만드시면 됩니다.
 size는 MB단위이며 뒤에 [type=expandable]은 디스크를 동적으로 사용할 것인지의 옵션입니다.
 저는 동적으로 했다가 본래 용량을 까먹을까봐 옵션을 주지 않았습니다.</p>
@@ -53,11 +55,13 @@ size는 MB단위이며 뒤에 [type=expandable]은 디스크를 동적으로 사
 
 <p>[가상디스크가 미리 만들어진 경우]</p>
 
-<pre class="codehilite"><code>[select vdisk file=&quot;{PATH}\{custom name}.vhd&quot;]  </code></pre>
+<div class="codehilite"><pre><span></span>[select vdisk file=&quot;{PATH}\{custom name}.vhd&quot;]  
+</pre></div>
 
 <p>VHD파일이 선택 되었으면 연결(마운트)합니다.</p>
 
-<pre class="codehilite"><code>attach vdisk</code></pre>
+<div class="codehilite"><pre><span></span>attach vdisk
+</pre></div>
 
 <p>exit으로 종료하신 후 윈도우 설치를 진행합니다.
 파티션을 나누는 사용자 설정에서 <strong>할당되지 않은 공간에</strong> 꼭 설치를 하셔야 합니다.</p>
@@ -74,7 +78,8 @@ BCDEDIT명령을 이용하여 바꿀 수 있습니다.</p>
 <p>운영체제 선택화면에서 <strong>로고가 아닌 창 모양이</strong> VHD로 부팅될 것입니다.
 클릭하시고 해당 운영체제의 설치를 마무리한 후 <strong>관리자 명령프롬프트를</strong> 실행합니다.</p>
 
-<pre class="codehilite"><code>bcdedit</code></pre>
+<div class="codehilite"><pre><span></span>bcdedit
+</pre></div>
 
 <p><img alt="bcdedit" src="/image/cmd_bcdedit.png" /></p>
 
@@ -82,7 +87,8 @@ BCDEDIT명령을 이용하여 바꿀 수 있습니다.</p>
 
 <p>BCDEDIT명령으로 해당항목의 DESCRIPTION을 변경할 것입니다.</p>
 
-<pre class="codehilite"><code>bcdedit /set { identifier } description &quot; 변경할 이름 &quot;</code></pre>
+<div class="codehilite"><pre><span></span>bcdedit /set { identifier } description &quot; 변경할 이름 &quot;
+</pre></div>
 
 <p>변경 후 재부팅하시면 결과가 반영된 것을 확인하실 수 있습니다.</p>
 

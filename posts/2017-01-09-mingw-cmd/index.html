@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -48,7 +49,8 @@ Deprecated: <a href='/2017/01/17/git-bash.html'>Git Bash 인코딩 및 홈 디�
 
 <p><img alt="" src="/image/cmd/property.png" /></p>
 
-<pre class="codehilite"><code>%windir%\system32\cmd.exe /C C:\MinGW\msys\1.0\msys.bat</code></pre>
+<div class="codehilite"><pre><span></span><span class="nf">%windir</span><span class="o">%</span><span class="err">\</span><span class="n">system32</span><span class="err">\</span><span class="n">cmd</span><span class="p">.</span><span class="n">exe</span> <span class="o">/</span><span class="n">C</span> <span class="nl">C</span><span class="p">:</span><span class="err">\</span><span class="n">MinGW</span><span class="err">\</span><span class="n">msys</span><span class="err">\</span><span class="mf">1.0</span><span class="err">\</span><span class="n">msys</span><span class="p">.</span><span class="n">bat</span>
+</pre></div>
 
 <p>이는 현재 <code>cmd</code>가 해당하는 스크립트를 실행하고 현재 창을 닫는(<code>/C</code>) 옵션을 준 것입니다.</p>
 
@@ -64,16 +66,17 @@ Deprecated: <a href='/2017/01/17/git-bash.html'>Git Bash 인코딩 및 홈 디�
 
 <p>다음 내용을 <code>msys.bat</code> <strong>가장 앞 쪽</strong> 에 추가합니다.(<code>@echo off</code> 바로 다음)</p>
 
-<pre class="codehilite"><code class="language-bash">@echo off
+<div class="codehilite"><pre><span></span>@echo off
 
-set MINGWDIR=C:\MinGW       # 설치된 경로로 변경
-set MSYSDIR=%MINGWDIR%\msys\1.0
+<span class="nb">set</span> <span class="nv">MINGWDIR</span><span class="o">=</span>C:<span class="se">\M</span>inGW       <span class="c1"># 설치된 경로로 변경</span>
+<span class="nb">set</span> <span class="nv">MSYSDIR</span><span class="o">=</span>%MINGWDIR%<span class="se">\m</span>sys<span class="se">\1</span>.0
 
-rem set HOME=%USERPROFILE%
-set HOME=/c                 # 원하는 경로로 변경
-set PATH=%PATH%;%MINGWDIR%\bin;%MSYSDIR%\bin
+rem <span class="nb">set</span> <span class="nv">HOME</span><span class="o">=</span>%USERPROFILE%
+<span class="nb">set</span> <span class="nv">HOME</span><span class="o">=</span>/c                 <span class="c1"># 원하는 경로로 변경</span>
+<span class="nb">set</span> <span class="nv">PATH</span><span class="o">=</span>%PATH%<span class="p">;</span>%MINGWDIR%<span class="se">\b</span>in<span class="p">;</span>%MSYSDIR%<span class="se">\b</span>in
 
-...</code></pre>
+...
+</pre></div>
 
 <p>이제 작업표시줄의 바로가기를 실행하면 <code>cmd</code>가 아니라 <code>/c</code>를 기본 경로로 하는 <code>MinGW</code>가 실행됩니다!!</p>
 
@@ -83,11 +86,12 @@ set PATH=%PATH%;%MINGWDIR%\bin;%MSYSDIR%\bin
 
 <p>여기서는 홈 디렉터리에 .bash_profile 이 아닌 .profile이 있어야 합니다. <a href="//superuser.com/questions/405342/mingw-bash-profile">참고</a></p>
 
-<pre class="codehilite"><code class="language-vim">vim ~/.profile
+<div class="codehilite"><pre><span></span><span class="k">vim</span> <span class="p">~</span>/.profile
 
-alias ls='ls --color=auto'  # ls 색 변경
-alias ll='ls -l'            # ll = ls -l
-alias vi='vim -N $*'        # vi = vim</code></pre>
+alias <span class="k">ls</span><span class="p">=</span><span class="s1">&#39;ls --color=auto&#39;</span>  # <span class="k">ls</span> 색 변경
+alias <span class="k">ll</span><span class="p">=</span><span class="s1">&#39;ls -l&#39;</span>            # <span class="k">ll</span> <span class="p">=</span> <span class="k">ls</span> <span class="p">-</span><span class="k">l</span>
+alias <span class="k">vi</span><span class="p">=</span><span class="s1">&#39;vim -N $*&#39;</span>        # <span class="k">vi</span> <span class="p">=</span> <span class="k">vim</span>
+</pre></div>
 
 <p>이제 단축키 <code>win+숫자</code>로도 리눅스처럼 실행할 수 있고 <code>cmd</code>에 없는 색칠도 해줍니다.(제목표시줄 &gt; 속성에서 덤으로 투명도 까지...)</p>
 

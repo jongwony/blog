@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -31,24 +32,26 @@
 <h2>Reveal.js 설치</h2>
 <p><a href="//github.com/hakimel/reveal.js">Reveal.js GitHub</a></p>
 <p>GitHub가 설치되어 있다면 다음과 같이 프로젝트를 clone합니다.</p>
-<pre class="codehilite"><code>git clone https://github.com/hakimel/reveal.js.git</code></pre></p>
+<div class="codehilite"><pre><span></span>git clone https://github.com/hakimel/reveal.js.git
+</pre></div></p>
 <p>설치 되어있지 않으면 Download ZIP을 클릭하여 압축을 풀어서 할 수 있습니다.</p>
 
 <p><hr />
 <h2>Usage</h2>
 <p>사용법은 위 사이트의 README.md에 자세히 나와있습니다.</p>
 <p><a href="//lab.hakim.se/reveal-js/">index.html</a>을 수정하여 PPT를 바로 만들 수 있습니다!</p>
-<pre class="codehilite"><code class="language-html">&lt;section&gt;
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
   하나의 슬라이드, 오른쪽 방향으로 슬라이드
-&lt;/section&gt;</p>
-<p>&lt;section&gt;
-  &lt;section&gt;
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span></p>
+<p><span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
     소주제
-  &lt;/section&gt;
-  &lt;section&gt;
+  <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
     아래 방향으로 슬라이드
-  &lt;/section&gt;
-&lt;/section&gt;  </code></pre></p>
+  <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span><br />
+</pre></div></p>
 <p><hr />
 <h2>Customizing</h2>
 <p>제가 자주 쓰는 기능은</p>
@@ -77,7 +80,8 @@
 <p>index.html을 프레젠테이션할 자료로 만드셨나요?</p>
 <p>이제 PDF 파일로 내보낼 수 있습니다.</p>
 <p>index.html을 실행한 주소표시줄의 주소를 다음과 같이 변경합니다.</p>
-<pre class="codehilite"><code>.../reveal.js/index.html?print-pdf</code></pre></p>
+<div class="codehilite"><pre><span></span>.../reveal.js/index.html?print-pdf
+</pre></div></p>
 <p>그럼 약간 깨져보이는 PPT가 보일 것입니다.</p>
 
 <p>Ctrl + P (Windows) 또는 CMD + P(MAC)를 눌러 인쇄 화면으로 들어갑니다.</p>
@@ -97,30 +101,32 @@
 <p>발표 시간 경과도 보여주며 슬라이드 노트를 사용할 수 있습니다.</p>
 <p><img alt="notes.js" src="/image/notesjs.png" /></p>
 <p>슬라이드 노트 사용법</p>
-<pre class="codehilite"><code class="language-html">&lt;aside class=&quot;notes&quot;&gt;
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">aside</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;notes&quot;</span><span class="p">&gt;</span>
   notes.js의 화면에만 보이는 노트입니다.
-&lt;/aside&gt;</code></pre></p>
+<span class="p">&lt;/</span><span class="nt">aside</span><span class="p">&gt;</span>
+</pre></div></p>
 <p>기본적으로 notes.js는 S키를 눌러 띄울 수 있습니다.</p>
 
 <p>하지만 아래의 Search.js와 충돌할 수 있어서 저는 X키로 변경하였습니다.</p>
 
 <p>reveal.js/plugin/notes/notes.js를 수정합니다.</p>
 
-<pre class="codehilite"><code class="language-js">// Open the notes when the 's' key is hit
-document.addEventListener( 'keydown', function( event ) {
-  // Disregard the event if the target is editable or a
-  // modifier is present
-  if ( document.querySelector( ':focus' ) !== null || event.shiftKey || event.altKey || event.ctrlKey || event.metaKey ) return;
+<div class="codehilite"><pre><span></span><span class="c1">// Open the notes when the &#39;s&#39; key is hit</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">event</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Disregard the event if the target is editable or a</span>
+  <span class="c1">// modifier is present</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="s1">&#39;:focus&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">altKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">ctrlKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">metaKey</span> <span class="p">)</span> <span class="k">return</span><span class="p">;</span>
 
-  // Disregard the event if keyboard is disabled
-  if ( Reveal.getConfig().keyboard === false ) return;
+  <span class="c1">// Disregard the event if keyboard is disabled</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="nx">Reveal</span><span class="p">.</span><span class="nx">getConfig</span><span class="p">().</span><span class="nx">keyboard</span> <span class="o">===</span> <span class="kc">false</span> <span class="p">)</span> <span class="k">return</span><span class="p">;</span>
 
-  // X(88) 키로 변경합니다.
-  if( event.keyCode === 88 ) {
-    event.preventDefault();
-    openNotes();
-  }
-}, false );</code></pre>
+  <span class="c1">// X(88) 키로 변경합니다.</span>
+  <span class="k">if</span><span class="p">(</span> <span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="mi">88</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="nx">openNotes</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="kc">false</span> <span class="p">);</span>
+</pre></div>
 
 <p><a href="//www.w3schools.com/jsref/tryit.asp?filename=tryjsref_event_key_keycode">Unicode value 확인</a></p>
 
@@ -130,37 +136,38 @@ document.addEventListener( 'keydown', function( event ) {
 <p>이전 슬라이드로 돌아갈 경우 대부분 일일이 찾아 돌아가야 합니다.</p>
 <p>Reveal.js의 Plugin인 Search.js를 이용하여 단어또는 페이지 번호(슬라이드에 기입한 경우)만으로 해당 슬라이드로 갈 수 있습니다.</p>
 <p>reveal.js/plugin/search/search.js를 수정합니다.</p>
-<pre class="codehilite"><code class="language-js">// 아래에서 작업한 display:none을 해제
-function openSearch() {
-  var inputbox = document.getElementById(&quot;searchinput&quot;);
-  var icon = document.getElementById(&quot;searchbutton&quot;);
-  inputbox.style.display = &quot;inline&quot;;
-  icon.style.display = &quot;inline&quot;;
-  inputbox.focus();
-  inputbox.select();
-}</p>
-<p>// closeSearch()를 추가하여 검색하지 않을 경우 UI 숨기기
-function closeSearch() {
-    var inputbox = document.getElementById(&quot;searchinput&quot;);
-    var icon = document.getElementById(&quot;searchbutton&quot;);
-    inputbox.style.display = &quot;none&quot;;
-    icon.style.display = &quot;none&quot;;
-}</p>
-<p>// Search.js UI의 CSS style에 display:none을 추가하여 기본적으로 보이지 않게 함
-searchElement.innerHTML = '&lt;span&gt;&lt;input type=&quot;search&quot; id=&quot;searchinput&quot; class=&quot;searchinput&quot; style=&quot;vertical-align: top; display: none;&quot;/&gt;&lt;img src=&quot;......&quot; id=&quot;searchbutton&quot; class=&quot;searchicon&quot; style=&quot;vertical-align: top; margin-top: -1px; display: none;&quot;/&gt;&lt;/span&gt;';</p>
-<p>// 주석을 해제합니다.
-document.addEventListener( 'keydown', function( event ) {
-  if ( document.querySelector( ':focus' ) !== null || event.shiftKey || event.altKey || event.ctrlKey || event.metaKey ) return;</p>
-<p>// S키를 누르면 검색(기존 S키는 notes.js와 중복됨, notes.js를 바꾸거나 다른 키로 변경합니다.)
-  if( event.keyCode === 83) {
-    event.preventDefault();
-    openSearch();
-  }
-  else{
-    // closeSearch()를 추가하여 검색하지 않을 경우 UI 숨기기
-    closeSearch();
-  }</p>
-<p>}, false );</code></pre></p>
+<div class="codehilite"><pre><span></span><span class="c1">// 아래에서 작업한 display:none을 해제</span>
+<span class="kd">function</span> <span class="nx">openSearch</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">inputbox</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;searchinput&quot;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">icon</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;searchbutton&quot;</span><span class="p">);</span>
+  <span class="nx">inputbox</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;inline&quot;</span><span class="p">;</span>
+  <span class="nx">icon</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;inline&quot;</span><span class="p">;</span>
+  <span class="nx">inputbox</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+  <span class="nx">inputbox</span><span class="p">.</span><span class="nx">select</span><span class="p">();</span>
+<span class="p">}</span></p>
+<p><span class="c1">// closeSearch()를 추가하여 검색하지 않을 경우 UI 숨기기</span>
+<span class="kd">function</span> <span class="nx">closeSearch</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">inputbox</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;searchinput&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">icon</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;searchbutton&quot;</span><span class="p">);</span>
+    <span class="nx">inputbox</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">;</span>
+    <span class="nx">icon</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">;</span>
+<span class="p">}</span></p>
+<p><span class="c1">// Search.js UI의 CSS style에 display:none을 추가하여 기본적으로 보이지 않게 함</span>
+<span class="nx">searchElement</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;span&gt;&lt;input type=&quot;search&quot; id=&quot;searchinput&quot; class=&quot;searchinput&quot; style=&quot;vertical-align: top; display: none;&quot;/&gt;&lt;img src=&quot;......&quot; id=&quot;searchbutton&quot; class=&quot;searchicon&quot; style=&quot;vertical-align: top; margin-top: -1px; display: none;&quot;/&gt;&lt;/span&gt;&#39;</span><span class="p">;</span></p>
+<p><span class="c1">// 주석을 해제합니다.</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">event</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="s1">&#39;:focus&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">altKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">ctrlKey</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">metaKey</span> <span class="p">)</span> <span class="k">return</span><span class="p">;</span></p>
+<p><span class="c1">// S키를 누르면 검색(기존 S키는 notes.js와 중복됨, notes.js를 바꾸거나 다른 키로 변경합니다.)</span>
+  <span class="k">if</span><span class="p">(</span> <span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="mi">83</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="nx">openSearch</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span><span class="p">{</span>
+    <span class="c1">// closeSearch()를 추가하여 검색하지 않을 경우 UI 숨기기</span>
+    <span class="nx">closeSearch</span><span class="p">();</span>
+  <span class="p">}</span></p>
+<p><span class="p">},</span> <span class="kc">false</span> <span class="p">);</span>
+</pre></div></p>
 <p>S키를 누르면 검색창이 나타나 검색할 수 있습니다!</p>
 
 <p><hr />
@@ -168,20 +175,21 @@ document.addEventListener( 'keydown', function( event ) {
 <p>Reveal.js에서 기본적으로 alt + 마우스 클릭으로 확대가 가능합니다.</p>
 <p>Zoom.js를 다음과 같이 <strong>html 태그 단위로 확대</strong> 가능하도록 변경합니다.</p>
 <p>reveal.js/plugin/zoom-js/zoom.js를 수정합니다.</p>
-<pre class="codehilite"><code class="language-js">// 주석처리
-/<em>
-  zoom.to({
-    x: ( bounds.left * revealScale ) - zoomPadding,
-    y: ( bounds.top * revealScale ) - zoomPadding,
-    width: ( bounds.width * revealScale ) - ( zoomPadding * 5 ),
-    height: ( bounds.height * revealScale ) - ( zoomPadding * 5 ),
-    pan: false
-  });
-</em>/</p>
-<p>// 이벤트 타겟을 alt + 클릭으로 확대하도록 변경
-zoom.to({
-  element: event.target
-});</code></pre></p>
+<div class="codehilite"><pre><span></span><span class="c1">// 주석처리</span>
+<span class="cm">/<em></span>
+<span class="cm">  zoom.to({</span>
+<span class="cm">    x: ( bounds.left * revealScale ) - zoomPadding,</span>
+<span class="cm">    y: ( bounds.top * revealScale ) - zoomPadding,</span>
+<span class="cm">    width: ( bounds.width * revealScale ) - ( zoomPadding * 5 ),</span>
+<span class="cm">    height: ( bounds.height * revealScale ) - ( zoomPadding * 5 ),</span>
+<span class="cm">    pan: false</span>
+<span class="cm">  });</span>
+<span class="cm"></em>/</span></p>
+<p><span class="c1">// 이벤트 타겟을 alt + 클릭으로 확대하도록 변경</span>
+<span class="nx">zoom</span><span class="p">.</span><span class="nx">to</span><span class="p">({</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span>
+<span class="p">});</span>
+</pre></div></p>
 <p><hr />
 <h2>Sketch.js</h2>
 <p>이 기능은 Reveal.js에서 지원하는 것이 아니라 Sketch.js와 dazzleSketch.js를 추가하여</p>
@@ -191,50 +199,52 @@ zoom.to({
 <p><a href="//github.com/csev/dazzleSketch">dazzleSketch.js</a></p>
 <p><a href="//intridea.github.com/sketch.js/lib/sketch.js">sketch.js</a></p>
 <p>index.html에서 가장 마지막(/body 태그 위)에 다음을 추가합니다.</p>
-<pre class="codehilite"><code class="language-html">&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;plugin/sketch-js/sketch.js&quot;&gt;   &lt;/script&gt;
-&lt;script src=&quot;plugin/sketch-js/dazzleSketch.js&quot;&gt;&lt;/script&gt;</code></pre></p>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;plugin/sketch-js/sketch.js&quot;</span><span class="p">&gt;</span>   <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;plugin/sketch-js/dazzleSketch.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div></p>
 <p>Chrome의 컨트롤 키 기능과 충돌하지 않기 위해 dazzleSketch.js를 다음과 같이 변경합니다.</p>
 
-<pre class="codehilite"><code class="language-js">$(document).keypress(function(event)
-{
-    //var isSpecialKey = event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;
-    var w = event.which;
+<div class="codehilite"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">keypress</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//var isSpecialKey = event.shiftKey || event.ctrlKey || event.altKey || event.metaKey;</span>
+    <span class="kd">var</span> <span class="nx">w</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">which</span><span class="p">;</span>
 
-    // 여기다 원하는 색을 추가하셔도 좋습니다.
-    var colors = ['#ff0', '#0f0', '#0ff', '#f00', '#fff', '#00f', '#f0f', '#000'];
+    <span class="c1">// 여기다 원하는 색을 추가하셔도 좋습니다.</span>
+    <span class="kd">var</span> <span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#ff0&#39;</span><span class="p">,</span> <span class="s1">&#39;#0f0&#39;</span><span class="p">,</span> <span class="s1">&#39;#0ff&#39;</span><span class="p">,</span> <span class="s1">&#39;#f00&#39;</span><span class="p">,</span> <span class="s1">&#39;#fff&#39;</span><span class="p">,</span> <span class="s1">&#39;#00f&#39;</span><span class="p">,</span> <span class="s1">&#39;#f0f&#39;</span><span class="p">,</span> <span class="s1">&#39;#000&#39;</span><span class="p">];</span>
 
-    // 사이즈도 조절할 수 있습니다.
-    var sizes = [1, 2, 3, 5, 8, 10, 15];
+    <span class="c1">// 사이즈도 조절할 수 있습니다.</span>
+    <span class="kd">var</span> <span class="nx">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">];</span>
 
-    // event.ctrlKey &amp;&amp; 을 모두 제거합니다.
-    // 1 ~ 8 color pen
-    if ( w &gt;=49 &amp;&amp; w &lt; 49+colors.length) {
-        var newcolor = colors[w-49];
-        $('#sketchCanvas').sketch().set('color', newcolor);
-        $('#sketchDiv').css( &quot;zIndex&quot;, 2);
-    } else if ( w == 96 ) {
-        clearSketchCanvas();
-        $('#sketchDiv').css( &quot;zIndex&quot;, -2);
-    } else if ( w == 45 ) { // Minus key
-        if ( currentSketchSize &gt; 0 ) {
-            currentSketchSize--;
-            $('#sketchCanvas').sketch().set('size', sizes[currentSketchSize]);
-        }
-    } else if ( w == 48 ) { // 0 Background Canvas
-        var bgcolor = $('#sketchDiv').css('background-color');
-        if ( bgcolor === 'transparent' || bgcolor === 'rgba(0, 0, 0, 0)') {
-            $('#sketchDiv').css('background-color','white')
-        } else {
-            $('#sketchDiv').css('background-color','transparent')
-        }
-    } else if ( w == 61 ) { // Equals key
-        if ( currentSketchSize &lt; sizes.length-1 ) {
-            currentSketchSize++;
-            $('#sketchCanvas').sketch().set('size', sizes[currentSketchSize]);
-        }
-    }
-});</code></pre>
+    <span class="c1">// event.ctrlKey &amp;&amp; 을 모두 제거합니다.</span>
+    <span class="c1">// 1 ~ 8 color pen</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">w</span> <span class="o">&gt;=</span><span class="mi">49</span> <span class="o">&amp;&amp;</span> <span class="nx">w</span> <span class="o">&lt;</span> <span class="mi">49</span><span class="o">+</span><span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">newcolor</span> <span class="o">=</span> <span class="nx">colors</span><span class="p">[</span><span class="nx">w</span><span class="o">-</span><span class="mi">49</span><span class="p">];</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchCanvas&#39;</span><span class="p">).</span><span class="nx">sketch</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="nx">newcolor</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchDiv&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span> <span class="s2">&quot;zIndex&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">w</span> <span class="o">==</span> <span class="mi">96</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">clearSketchCanvas</span><span class="p">();</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchDiv&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span> <span class="s2">&quot;zIndex&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">w</span> <span class="o">==</span> <span class="mi">45</span> <span class="p">)</span> <span class="p">{</span> <span class="c1">// Minus key</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">currentSketchSize</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="nx">currentSketchSize</span><span class="o">--</span><span class="p">;</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchCanvas&#39;</span><span class="p">).</span><span class="nx">sketch</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="nx">sizes</span><span class="p">[</span><span class="nx">currentSketchSize</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">w</span> <span class="o">==</span> <span class="mi">48</span> <span class="p">)</span> <span class="p">{</span> <span class="c1">// 0 Background Canvas</span>
+        <span class="kd">var</span> <span class="nx">bgcolor</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchDiv&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background-color&#39;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">bgcolor</span> <span class="o">===</span> <span class="s1">&#39;transparent&#39;</span> <span class="o">||</span> <span class="nx">bgcolor</span> <span class="o">===</span> <span class="s1">&#39;rgba(0, 0, 0, 0)&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchDiv&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchDiv&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span><span class="s1">&#39;transparent&#39;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">w</span> <span class="o">==</span> <span class="mi">61</span> <span class="p">)</span> <span class="p">{</span> <span class="c1">// Equals key</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">currentSketchSize</span> <span class="o">&lt;</span> <span class="nx">sizes</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="nx">currentSketchSize</span><span class="o">++</span><span class="p">;</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#sketchCanvas&#39;</span><span class="p">).</span><span class="nx">sketch</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="nx">sizes</span><span class="p">[</span><span class="nx">currentSketchSize</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
 
 <p>이 작업까지 끝나면 숫자를 눌렀을 때 아래와 같이 Drawing이 가능합니다!</p>
 

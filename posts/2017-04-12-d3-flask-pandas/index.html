@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -77,8 +78,9 @@
 
 <p>실행 정책 변경은 <strong>관리자 권한으로 PowerShell을 실행</strong>한 상태에서 진행합니다.</p>
 
-<pre class="codehilite"><code class="language-powershell"># Run Administrator
-Set-ExecutionPolicy BYPASS</code></pre>
+<div class="codehilite"><pre><span></span><span class="c"># Run Administrator</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">BYPASS</span>
+</pre></div>
 
 <p>프로젝트에 <code>ps1</code> 파일을 생성하여 스크립트를 실행할 수 있게 됩니다.</p>
 
@@ -91,23 +93,25 @@ Set-ExecutionPolicy BYPASS</code></pre>
 
 <p><em>PowerShell</em> 스크립트에 가상환경으로 들어가는 명령을 작성하기 위해 작업 디렉터리의 이름을 기억합니다.</p>
 
-<pre class="codehilite"><code># Install
+<div class="codehilite"><pre><span></span># Install
 pip install virtualenv
 
 # Create &quot;_rhythm&quot; directory
 # [Optional 3.x version]
-# If your main project's Python version differs from this project,
+# If your main project&#39;s Python version differs from this project,
 # specify a specific Python version.
-virtualenv --python=python3.6 _rhythm</code></pre>
+virtualenv --python=python3.6 _rhythm
+</pre></div>
 
 <p>Windows 환경에서는 <code>bin</code>이 아닌 <code>scripts</code> 디렉터리 안에 <code>activate</code> 스크립트가 있으며 이를 실행하여 가상 환경을 활성화 시킬 수 있습니다.
 예를 들면 다음과 같이 스크립트를 작성할 수 있습니다.</p>
 
-<pre class="codehilite"><code class="language-powershell"># virtualenv activate
-. $PSScriptRoot\_rhythm\Scripts\activate.ps1
+<div class="codehilite"><pre><span></span><span class="c"># virtualenv activate</span>
+<span class="p">.</span> <span class="nv">$PSScriptRoot</span><span class="p">\</span><span class="n">_rhythm</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">activate</span><span class="p">.</span><span class="n">ps1</span>
 
-# module running
-python $PSScriptRoot\laptop_rhythm.py</code></pre>
+<span class="c"># module running</span>
+<span class="n">python</span> <span class="nv">$PSScriptRoot</span><span class="p">\</span><span class="n">laptop_rhythm</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
 
 <h6>laptop_rhythm.ps1</h6>
 
@@ -123,7 +127,8 @@ python $PSScriptRoot\laptop_rhythm.py</code></pre>
 
 <p>다음 명령으로 패키지를 설치합니다.</p>
 
-<pre class="codehilite"><code>pip install flask</code></pre>
+<div class="codehilite"><pre><span></span>pip install flask
+</pre></div>
 
 <p>자동으로 <code>Werkzeug</code>, <code>Jinja2</code> 등의 패키지가 추가로 설치됩니다.</p>
 
@@ -135,7 +140,8 @@ python $PSScriptRoot\laptop_rhythm.py</code></pre>
 
 <p>다음 명령으로 패키지를 설치합니다.</p>
 
-<pre class="codehilite"><code>pip install pandas</code></pre>
+<div class="codehilite"><pre><span></span>pip install pandas
+</pre></div>
 
 <p>자동으로 <code>numpy</code>, <code>python-dateutil</code> 등의 패키지가 추가로 설치됩니다.</p>
 
@@ -150,7 +156,8 @@ python $PSScriptRoot\laptop_rhythm.py</code></pre>
 
 <p>간단하게 html 문서에 import 함으로써 라이브러리 사용이 가능합니다.</p>
 
-<pre class="codehilite"><code class="language-html">&lt;script src=&quot;//d3js.org/d3.v3.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//d3js.org/d3.v3.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
 
 <p>경우에 따라 <code>d3-shape</code>, <code>d3-path</code> 라이브러리 등을 추가해야 할 수 있습니다.
 이는 추가로 다루겠습니다. 더 자세한 내용은 <a href="//github.com/d3/d3/wiki">D3 GitHub Wiki</a>을 참고하시기 바랍니다.</p>
@@ -171,9 +178,10 @@ Windows의 로그온오프, 절전은 Windows 시스템으로 발생한 이벤�
 <p><em>PowerShell</em>에서는 <code>Get-EventLog</code> 명령어를 통하여 시스템에 한해 이벤트 로그를 얻을 수 있으며
 <code>Export-CSV</code>를 통해 CSV 파일로 내보낼 수 있습니다.</p>
 
-<pre class="codehilite"><code class="language-powershell"># event file Winlogon latest 100 to CSV
-Get-EventLog -logname system -newest 100 -instanceid 7001, 7002, 506, 507 | `
-Export-CSV -encoding UTF8 -path &quot;$PSScriptRoot\static\logon_rhythm.csv&quot;</code></pre>
+<div class="codehilite"><pre><span></span><span class="c"># event file Winlogon latest 100 to CSV</span>
+<span class="nb">Get-EventLog</span> <span class="n">-logname</span> <span class="n">system</span> <span class="n">-newest</span> <span class="n">100</span> <span class="n">-instanceid</span> <span class="n">7001</span><span class="p">,</span> <span class="n">7002</span><span class="p">,</span> <span class="n">506</span><span class="p">,</span> <span class="n">507</span> <span class="p">|</span> <span class="p">`</span>
+<span class="nb">Export-CSV</span> <span class="n">-encoding</span> <span class="n">UTF8</span> <span class="n">-path</span> <span class="s2">&quot;$PSScriptRoot\static\logon_rhythm.csv&quot;</span>
+</pre></div>
 
 <h6>laptop_rhythm.ps1</h6>
 
@@ -181,27 +189,29 @@ Export-CSV -encoding UTF8 -path &quot;$PSScriptRoot\static\logon_rhythm.csv&quot
 
 <p><em>Flask</em>는 기본적으로 다음과 같은 구조를 가집니다.</p>
 
-<pre class="codehilite"><code>Root
+<div class="codehilite"><pre><span></span>Root
   ├── app.py
   ├── templates/
-  └── static/</code></pre>
+  └── static/
+</pre></div>
 
 <p>제 프로젝트에서는 <code>laptop_rhythm.py</code>가 <code>app.py</code>에 해당합니다.<br />
 <code>app.py</code>를 실행하면 템플릿 파일과 스태틱 파일을 불러와서 서버를 가동시킵니다.
 템플릿은 <em>Jinja2</em> 환경이며 템플릿 문법을 통해 렌더링 가능합니다.</p>
 
-<pre class="codehilite"><code class="language-python"># -*- coding: utf-8 -*-
+<div class="codehilite"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-from flask import Flask, render_template
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span>
 
-app = Flask(__name__)    
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>    
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
 
-if __name__ == '__main__':
-    app.run()</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
 
 <h6>laptop_rhythm.py</h6>
 
@@ -209,23 +219,25 @@ if __name__ == '__main__':
 
 <p>렌더링 하는 파일은 레이아웃을 따로 두어 템플릿 문법을 통해 블록을 나누었습니다.</p>
 
-<pre class="codehilite"><code class="language-html">&lt;!doctype html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;RHYTHM&lt;/title&gt;
-        &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
+<div class="codehilite"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>RHYTHM<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
         {% raw %}{% block body %}{% endblock %}{% endraw %}
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
 
 <h6>templates/layout.html</h6>
 
-<pre class="codehilite"><code class="language-html">{% raw %}{% extends 'layout.html' %}
+<div class="codehilite"><pre><span></span>{% raw %}{% extends &#39;layout.html&#39; %}
 
 {% block body %}
-{% endblock %}{% endraw %}</code></pre>
+{% endblock %}{% endraw %}
+</pre></div>
 
 <h6>templates/index.html</h6>
 
@@ -233,7 +245,8 @@ if __name__ == '__main__':
 
 <p>정적 파일을 보관하는 <code>static/</code>에 자바스크립트 파일, CSS 파일 또는 XML, CSV 데이터 파일을 보관하였으며 다음과 같은 템플릿 문법을 통해 참조가 가능합니다.</p>
 
-<pre class="codehilite"><code class="language-html">&lt;script src=&quot;{% raw %}{{ url_for('static', filename='js/custom.js') }}{% endraw %}&quot;&gt;&lt;/script&gt;</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;{% raw %}{{ url_for(&#39;static&#39;, filename=&#39;js/custom.js&#39;) }}{% endraw %}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
 
 <h6>templates/layout.html</h6>
 
@@ -246,20 +259,22 @@ if __name__ == '__main__':
 
 <p>템플릿 프로세서는 <em>dictionary</em> 객체를 반환합니다. 다음과 같이 <em>closure</em> 형태로 반환하면 템플릿에서 함수를 사용할 수 있게 됩니다.</p>
 
-<pre class="codehilite"><code class="language-python">@app.context_processor
-def data():
-    def wrap():
-        from evt_proc import EventProc
-        return [i for i in EventProc().today_rhythm()]
-    return dict(data=wrap)</code></pre>
+<div class="codehilite"><pre><span></span><span class="nd">@app.context_processor</span>
+<span class="k">def</span> <span class="nf">data</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">wrap</span><span class="p">():</span>
+        <span class="kn">from</span> <span class="nn">evt_proc</span> <span class="kn">import</span> <span class="n">EventProc</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">EventProc</span><span class="p">()</span><span class="o">.</span><span class="n">today_rhythm</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">wrap</span><span class="p">)</span>
+</pre></div>
 
 <h6>laptop_rhythm.py</h6>
 
 <p><em>Decorator</em>를 <code>@app.context_processor</code>로 지정하면 <em>dictionary</em>의 <code>data</code> 이름으로 지정된 함수는 컨텍스트 프로세서로 모든 템플릿에서 사용할 수 있습니다.</p>
 
-<pre class="codehilite"><code class="language-javascript">var arcs = d3.pie()
-    .sort(null)
-    .value(function(d) { return d.delta; })( {% raw %}{{ data() }}{% endraw %} );</code></pre>
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">arcs</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">pie</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">delta</span><span class="p">;</span> <span class="p">})(</span> <span class="p">{</span><span class="o">%</span> <span class="nx">raw</span> <span class="o">%</span><span class="p">}{{</span> <span class="nx">data</span><span class="p">()</span> <span class="p">}}{</span><span class="o">%</span> <span class="nx">endraw</span> <span class="o">%</span><span class="p">}</span> <span class="p">);</span>
+</pre></div>
 
 <h6>templates/visualization.js</h6>
 
@@ -280,9 +295,10 @@ def data():
 </li>
 </ul>
 
-<pre class="codehilite"><code class="language-python"># loop reverse index in dataframe
-for index, element in evt_today.iloc[::-1].iterrows():
-    pass</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># loop reverse index in dataframe</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">evt_today</span><span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="k">pass</span>
+</pre></div>
 
 <h6>Reverse index order</h6>
 
@@ -293,7 +309,8 @@ for index, element in evt_today.iloc[::-1].iterrows():
 <em>Pandas</em> 패키지의 Dataframe 데이터 구조는 연산자 오버로딩 및 배열 내부에서 비교 연산자로 쉽게 데이터를 쿼리할 수 있습니다. 예를 들어  </li>
 </ul>
 
-<pre class="codehilite"><code class="language-python">evt_today = evt_today[evt_today['TimeWritten'] &gt; today]</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">evt_today</span> <span class="o">=</span> <span class="n">evt_today</span><span class="p">[</span><span class="n">evt_today</span><span class="p">[</span><span class="s1">&#39;TimeWritten&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">today</span><span class="p">]</span>
+</pre></div>
 
 <h6>Today query</h6>
 
@@ -312,28 +329,30 @@ SVG, Canvas 같은 새로운 추상화 계층은 아니지만 이를 이용하�
 
 <h6>Red-circle_Black-stroke.svg</h6>
 
-<pre class="codehilite"><code class="language-html">&lt;svg height=&quot;100&quot; width=&quot;100&quot;&gt;
-  &lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;40&quot; stroke=&quot;black&quot; stroke-width=&quot;3&quot; fill=&quot;red&quot; /&gt;
-&lt;/svg&gt;</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">svg</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;100&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;100&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">circle</span> <span class="na">cx</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="na">cy</span><span class="o">=</span><span class="s">&quot;50&quot;</span> <span class="na">r</span><span class="o">=</span><span class="s">&quot;40&quot;</span> <span class="na">stroke</span><span class="o">=</span><span class="s">&quot;black&quot;</span> <span class="na">stroke-width</span><span class="o">=</span><span class="s">&quot;3&quot;</span> <span class="na">fill</span><span class="o">=</span><span class="s">&quot;red&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">svg</span><span class="p">&gt;</span>
+</pre></div>
 
 <p><em>D3</em>에서 다음과 같이 나타낼 수 있습니다.</p>
 
-<pre class="codehilite"><code class="language-javascript">var svg = d3.select('body')
-    .append('svg')
-    .attr({
-        width: 100,
-        height: 100,
-    });
+<div class="codehilite"><pre><span></span><span class="kd">var</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">({</span>
+        <span class="nx">width</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">height</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="p">});</span>
 
-svg.append('circle')
-    .attr({
-        'cx': 50,
-        'cy': 50,
-        'r': 40,
-        'stroke': 'black',
-        'stroke-width': 3,
-        'fill': 'red'
-    });</code></pre>
+<span class="nx">svg</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;circle&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">attr</span><span class="p">({</span>
+        <span class="s1">&#39;cx&#39;</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s1">&#39;cy&#39;</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s1">&#39;r&#39;</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+        <span class="s1">&#39;stroke&#39;</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;stroke-width&#39;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s1">&#39;fill&#39;</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span>
+    <span class="p">});</span>
+</pre></div>
 
 <h4>D3 Selection</h4>
 

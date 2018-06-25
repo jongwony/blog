@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -46,12 +47,14 @@
 <p><img alt="" src="/image/aws/inbound.png" /></p>
 <h2>SSH 설정 변경</h2>
 <p>Putty(Windows) 또는 SSH(Linux)를 이용하여 22번 포트로 접속합니다.</p>
-<pre class="codehilite"><code class="language-bash">vi /etc/ssh/sshd_config</code></pre></p>
+<div class="codehilite"><pre><span></span>vi /etc/ssh/sshd_config
+</pre></div></p>
 <p>Port 22라고 되어있는 항목을 AWS 콘솔에서 변경했던 IP로 변경합니다.</p>
 
 <p>그 후 서비스를 재시작합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">sudo service ssh restart</code></pre>
+<div class="codehilite"><pre><span></span>sudo service ssh restart
+</pre></div>
 
 <p>이렇게 하면 기존 세션은 유지되지만 다음 SSH 접속은 바뀐 포트로만 가능합니다.</p>
 

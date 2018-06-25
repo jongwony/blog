@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -33,21 +34,24 @@
 
 <p><a href="//www.tensorflow.org/install/install_windows#installing_with_native_pip">Installing with native pip</a></p>
 
-<pre class="codehilite"><code>choco install python -version 3.5.2.20161029 --force</code></pre>
+<div class="codehilite"><pre><span></span>choco install python -version 3.5.2.20161029 --force
+</pre></div>
 
 <p>보통 <code>C:\Python35</code>에 설치가 됩니다. 경로를 알아야 이 버전으로 실행합니다.</p>
 
 <h4>pip 9.0.1, virtualenv</h4>
 
-<pre class="codehilite"><code>pip install --upgrade pip
-pip install virtualenv</code></pre>
+<div class="codehilite"><pre><span></span>pip install --upgrade pip
+pip install virtualenv
+</pre></div>
 
 <h4>Install tensorflow</h4>
 
-<pre class="codehilite"><code>cd %WORK_DIR%
+<div class="codehilite"><pre><span></span>cd %WORK_DIR%
 virtualenv _tf --python=C:\\Python35\\python.exe
 .\_tf\Scripts\activate
-pip install --upgrade tensorflow</code></pre>
+pip install --upgrade tensorflow
+</pre></div>
 
 <p>이는 CPU-Only 설치이며 GPU가 있다면 <code>pip install --upgrade tensorflow-gpu</code><br />
 그전에!! CUDA 및 NVIDIA toolkit이 설치 되어 있어야 합니다.</p>
@@ -56,14 +60,15 @@ pip install --upgrade tensorflow</code></pre>
 
 <h4>Success</h4>
 
-<pre class="codehilite"><code class="language-python">(_tf) &gt; python
-Python 3.5.2
-&gt;&gt;&gt; import tensorflow as tf
-&gt;&gt;&gt; tf.__version__
-'1.1.0'
-&gt;&gt;&gt; import numpy as np
-&gt;&gt;&gt; np.__version__
-'1.12.1'</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">(</span><span class="n">_tf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">python</span>
+<span class="n">Python</span> <span class="mf">3.5</span><span class="o">.</span><span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+<span class="s1">&#39;1.1.0&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">__version__</span>
+<span class="s1">&#39;1.12.1&#39;</span>
+</pre></div>
 
 <p>또는 <code>pip freeze</code>로 확인합니다.</p>
 

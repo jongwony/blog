@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -59,34 +60,35 @@
 <p>Customize Now를 눌러 다음 목록을 설치합니다.
 <strong>커널은 당연히 체크되어 있어야 합니다.</strong></p>
 
-<pre class="codehilite"><code>[Base System]
-Base
-Compatibility libraries
-Hardware monitoring utilities
-Large Systems Performance
-Network file system client
-Performance Tools
-Perl Support
+<div class="codehilite"><pre><span></span><span class="k">[Base System]</span>
+<span class="na">Base</span>
+<span class="na">Compatibility libraries</span>
+<span class="na">Hardware monitoring utilities</span>
+<span class="na">Large Systems Performance</span>
+<span class="na">Network file system client</span>
+<span class="na">Performance Tools</span>
+<span class="na">Perl Support</span>
 
-[Servers]
-Server Platform
-System administration tools
+<span class="k">[Servers]</span>
+<span class="na">Server Platform</span>
+<span class="na">System administration tools</span>
 
-[Desktops]
-Desktop
-Desktop Platform
-Fonts
-General Purpose Desktop
-Graphical Administraion Tools
-Input Methods
-X Window System
+<span class="k">[Desktops]</span>
+<span class="na">Desktop</span>
+<span class="na">Desktop Platform</span>
+<span class="na">Fonts</span>
+<span class="na">General Purpose Desktop</span>
+<span class="na">Graphical Administraion Tools</span>
+<span class="na">Input Methods</span>
+<span class="na">X Window System</span>
 
-[Applications]
-Internet Browser
+<span class="k">[Applications]</span>
+<span class="na">Internet Browser</span>
 
-[Development]
-Additional Development
-Development tools</code></pre>
+<span class="k">[Development]</span>
+<span class="na">Additional Development</span>
+<span class="na">Development tools</span>
+</pre></div>
 
 <p><img alt="8" src="/image/oel6/oelinstall8.png" /></p>
 
@@ -103,10 +105,10 @@ Development tools</code></pre>
 
 <p>이제 그룹을 생성하고 오라클 설치를 위한 준비를 합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">vi /etc/pam.d/login
-### (APPEND)
+<div class="codehilite"><pre><span></span>vi /etc/pam.d/login
+<span class="c1">### (APPEND)</span>
 session required pam_limits.so
-###
+<span class="c1">###</span>
 
 groupadd oinstall
 groupadd dba
@@ -114,54 +116,56 @@ groupadd oper
 
 id oracle
 
-# oracle 유저가 없을 경우
+<span class="c1"># oracle 유저가 없을 경우</span>
 useradd -g oinstall -G dba,oper -d /u01 oracle
 
-# oracle 유저가 있을 경우
+<span class="c1"># oracle 유저가 있을 경우</span>
 usermod -a -G dba,oper -d /u01 oracle
 
 passwd oracle
-######
+<span class="c1">######</span>
 
 mkdir -p /u01/app/oracle
 chown -R oracle:oinstall /u01
 
 vi /etc/hosts
-### (APPEND)
-192.168.137.47 jongwon
-###
+<span class="c1">### (APPEND)</span>
+<span class="m">192</span>.168.137.47 jongwon
+<span class="c1">###</span>
 
-# [Preinstall]
-yum install oracle-rdbms-server-11gR2-preinstall -y</code></pre>
+<span class="c1"># [Preinstall]</span>
+yum install oracle-rdbms-server-11gR2-preinstall -y
+</pre></div>
 
 <p>환경변수를 oracle user에게 설정합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">su - oracle
+<div class="codehilite"><pre><span></span>su - oracle
 
 vi .bash_profile
-###
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
+<span class="c1">###</span>
+<span class="c1"># Get the aliases and functions</span>
+<span class="k">if</span> <span class="o">[</span> -f ~/.bashrc <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
         . ~/.bashrc
-fi
+<span class="k">fi</span>
 
-export PS1=`hostname`':$PWD&gt; '
-export ORACLE_BASE=/u01/app/oracle
-export ORACLE_HOME=$ORACLE_BASE/product/11.2.0
-export ORACLE_SID=orcl
-export ORACLE_SERVICE=orcl
-export ORACLE_OWNER=oracle
-export ORACLE_TERM=xterm
-export NLS_LANG=AMERICAN_AMERICA.UTF8
-export TNS_ADMIN=$ORACLE_HOME/network/admin
-export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/local/lib
-export PATH=$ORACLE_HOME:$ORACLE_HOME/bin:.:/usr/bin:/usr/css/bin:/bin:/sbin:/usr/sbin:/opt/perf/bin:/opt/java1.4/jre/bin:/opt/java1.4/bin:/usr/contrib/bin:/opt/langtools/bin:/usr/bin/X11:$ORA_CRS_HOME:$ORA_CRS_HOME/bin:$ORACLE_HOME/OPatch:.export CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:ORACLE_HOME/rdbms/jlib
+<span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="sb">`</span>hostname<span class="sb">`</span><span class="s1">&#39;:$PWD&gt; &#39;</span>
+<span class="nb">export</span> <span class="nv">ORACLE_BASE</span><span class="o">=</span>/u01/app/oracle
+<span class="nb">export</span> <span class="nv">ORACLE_HOME</span><span class="o">=</span><span class="nv">$ORACLE_BASE</span>/product/11.2.0
+<span class="nb">export</span> <span class="nv">ORACLE_SID</span><span class="o">=</span>orcl
+<span class="nb">export</span> <span class="nv">ORACLE_SERVICE</span><span class="o">=</span>orcl
+<span class="nb">export</span> <span class="nv">ORACLE_OWNER</span><span class="o">=</span>oracle
+<span class="nb">export</span> <span class="nv">ORACLE_TERM</span><span class="o">=</span>xterm
+<span class="nb">export</span> <span class="nv">NLS_LANG</span><span class="o">=</span>AMERICAN_AMERICA.UTF8
+<span class="nb">export</span> <span class="nv">TNS_ADMIN</span><span class="o">=</span><span class="nv">$ORACLE_HOME</span>/network/admin
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$ORACLE_HOME</span>/lib:/lib:/usr/lib:/usr/local/lib
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$ORACLE_HOME</span>:<span class="nv">$ORACLE_HOME</span>/bin:.:/usr/bin:/usr/css/bin:/bin:/sbin:/usr/sbin:/opt/perf/bin:/opt/java1.4/jre/bin:/opt/java1.4/bin:/usr/contrib/bin:/opt/langtools/bin:/usr/bin/X11:<span class="nv">$ORA_CRS_HOME</span>:<span class="nv">$ORA_CRS_HOME</span>/bin:<span class="nv">$ORACLE_HOME</span>/OPatch:.export <span class="nv">CLASSPATH</span><span class="o">=</span><span class="nv">$ORACLE_HOME</span>/JRE:<span class="nv">$ORACLE_HOME</span>/jlib:ORACLE_HOME/rdbms/jlib
 
-export DISPLAY=&lt;외부 IP&gt;:0.0
-###
+<span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>&lt;외부 IP&gt;:0.0
+<span class="c1">###</span>
 
-# source .bash_profile
-. .bash_profile</code></pre>
+<span class="c1"># source .bash_profile</span>
+. .bash_profile
+</pre></div>
 
 <p><img alt="oracle1" src="/image/oel6/oracleinstall1.png" /></p>
 
@@ -169,12 +173,13 @@ export DISPLAY=&lt;외부 IP&gt;:0.0
 
 <p>한꺼번에 압축을 풀고 설치를 진행합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">unzip '*.zip'
+<div class="codehilite"><pre><span></span>unzip <span class="s1">&#39;*.zip&#39;</span>
 rm -rf *.zip
 
-cd database
+<span class="nb">cd</span> database
 
-./runinstaller</code></pre>
+./runinstaller
+</pre></div>
 
 <div class="warn">
  ./runinstaller 실행 시 DISPLAY 환경변수를 이용, Xmanager - Passive가 미리 설치 되어 있습니다.
@@ -207,7 +212,8 @@ cd database
 
 <p>oracle 유저로 돌아와서 리스너를 구성합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">netca</code></pre>
+<div class="codehilite"><pre><span></span>netca
+</pre></div>
 
 <p>아래와 같은 그림이 뜨면 다음을 계속 눌러서 구성을 완료하시면 됩니다.</p>
 
@@ -215,7 +221,8 @@ cd database
 
 <p>다시 oracle 유저로 돌아와서 데이터베이스를 생성합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">dbca</code></pre>
+<div class="codehilite"><pre><span></span>dbca
+</pre></div>
 
 <p><img alt="dbca1" src="/image/oel6/dbca1.png" /></p>
 

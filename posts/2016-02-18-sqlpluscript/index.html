@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -29,22 +30,26 @@
 
 <p>콘솔 환경에서의 SQL이란 적막하기 그지없습니다.</p>
 
-<pre class="codehilite"><code>SQL&gt;</code></pre>
+<div class="codehilite"><pre><span></span>SQL&gt;
+</pre></div>
 
 <p>SPOOL이라는 SQL*Plus 명령어는 이 명령을 내린 시점부터 콘솔에 쓰여진 모든 내용을 로그로 저장하는데</p>
 
 <p>명령을 내리는 시각을 알 수 있게 프롬프트를 변경하는 방법이 있습니다.</p>
 
-<pre class="codehilite"><code class="language-sql">SET TIME ON
-SET SQLPROMPT &quot;_user&gt; &quot;</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">SET</span> <span class="n">TIME</span> <span class="k">ON</span>
+<span class="k">SET</span> <span class="n">SQLPROMPT</span> <span class="ss">&quot;_user&gt; &quot;</span>
+</pre></div>
 
 <p>이를 적용하면 다음과 같이 프롬프트가 변경됩니다.</p>
 
-<pre class="codehilite"><code>11:24:32 HR&gt;</code></pre>
+<div class="codehilite"><pre><span></span><span class="mi">11</span><span class="o">:</span><span class="mi">24</span><span class="o">:</span><span class="mi">32</span> <span class="n">HR</span><span class="o">&gt;</span>
+</pre></div>
 
 <p>SET 명령어로 변경할 수 있는 파라미터는 다음 명령어로 모두 보실 수 있습니다.</p>
 
-<pre class="codehilite"><code>SHOW ALL</code></pre>
+<div class="codehilite"><pre><span></span>SHOW ALL
+</pre></div>
 
 <p>주로 linesize(가로), pagesize(세로)를 자주 변경하게 됩니다.</p>
 
@@ -62,38 +67,39 @@ SET SQLPROMPT &quot;_user&gt; &quot;</code></pre>
 
 <p>이런 경우를 해결하기 위해 간단히 <a href="/file/col_resize.sql">스크립트</a>를 만들어 보았습니다.</p>
 
-<pre class="codehilite"><code class="language-sql">-- Query clean display
-set pagesize 0
-set feedback off
+<div class="codehilite"><pre><span></span><span class="c1">-- Query clean display</span>
+<span class="k">set</span> <span class="n">pagesize</span> <span class="mi">0</span>
+<span class="k">set</span> <span class="n">feedback</span> <span class="k">off</span>
 
--- SPOOL concatenation string in temp file
-spool result.sql
+<span class="c1">-- SPOOL concatenation string in temp file</span>
+<span class="n">spool</span> <span class="k">result</span><span class="p">.</span><span class="k">sql</span>
 
--- col department_id format a20
-SELECT DISTINCT('col '||COLUMN_NAME||' format a'||DATA_LENGTH) &quot;--&quot;
-FROM USER_TAB_COLUMNS
-WHERE TABLE_NAME IN (SELECT TABLE_NAME FROM USER_TABLES)
-AND DATA_TYPE LIKE 'VARCHAR2';
+<span class="c1">-- col department_id format a20</span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span><span class="p">(</span><span class="s1">&#39;col &#39;</span><span class="o">||</span><span class="k">COLUMN_NAME</span><span class="o">||</span><span class="s1">&#39; format a&#39;</span><span class="o">||</span><span class="n">DATA_LENGTH</span><span class="p">)</span> <span class="ss">&quot;--&quot;</span>
+<span class="k">FROM</span> <span class="n">USER_TAB_COLUMNS</span>
+<span class="k">WHERE</span> <span class="k">TABLE_NAME</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">TABLE_NAME</span> <span class="k">FROM</span> <span class="n">USER_TABLES</span><span class="p">)</span>
+<span class="k">AND</span> <span class="n">DATA_TYPE</span> <span class="k">LIKE</span> <span class="s1">&#39;VARCHAR2&#39;</span><span class="p">;</span>
 
-spool off
+<span class="n">spool</span> <span class="k">off</span>
 
--- result.sql read/write access
-!chmod -R 770 result.sql
+<span class="c1">-- result.sql read/write access</span>
+<span class="o">!</span><span class="n">chmod</span> <span class="o">-</span><span class="n">R</span> <span class="mi">770</span> <span class="k">result</span><span class="p">.</span><span class="k">sql</span>
 
--- append glogin.sql
-!cat result.sql &gt;&gt; $ORACLE_HOME/sqlplus/admin/glogin.sql
+<span class="c1">-- append glogin.sql</span>
+<span class="o">!</span><span class="n">cat</span> <span class="k">result</span><span class="p">.</span><span class="k">sql</span> <span class="o">&gt;&gt;</span> <span class="err">$</span><span class="n">ORACLE_HOME</span><span class="o">/</span><span class="n">sqlplus</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">glogin</span><span class="p">.</span><span class="k">sql</span>
 
--- remove temp file
-!rm -rf result.sql
+<span class="c1">-- remove temp file</span>
+<span class="o">!</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="k">result</span><span class="p">.</span><span class="k">sql</span>
 
-!echo $ORACLE_HOME/sqlplus/admin/glogin.sql is UPDATED.
-!read -p &quot; Press the Enter key SQL PLUS will be terminated.&quot;
-!echo -----------------------------------\
-!echo -- Please reconnect with SQLPlus.--\
-!echo -----------------------------------\
+<span class="o">!</span><span class="n">echo</span> <span class="err">$</span><span class="n">ORACLE_HOME</span><span class="o">/</span><span class="n">sqlplus</span><span class="o">/</span><span class="k">admin</span><span class="o">/</span><span class="n">glogin</span><span class="p">.</span><span class="k">sql</span> <span class="k">is</span> <span class="n">UPDATED</span><span class="p">.</span>
+<span class="o">!</span><span class="k">read</span> <span class="o">-</span><span class="n">p</span> <span class="ss">&quot; Press the Enter key SQL PLUS will be terminated.&quot;</span>
+<span class="o">!</span><span class="n">echo</span> <span class="c1">-----------------------------------\</span>
+<span class="o">!</span><span class="n">echo</span> <span class="c1">-- Please reconnect with SQLPlus.--\</span>
+<span class="o">!</span><span class="n">echo</span> <span class="c1">-----------------------------------\</span>
 
--- session exit
-exit</code></pre>
+<span class="c1">-- session exit</span>
+<span class="n">exit</span>
+</pre></div>
 
 <div class="def">
 
@@ -110,8 +116,9 @@ sqlplus로 적용할 세션에 접속한 후
 
 <p>col_resize.sql 파일을 /u01 디렉토리에 저장 후</p>
 
-<pre class="codehilite"><code>sqlplus hr
-11:24:32 HR&gt; @col_resize</code></pre>
+<div class="codehilite"><pre><span></span>sqlplus hr
+11:24:32 HR&gt; @col_resize
+</pre></div>
 
 <p>위 스크립트는 현재 <strong>세션 연결된</strong> 스키마 내에 있는 모든 테이블의 <strong>VARCHAR2</strong> 자료형을 가진 칼럼을 검색해서 그 칼럼이 제한한 길이만큼 사이즈를 조절하는 스크립트입니다.</p>
 

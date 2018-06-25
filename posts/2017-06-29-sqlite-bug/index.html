@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -27,14 +28,16 @@
 
 <p>예를 들어 다음과 같은 형식의 테이블 들을 구성하게 되면</p>
 
-<pre class="codehilite"><code class="language-sql">CREATE TABLE t(x INTEGER PRIMARY KEY, y, z);
-CREATE TABLE t(x INTEGER PRIMARY KEY ASC, y, z);
-CREATE TABLE t(x INTEGER, y, z, PRIMARY KEY(x ASC));
-CREATE TABLE t(x INTEGER, y, z, PRIMARY KEY(x DESC));</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="k">ASC</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="nb">INTEGER</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">x</span> <span class="k">ASC</span><span class="p">));</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="nb">INTEGER</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">x</span> <span class="k">DESC</span><span class="p">));</span>
+</pre></div>
 
 <p>예외로 <code>ROWID</code>가 나타나지 않는 선언문은 다음과 같습니다.</p>
 
-<pre class="codehilite"><code class="language-sql">CREATE TABLE t(x INTEGER PRIMARY KEY DESC, y, z)</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="k">DESC</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+</pre></div>
 
 <p>예외를 제외하고 <code>x</code> 컬럼의 값에 데이터를 <code>INSERT</code> 할 경우 본래 값이 아닌 이상한 값이 나타납니다.</p>
 
@@ -50,7 +53,8 @@ CREATE TABLE t(x INTEGER, y, z, PRIMARY KEY(x DESC));</code></pre>
 
 <p>다음과 같은 복수 키에 대한 <code>PRIMARY KEY</code> 도 버그가 적용되지는 않습니다.</p>
 
-<pre class="codehilite"><code class="language-sql">CREATE TABLE t(x INTEGER y INTEGER, z, CONSTRAINT xy PRIMARY KEY (x, y));</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="nb">INTEGER</span> <span class="n">y</span> <span class="nb">INTEGER</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="k">CONSTRAINT</span> <span class="n">xy</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">));</span>
+</pre></div>
 
   </div>
 

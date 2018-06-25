@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -33,16 +34,17 @@
 
 <p><a href="https://github.com/lastone9182/VBA-content">라이브러리</a>를 참조해서 간단히 만들어 보았습니다.</p>
 
-<pre class="codehilite"><code class="language-vbnet">Sub CustomImgAll()
-  Dim i As Integer
-  For i=1 To ActiveDocument.InlineShapes.Count
-    With ActiveDocument.InlineShapes(i)
-      .Width = CentimetersToPoints(10)
-      '.Height = CentimetersToPoints(10)
-      .Range.ParagraphFormat.Alignment = wdAlignParagraphCenter
-    End With
-  Next i
-End Sub</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">Sub</span> <span class="nf">CustomImgAll</span><span class="p">()</span>
+  <span class="k">Dim</span> <span class="n">i</span> <span class="ow">As</span> <span class="kt">Integer</span>
+  <span class="k">For</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span> <span class="k">To</span> <span class="n">ActiveDocument</span><span class="p">.</span><span class="n">InlineShapes</span><span class="p">.</span><span class="n">Count</span>
+    <span class="k">With</span> <span class="n">ActiveDocument</span><span class="p">.</span><span class="n">InlineShapes</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+      <span class="p">.</span><span class="n">Width</span> <span class="o">=</span> <span class="n">CentimetersToPoints</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+      <span class="c">&#39;.Height = CentimetersToPoints(10)</span>
+      <span class="p">.</span><span class="n">Range</span><span class="p">.</span><span class="n">ParagraphFormat</span><span class="p">.</span><span class="n">Alignment</span> <span class="o">=</span> <span class="n">wdAlignParagraphCenter</span>
+    <span class="k">End</span> <span class="k">With</span>
+  <span class="k">Next</span> <span class="n">i</span>
+<span class="k">End</span> <span class="k">Sub</span>
+</pre></div>
 
 <p>위 코드는 현재 열려있는 모든 문서(ActiveDocument)에서</p>
 

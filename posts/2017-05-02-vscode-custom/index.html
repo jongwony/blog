@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -27,29 +28,30 @@
 
 <p>| <code>Ctrl+p</code> -&gt; <code>keybindings.json</code> |</p>
 
-<pre class="codehilite"><code class="language-json">[
-    {
-        &quot;key&quot;: &quot;ctrl+y&quot;,
-        &quot;command&quot;: &quot;redo&quot;,
-        &quot;when&quot;: &quot;editorTextFocus&quot;
-    },
-    {
-        &quot;key&quot;: &quot;ctrl+right&quot;,
-        &quot;command&quot;: &quot;workbench.action.terminal.focusNext&quot;,
-        &quot;when&quot;: &quot;terminalFocus&quot;
-    },
-    {
-        &quot;key&quot;: &quot;ctrl+left&quot;,
-        &quot;command&quot;: &quot;workbench.action.terminal.focusPrevious&quot;,
-        &quot;when&quot;: &quot;terminalFocus&quot;
-    },
-    {
-        &quot;key&quot;: &quot;ctrl+down&quot;,
-        &quot;command&quot;: &quot;workbench.action.terminal.focus&quot;,
-        &quot;when&quot;: &quot;!terminalFocus&quot;
-    }
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;ctrl+y&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;redo&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;when&quot;</span><span class="p">:</span> <span class="s2">&quot;editorTextFocus&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;ctrl+right&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;workbench.action.terminal.focusNext&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;when&quot;</span><span class="p">:</span> <span class="s2">&quot;terminalFocus&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;ctrl+left&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;workbench.action.terminal.focusPrevious&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;when&quot;</span><span class="p">:</span> <span class="s2">&quot;terminalFocus&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;ctrl+down&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;workbench.action.terminal.focus&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;when&quot;</span><span class="p">:</span> <span class="s2">&quot;!terminalFocus&quot;</span>
+    <span class="p">}</span>
 
-]</code></pre>
+<span class="p">]</span>
+</pre></div>
 
 <h6>keybindings.json</h6>
 
@@ -69,9 +71,10 @@
 
 <p>| <code>Ctrl+p</code> -&gt; <code>settings.json</code> |</p>
 
-<pre class="codehilite"><code class="language-json">{
-    &quot;python.pythonPath&quot;: &quot;%WORKDIR%/test/_tf/Scripts/python.exe&quot;
-}</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;python.pythonPath&quot;</span><span class="p">:</span> <span class="s2">&quot;%WORKDIR%/test/_tf/Scripts/python.exe&quot;</span>
+<span class="p">}</span>
+</pre></div>
 
 <h6>settings.json</h6>
 

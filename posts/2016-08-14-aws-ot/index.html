@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -36,35 +37,42 @@
 <p>그렇기에 따로 virtualenv 환경을 만들지 않습니다.</p>
 <h4>패키지 업데이트</h4>
 <p>먼저 EC2에 Putty로 접속 한 뒤 기존 패키지를 업데이트하고 업그레이드 합니다.</p>
-<pre class="codehilite"><code class="language-bash">sudo apt-get update
-sudo apt-get upgrade</code></pre></p>
+<div class="codehilite"><pre><span></span>sudo apt-get update
+sudo apt-get upgrade
+</pre></div></p>
 <h4>개발도구 설치</h4>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install build-essential cmake git pkg-config</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install build-essential cmake git pkg-config
+</pre></div>
 
 <h4>이미지 로드 라이브러리</h4>
 
 <p>jpeg, tiff, png 파일 등을 로드할 수 있는 라이브러리를 설치합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev
+</pre></div>
 
 <h4>GTK 설치</h4>
 
 <p>EC2 내의 이미지를 X window로 볼 수 있고, OpenCV의 highgui 모듈을 위해서 설치하는 라이브러리 입니다.</p>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install libgtk2.0-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install libgtk2.0-dev
+</pre></div>
 
 <h4>비디오 프로세싱 라이브러리</h4>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+</pre></div>
 
 <h4>Compiler</h4>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install libatlas-base-dev gcc gfortran g++</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install libatlas-base-dev gcc gfortran g++
+</pre></div>
 
 <h4>Python 개발도구</h4>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install python-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install python-dev
+</pre></div>
 
 <h4>Pip 최신 버전 설치</h4>
 
@@ -79,19 +87,22 @@ sudo apt-get install python-pip <br>
 이 명령어로 설치한 pip 버전은 1.x 버전이기 때문에 아래와 같이 8.1.2 버전을 설치합니다.
 </div>
 
-<pre class="codehilite"><code class="language-bash">wget https://bootstrap.pypa.io/get-pip.py
-sudo -H python get-pip.py</code></pre>
+<div class="codehilite"><pre><span></span>wget https://bootstrap.pypa.io/get-pip.py
+sudo -H python get-pip.py
+</pre></div>
 
 <h4>SSL 보안 에러 방지</h4>
 
 <p><a href="//stackoverflow.com/questions/29134512/insecureplatformwarning-a-true-sslcontext-object-is-not-available-this-prevent">stackoverflow</a> 참조</p>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install libffi-dev libssl-dev
-sudo -H pip install pyopenssl ndg-httpsclient pyasn1</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install libffi-dev libssl-dev
+sudo -H pip install pyopenssl ndg-httpsclient pyasn1
+</pre></div>
 
 <h4>Numpy install</h4>
 
-<pre class="codehilite"><code class="language-bash">sudo -H pip install numpy</code></pre>
+<div class="codehilite"><pre><span></span>sudo -H pip install numpy
+</pre></div>
 
 <h4>Matplotlib install</h4>
 
@@ -99,16 +110,17 @@ sudo -H pip install pyopenssl ndg-httpsclient pyasn1</code></pre>
 
 <p>matplotlib을 설치했을 경우에 스크린으로 출력되지 않는 문제를 해결한 <a href="//www.pyimagesearch.com/2015/08/24/resolved-matplotlib-figures-not-showing-up-or-displaying/">pyimagesearch 홈페이지</a> 내용을 기반으로 작성하였습니다.</p>
 
-<pre class="codehilite"><code class="language-bash"># 추가 패키지 설치
+<div class="codehilite"><pre><span></span><span class="c1"># 추가 패키지 설치</span>
 sudo apt-get install tcl-dev tk-dev python-tk
 
-# TkAgg 문제 해결
+<span class="c1"># TkAgg 문제 해결</span>
 git clone https://github.com/matplotlib/matplotlib.git
-cd matplotlib
+<span class="nb">cd</span> matplotlib
 sudo -H python setup.py install
 
-# 느리게 로드되는 현상 해결
-rm -rf ~/.cache</code></pre>
+<span class="c1"># 느리게 로드되는 현상 해결</span>
+rm -rf ~/.cache
+</pre></div>
 
 <!--
 # 그룹 보안 문제 해결
@@ -119,27 +131,30 @@ chmod g-wx,o-wx ~/.python-eggs
 
 <h4>Git project clone, checkout</h4>
 
-<pre class="codehilite"><code class="language-bash">cd
+<div class="codehilite"><pre><span></span><span class="nb">cd</span>
 git clone https://github.com/Itseez/opencv.git
-cd opencv
-git checkout 3.0.0</code></pre>
+<span class="nb">cd</span> opencv
+git checkout <span class="m">3</span>.0.0
+</pre></div>
 
-<pre class="codehilite"><code class="language-bash">cd
+<div class="codehilite"><pre><span></span><span class="nb">cd</span>
 git clone https://github.com/Itseez/opencv_contrib.git
-cd opencv_contrib
-git checkout 3.0.0</code></pre>
+<span class="nb">cd</span> opencv_contrib
+git checkout <span class="m">3</span>.0.0
+</pre></div>
 
 <h4>Setup build</h4>
 
-<pre class="codehilite"><code class="language-bash">cd ~/opencv
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> ~/opencv
 mkdir build
-cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-  -D CMAKE_INSTALL_PREFIX=/usr/local \
-  -D INSTALL_C_EXAMPLES=ON \
-  -D INSTALL_PYTHON_EXAMPLES=ON \
-  -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-  -D BUILD_EXAMPLES=ON ..</code></pre>
+<span class="nb">cd</span> build
+cmake -D <span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>RELEASE <span class="se">\</span>
+  -D <span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span>/usr/local <span class="se">\</span>
+  -D <span class="nv">INSTALL_C_EXAMPLES</span><span class="o">=</span>ON <span class="se">\</span>
+  -D <span class="nv">INSTALL_PYTHON_EXAMPLES</span><span class="o">=</span>ON <span class="se">\</span>
+  -D <span class="nv">OPENCV_EXTRA_MODULES_PATH</span><span class="o">=</span>~/opencv_contrib/modules <span class="se">\</span>
+  -D <span class="nv">BUILD_EXAMPLES</span><span class="o">=</span>ON ..
+</pre></div>
 
 <div class='def'>
 2016년 3월에 3.1.0 버전으로 업데이트 하였습니다.
@@ -150,14 +165,16 @@ checkout시 버전을 바꿀 수 있으며 이때 -D INSTALL_C_EXAMPLES 옵션�
 
 <h4>Compile</h4>
 
-<pre class="codehilite"><code class="language-bash">make -j4</code></pre>
+<div class="codehilite"><pre><span></span>make -j4
+</pre></div>
 
 <p>약 10 ~ 15분 소요됩니다.</p>
 
 <p>끝났으면 에러가 없는지 확인합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">sudo make install
-sudo ldconfig</code></pre>
+<div class="codehilite"><pre><span></span>sudo make install
+sudo ldconfig
+</pre></div>
 
 <h2>Tensorflow 설치</h2>
 
@@ -165,24 +182,26 @@ sudo ldconfig</code></pre>
 
 <p>그러므로 같은 프로젝트로서 Pip installation을 진행합니다.</p>
 
-<pre class="codehilite"><code class="language-bash"># EC2 Free Tier는 GPU를 지원하지 않습니다.
-export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0rc0-cp27-none-linux_x86_64.whl
+<div class="codehilite"><pre><span></span><span class="c1"># EC2 Free Tier는 GPU를 지원하지 않습니다.</span>
+<span class="nb">export</span> <span class="nv">TF_BINARY_URL</span><span class="o">=</span>https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0rc0-cp27-none-linux_x86_64.whl
 
-# sudo apt-get install python-pip python-dev
-sudo -H pip install --upgrade $TF_BINARY_URL</code></pre>
+<span class="c1"># sudo apt-get install python-pip python-dev</span>
+sudo -H pip install --upgrade <span class="nv">$TF_BINARY_URL</span>
+</pre></div>
 
 <p>위 작업까지 진행하시면 Tensorflow 설치가 완료됩니다.</p>
 
 <p>이렇게 OpenCV, Tensorflow 설치가 완료되었습니다. 잘 설치되었는지 확인합니다.</p>
 
-<pre class="codehilite"><code class="language-python"># python으로 확인
-&gt;&gt;&gt; import numpy
-&gt;&gt;&gt; import matplotlib
-&gt;&gt;&gt; import tensorflow
-&gt;&gt;&gt; import cv2
-&gt;&gt;&gt; cv2.__version__
-'3.0.0'
-&gt;&gt;&gt;</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># python으로 확인</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">tensorflow</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">cv2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cv2</span><span class="o">.</span><span class="n">__version__</span>
+<span class="s1">&#39;3.0.0&#39;</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
 
 <p>에러 메시지가 뜨지 않으면 설치가 정상적으로 된 것입니다.</p>
 
@@ -203,9 +222,10 @@ EC2에서는 Virtual Memory Exhausted 에러가 일어날 수 있습니다. <br>
 pip 6.x 버전 이상만 가능한 옵션입니다.
 </div>
 
-<pre class="codehilite"><code class="language-bash">sudo -H pip install scipy
+<div class="codehilite"><pre><span></span>sudo -H pip install scipy
 sudo -H pip install panda
-sudo -H pip install seaborn</code></pre>
+sudo -H pip install seaborn
+</pre></div>
 
 <div class='def'>
 seaborn 패키지는 matplotlib 기반 때문이어서 그런지는 모르겠지만<br>

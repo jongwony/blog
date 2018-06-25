@@ -1,10 +1,12 @@
 import markdown
 from flask import render_template
+from pygments.styles import get_style_by_name
 
 from .app import app, pages
 
 
 markdown_ext = ['codehilite', 'extra']
+
 
 @app.route('/')
 def home():

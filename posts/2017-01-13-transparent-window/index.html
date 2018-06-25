@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -54,10 +55,11 @@
 <h2>Transparent Windows</h2>
 <p><a href="//msdn.microsoft.com/en-us/library/ms997507.aspx">Layered Windows 참고</a></p>
 <p>창 투명화를 위한 핵심적인 코드는 다음과 같습니다.</p>
-<pre class="codehilite"><code class="language-c++">// Set WS_EX_LAYERED on this Windows
-SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
-// Make this window 70% alpha
-SetLayeredWindowAttributes(hWnd, 0, (255 * 70) / 100, LWA_ALPHA);</code></pre></p>
+<div class="codehilite"><pre><span></span><span class="c1">// Set WS_EX_LAYERED on this Windows</span>
+<span class="n">SetWindowLong</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">GWL_EXSTYLE</span><span class="p">,</span> <span class="n">GetWindowLong</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">GWL_EXSTYLE</span><span class="p">)</span> <span class="o">|</span> <span class="n">WS_EX_LAYERED</span><span class="p">);</span>
+<span class="c1">// Make this window 70% alpha</span>
+<span class="n">SetLayeredWindowAttributes</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">LWA_ALPHA</span><span class="p">);</span>
+</pre></div></p>
 <p>SPY++ 에서 창에 대한 정보를 얻을 수 있다고 했습니다.
 위 코드는 <code>SetWindowLong</code>을 통해 <code>LONG</code> 값에 해당하는 창에 <code>WS_EX_LAYERED</code> 상수를 부여해주며
 <code>SetLayeredWindowAttributes</code>를 통해 해당 창의 알파값을 변경하는 것입니다.</p>
@@ -90,20 +92,21 @@ SetLayeredWindowAttributes(hWnd, 0, (255 * 70) / 100, LWA_ALPHA);</code></pre></
 
 <p><code>EnumWindows</code>는 <code>CALLBACK</code> 함수를 인자로 다음과 같이 모든 <code>hWnd</code>를 순회할 수 있게 해줍니다.</p>
 
-<pre class="codehilite"><code class="language-c++">BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lparam)
-{
-    ...
-}
+<div class="codehilite"><pre><span></span><span class="n">BOOL</span> <span class="n">CALLBACK</span> <span class="nf">EnumWindowsProc</span><span class="p">(</span><span class="n">HWND</span> <span class="n">hWnd</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lparam</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    ...
+<span class="n">LRESULT</span> <span class="n">CALLBACK</span> <span class="nf">WndProc</span><span class="p">(</span><span class="n">HWND</span> <span class="n">hWnd</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">message</span><span class="p">,</span> <span class="n">WPARAM</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lParam</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">...</span>
 
-    // All Windows Iteration
-    EnumWindows(EnumWindowsProc, NULL);
+    <span class="c1">// All Windows Iteration</span>
+    <span class="n">EnumWindows</span><span class="p">(</span><span class="n">EnumWindowsProc</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-    ...
-}</code></pre>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
 
 <p><code>EnumWindowsProc</code>에서 모든 <code>hWnd</code>를 차례로 호출하기 때문에 여기서 불필요한 창을 거르고
 <code>GetForegroundWindow</code>를 통해 현재 활성화된 창을 추출할 수 있게됩니다.</p>
@@ -113,125 +116,126 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 <p>다음은 최종 코드의 일부이며 자세한 내용은 GitHub의 <a href="//github.com/lastone9182/layerwindowtray/blob/master/layerwindowtray.cpp">layerwindowtray.cpp</a>
 를 참조하시길 바랍니다.</p>
 
-<pre class="codehilite"><code class="language-c++">// 전역변수
-HWND hWndOld, hWndActive;                       // 활성화된 창 저장
-UINT const WMAPP_NOTIFYCALLBACK = WM_APP + 1;   // 사용자정의 콜백함수
-POINT gpt;                                      // 마우스
-int ACTIVE = 90;
-int INACTIVE = 50;
+<div class="codehilite"><pre><span></span><span class="c1">// 전역변수</span>
+<span class="n">HWND</span> <span class="n">hWndOld</span><span class="p">,</span> <span class="n">hWndActive</span><span class="p">;</span>                       <span class="c1">// 활성화된 창 저장</span>
+<span class="n">UINT</span> <span class="k">const</span> <span class="n">WMAPP_NOTIFYCALLBACK</span> <span class="o">=</span> <span class="n">WM_APP</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1">// 사용자정의 콜백함수</span>
+<span class="n">POINT</span> <span class="n">gpt</span><span class="p">;</span>                                      <span class="c1">// 마우스</span>
+<span class="kt">int</span> <span class="n">ACTIVE</span> <span class="o">=</span> <span class="mi">90</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">INACTIVE</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
 
-// 타이머마다 호출되는 콜백함수
-BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lparam) {
-    // 안 보이는 창 필터링
-    if (!IsWindowVisible(hWnd)) {
-        return TRUE;
-    }
-    // 부모가 바탕화면인지
-    if (GetParent(hWnd) != 0) {
-        return TRUE;
-    }
-    // 최소화된 창 건너뛰기
-    if (IsIconic(hWnd)) {
-        return TRUE;
-    }
-    // 마우스 영역 추출
-    RECT rt;
-    GetWindowRect(hWnd, &amp;rt);
+<span class="c1">// 타이머마다 호출되는 콜백함수</span>
+<span class="n">BOOL</span> <span class="n">CALLBACK</span> <span class="nf">EnumWindowsProc</span><span class="p">(</span><span class="n">HWND</span> <span class="n">hWnd</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lparam</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 안 보이는 창 필터링</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IsWindowVisible</span><span class="p">(</span><span class="n">hWnd</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 부모가 바탕화면인지</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">GetParent</span><span class="p">(</span><span class="n">hWnd</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 최소화된 창 건너뛰기</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">IsIconic</span><span class="p">(</span><span class="n">hWnd</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 마우스 영역 추출</span>
+    <span class="n">RECT</span> <span class="n">rt</span><span class="p">;</span>
+    <span class="n">GetWindowRect</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rt</span><span class="p">);</span>
 
-    try
-    {
-        // set WS_EX_LAYERED on this Window
-        SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
-        // Current active windows ALPHA ACTIVE%, else windows INACTIVE%
-        if (hWnd == hWndActive | IsCurInRect(rt)) {
-            SetLayeredWindowAttributes(hWnd, 0, (255 * ACTIVE) / 100, LWA_ALPHA);
-        }
-        else {
-            SetLayeredWindowAttributes(hWnd, 0, (255 * INACTIVE) / 100, LWA_ALPHA);
-        }
-    }
-    catch (...)
-    {
-        return FALSE;
-    }
-    return TRUE;
-}
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="c1">// set WS_EX_LAYERED on this Window</span>
+        <span class="n">SetWindowLong</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">GWL_EXSTYLE</span><span class="p">,</span> <span class="n">GetWindowLong</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">GWL_EXSTYLE</span><span class="p">)</span> <span class="o">|</span> <span class="n">WS_EX_LAYERED</span><span class="p">);</span>
+        <span class="c1">// Current active windows ALPHA ACTIVE%, else windows INACTIVE%</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">hWnd</span> <span class="o">==</span> <span class="n">hWndActive</span> <span class="o">|</span> <span class="n">IsCurInRect</span><span class="p">(</span><span class="n">rt</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">SetLayeredWindowAttributes</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="n">ACTIVE</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">LWA_ALPHA</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">SetLayeredWindowAttributes</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="n">INACTIVE</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">LWA_ALPHA</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(...)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">FALSE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="p">}</span>
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-    case WM_CREATE:
-    {
-        // Initialization
-        // Get Current Active Window
-        hWndActive = GetForegroundWindow();
-        // All Windows Iteration
-        EnumWindows(EnumWindowsProc, NULL);
-        // Old Pointer
-        hWndOld = GetForegroundWindow();
+<span class="n">LRESULT</span> <span class="n">CALLBACK</span> <span class="nf">WndProc</span><span class="p">(</span><span class="n">HWND</span> <span class="n">hWnd</span><span class="p">,</span> <span class="n">UINT</span> <span class="n">message</span><span class="p">,</span> <span class="n">WPARAM</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">LPARAM</span> <span class="n">lParam</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">WM_CREATE</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="c1">// Initialization</span>
+        <span class="c1">// Get Current Active Window</span>
+        <span class="n">hWndActive</span> <span class="o">=</span> <span class="n">GetForegroundWindow</span><span class="p">();</span>
+        <span class="c1">// All Windows Iteration</span>
+        <span class="n">EnumWindows</span><span class="p">(</span><span class="n">EnumWindowsProc</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="c1">// Old Pointer</span>
+        <span class="n">hWndOld</span> <span class="o">=</span> <span class="n">GetForegroundWindow</span><span class="p">();</span>
 
-        // add the notification icon
-        if (!AddNotificationIcon(hWnd))
-        {
-            MessageBox(hWnd,
-                L&quot;Please read the ReadMe.txt file for troubleshooting&quot;,
-                L&quot;Error adding icon&quot;, MB_OK);
-            return -1;
-        }
+        <span class="c1">// add the notification icon</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">AddNotificationIcon</span><span class="p">(</span><span class="n">hWnd</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">MessageBox</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span>
+                <span class="sa">L</span><span class="s">&quot;Please read the ReadMe.txt file for troubleshooting&quot;</span><span class="p">,</span>
+                <span class="sa">L</span><span class="s">&quot;Error adding icon&quot;</span><span class="p">,</span> <span class="n">MB_OK</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
 
-        // add the notification popup
-        AddNotificationPopup(hWnd);
+        <span class="c1">// add the notification popup</span>
+        <span class="n">AddNotificationPopup</span><span class="p">(</span><span class="n">hWnd</span><span class="p">);</span>
 
 
-        SetTimer(hWnd,                      // handle to main window
-            1,                              // timer identifier
-            200,                            // 0.2-second interval
-            (TIMERPROC)NULL);               // no timer callback
-    }
-    break;
-    case WM_COMMAND:
-    {
-        // MENU ID &lt;&lt;====&gt;&gt; COMMAND
-    }
-    break;
-    case WM_TIMER:
-    {
-        // Get Current Active Window
-        hWndActive = GetForegroundWindow();
+        <span class="n">SetTimer</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span>                      <span class="c1">// handle to main window</span>
+            <span class="mi">1</span><span class="p">,</span>                              <span class="c1">// timer identifier</span>
+            <span class="mi">200</span><span class="p">,</span>                            <span class="c1">// 0.2-second interval</span>
+            <span class="p">(</span><span class="n">TIMERPROC</span><span class="p">)</span><span class="nb">NULL</span><span class="p">);</span>               <span class="c1">// no timer callback</span>
+    <span class="p">}</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">WM_COMMAND</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="c1">// MENU ID &lt;&lt;====&gt;&gt; COMMAND</span>
+    <span class="p">}</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">WM_TIMER</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="c1">// Get Current Active Window</span>
+        <span class="n">hWndActive</span> <span class="o">=</span> <span class="n">GetForegroundWindow</span><span class="p">();</span>
 
-        // Get Mouse Capture Window
-        GetCursorPos(&amp;gpt);
+        <span class="c1">// Get Mouse Capture Window</span>
+        <span class="n">GetCursorPos</span><span class="p">(</span><span class="o">&amp;</span><span class="n">gpt</span><span class="p">);</span>
 
-        // All Windows Iteration
-        EnumWindows(EnumWindowsProc, NULL);
+        <span class="c1">// All Windows Iteration</span>
+        <span class="n">EnumWindows</span><span class="p">(</span><span class="n">EnumWindowsProc</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
-        // Old Pointer
-        hWndOld = hWndActive;
-    }
-    break;
-    case WMAPP_NOTIFYCALLBACK:
-    {
-        switch (lParam)
-        {
-        case WM_CONTEXTMENU:
-        {
-            ShowContextMenu(hWnd, gpt);
-        }
-        break;
-        }
-    }
-    break;
-    case WM_DESTROY:
-        EnumWindows(EnumWindowsProcBack, NULL);
-        KillTimer(hWnd, 1);
-        DeleteNotificationIcon();
-        DestroyWindow(hWnd);
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-}</code></pre>
+        <span class="c1">// Old Pointer</span>
+        <span class="n">hWndOld</span> <span class="o">=</span> <span class="n">hWndActive</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">WMAPP_NOTIFYCALLBACK</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">lParam</span><span class="p">)</span>
+        <span class="p">{</span>
+        <span class="k">case</span> <span class="nl">WM_CONTEXTMENU</span><span class="p">:</span>
+        <span class="p">{</span>
+            <span class="n">ShowContextMenu</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">gpt</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nl">WM_DESTROY</span><span class="p">:</span>
+        <span class="n">EnumWindows</span><span class="p">(</span><span class="n">EnumWindowsProcBack</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">KillTimer</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">DeleteNotificationIcon</span><span class="p">();</span>
+        <span class="n">DestroyWindow</span><span class="p">(</span><span class="n">hWnd</span><span class="p">);</span>
+        <span class="n">PostQuitMessage</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">DefWindowProc</span><span class="p">(</span><span class="n">hWnd</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">wParam</span><span class="p">,</span> <span class="n">lParam</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 
 <p>트레이 아이콘을 추가하여 백그라운드 프로세스로 실행할 수 있고 마우스 좌표를 얻어 창 영역으로 들어가게 되었을 때의 창 투명도를 변환을 추가하였습니다.</p>
 

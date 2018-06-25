@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -71,24 +72,27 @@
 
 <p>설치가 완료되었으면 호스트를 설정합니다.</p>
 
-<pre class="codehilite"><code>namenode</code></pre>
+<div class="codehilite"><pre><span></span>namenode
+</pre></div>
 
 <h6>/etc/hostname</h6>
 
-<pre class="codehilite"><code>127.0.0.1       localhost
+<div class="codehilite"><pre><span></span>127.0.0.1       localhost
 192.168.137.11  namenode
 192.168.137.12  datanode1
 192.168.137.13  datanode2
-...</code></pre>
+...
+</pre></div>
 
 <h6>/etc/hosts</h6>
 
-<pre class="codehilite"><code>audo eth0
+<div class="codehilite"><pre><span></span>audo eth0
 iface eth0 inet static
     address 192.168.137.11
     ...
     gateway 192.168.137.1
-    dns-nameservers 192.168.137.1</code></pre>
+    dns-nameservers 192.168.137.1
+</pre></div>
 
 <h6>/etc/network/interfaces</h6>
 
@@ -107,31 +111,36 @@ iface eth0 inet static
 <li><a href="//www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04">https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04</a></li>
 </ul>
 
-<pre class="codehilite"><code>sudo apt update
-sudo apt install default-jdk</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt update
+sudo apt install default-jdk
+</pre></div>
 
 <p>현재 Java 1.8 버전이 <code>/usr/lib/jvm</code> 경로에 설치됩니다.</p>
 
-<pre class="codehilite"><code>echo &quot;export JAVA_HOME=/usr/lib/jvm/default-java&quot; &gt;&gt; ~/.profile
-source ~/.profile</code></pre>
+<div class="codehilite"><pre><span></span>echo &quot;export JAVA_HOME=/usr/lib/jvm/default-java&quot; &gt;&gt; ~/.profile
+source ~/.profile
+</pre></div>
 
 <h6>JAVA_HOME 환경변수 설정</h6>
 
 <p><a href="//apache.mirror.cdnetworks.com/hadoop/common/">미러 주소</a>에서 하둡을 다운로드 합니다. 2.7.3 버전을 다운로드 하였습니다.</p>
 
-<pre class="codehilite"><code>wget http://mirror.apache-kr.org/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
+<div class="codehilite"><pre><span></span>wget http://mirror.apache-kr.org/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
 
-tar -xzf hadoop-2.7.3.tar.gz</code></pre>
+tar -xzf hadoop-2.7.3.tar.gz
+</pre></div>
 
 <p>글로벌로 하둡 환경변수를 추가하였습니다.</p>
 
-<pre class="codehilite"><code>export HADOOP_PREFIX=/home/hadoop/hadoop-2.7.3
+<div class="codehilite"><pre><span></span>export HADOOP_PREFIX=/home/hadoop/hadoop-2.7.3
 export HADOOP_HOME=$HADOOP_PREFIX
-export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop</code></pre>
+export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop
+</pre></div>
 
 <h6>/etc/profile.d/hadoop-prefix.sh</h6>
 
-<pre class="codehilite"><code>sudo source /etc/profile</code></pre>
+<div class="codehilite"><pre><span></span>sudo source /etc/profile
+</pre></div>
 
 <p>여기까지 설치했으면 이제 가상 인스턴스를 여러개로 복사하여 host IP 주소만 바꾼 DataNode를 만들기만 하면 됩니다.</p>
 
@@ -145,19 +154,22 @@ export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop</code></pre>
 이제부터 NameNode와 DataNode 설정에 혼란을 방지하기 위해 코드에 해당 노드의 캡션을 추가하였습니다.
 </div>
 
-<pre class="codehilite"><code>ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+<div class="codehilite"><pre><span></span>ssh-keygen -t rsa -P &#39;&#39; -f ~/.ssh/id_rsa
 scp ~/.ssh/id_rsa.pub hadoop@datanode1:/home/hadoop/.ssh/id_rsa.pub
-scp ~/.ssh/id_rsa.pub hadoop@datanode2:/home/hadoop/.ssh/id_rsa.pub</code></pre>
+scp ~/.ssh/id_rsa.pub hadoop@datanode2:/home/hadoop/.ssh/id_rsa.pub
+</pre></div>
 
 <h6>namenode</h6>
 
-<pre class="codehilite"><code>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
-chmod 0600 ~/.ssh/authorized_keys</code></pre>
+<div class="codehilite"><pre><span></span>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+chmod 0600 ~/.ssh/authorized_keys
+</pre></div>
 
 <h6>datanode1, datanode2</h6>
 
-<pre class="codehilite"><code>ssh datanode1
-ssh datanode2</code></pre>
+<div class="codehilite"><pre><span></span>ssh datanode1
+ssh datanode2
+</pre></div>
 
 <h6>namenode: ssh establish</h6>
 
@@ -169,47 +181,50 @@ ssh datanode2</code></pre>
 
 <p><strong>모든 노드</strong>에 파일시스템 주소를 지정하여 IPC를 통해 통신하도록 지정합니다.</p>
 
-<pre class="codehilite"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="cp">&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span>
 
-&lt;configuration&gt;
-        &lt;property&gt;
-                &lt;name&gt;fs.default.name&lt;/name&gt;
-                &lt;value&gt;hdfs://namenode:9000&lt;/value&gt;
-        &lt;/property&gt;
-&lt;/configuration&gt;</code></pre>
+<span class="nt">&lt;configuration&gt;</span>
+        <span class="nt">&lt;property&gt;</span>
+                <span class="nt">&lt;name&gt;</span>fs.default.name<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>hdfs://namenode:9000<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
 
 <h6>everynode(rack): $HADOOP_PREFIX/etc/hadoop/core-site.xml</h6>
 
 <p>데몬을 실행할 때의 환경 변수를 지정합니다. 여기서는 가상머신의 RAM이 1GB밖에 안되기 때문에 기본값이 1000으로 지정된 하둡 힙 사이즈를 그대로 쓰면 JVM에서 오류가 발생할 수 있습니다. 기본적인 변수에 대한 자세한 내용은 <a href="//hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/ClusterSetup.html">공식 문서</a>를 참조하시기 바랍니다.</p>
 
-<pre class="codehilite"><code class="language-sh">export JAVA_HOME=/usr/lib/jvm/default-java
-export HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop
-export HADOOP_HEAPSIZE=512</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/default-java
+<span class="nb">export</span> <span class="nv">HADOOP_CONF_DIR</span><span class="o">=</span><span class="nv">$HADOOP_PREFIX</span>/etc/hadoop
+<span class="nb">export</span> <span class="nv">HADOOP_HEAPSIZE</span><span class="o">=</span><span class="m">512</span>
+</pre></div>
 
 <h6>namenode: $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh</h6>
 
-<pre class="codehilite"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="cp">&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span>
 
-&lt;configuration&gt;
-        &lt;property&gt;
-                &lt;name&gt;dfs.replication&lt;/name&gt;
-                &lt;value&gt;2&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-                &lt;name&gt;dfs.name.dir&lt;/name&gt;
-                &lt;value&gt;/home/hadoop/hadoop-2.7.3/hdfs/name&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-                &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
-                &lt;value&gt;192.168.137.11:50090&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-                &lt;name&gt;dfs.permissions&lt;/name&gt;
-                &lt;value&gt;false&lt;/value&gt;
-        &lt;/property&gt;
-&lt;/configuration&gt;</code></pre>
+<span class="nt">&lt;configuration&gt;</span>
+        <span class="nt">&lt;property&gt;</span>
+                <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>2<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+        <span class="nt">&lt;property&gt;</span>
+                <span class="nt">&lt;name&gt;</span>dfs.name.dir<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>/home/hadoop/hadoop-2.7.3/hdfs/name<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+        <span class="nt">&lt;property&gt;</span>
+                <span class="nt">&lt;name&gt;</span>dfs.namenode.secondary.http-address<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>192.168.137.11:50090<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+        <span class="nt">&lt;property&gt;</span>
+                <span class="nt">&lt;name&gt;</span>dfs.permissions<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>false<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
 
 <h6>namenode: $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml</h6>
 
@@ -217,24 +232,26 @@ export HADOOP_HEAPSIZE=512</code></pre>
 
 <p>각 DataNode에도 마찬가지로 데이터 경로만 지정해 주면 됩니다.</p>
 
-<pre class="codehilite"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="cp">&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span>
 
-&lt;configuration&gt;
-        &lt;property&gt;
-                &lt;name&gt;dfs.permissions&lt;/name&gt;
-                &lt;value&gt;false&lt;/value&gt;
-        &lt;/property&gt;
-        &lt;property&gt;
-                &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
-                &lt;value&gt;/home/hadoop/hadoop-2.7.3/hdfs/data&lt;/value&gt;
-        &lt;/property&gt;
-&lt;/configuration&gt;</code></pre>
+<span class="nt">&lt;configuration&gt;</span>
+        <span class="nt">&lt;property&gt;</span>
+                <span class="nt">&lt;name&gt;</span>dfs.permissions<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>false<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+        <span class="nt">&lt;property&gt;</span>
+                <span class="nt">&lt;name&gt;</span>dfs.datanode.data.dir<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;value&gt;</span>/home/hadoop/hadoop-2.7.3/hdfs/data<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
 
 <p>마지막으로 slave 호스트를 지정해 줍니다.</p>
 
-<pre class="codehilite"><code>datanode1
-datanode2</code></pre>
+<div class="codehilite"><pre><span></span>datanode1
+datanode2
+</pre></div>
 
 <h6>$HADOOP_PREFIX/etc/hadoop/slaves</h6>
 
@@ -243,15 +260,18 @@ datanode2</code></pre>
 <p>이제 NameNode에서 하둡을 차근차근 오류 없이 구동이 되면 성공입니다.
 먼저 파일 시스템을 포맷합니다.</p>
 
-<pre class="codehilite"><code>$HADOOP_PREFIX/bin/hdfs namenode -format &lt;cluster_name&gt;</code></pre>
+<div class="codehilite"><pre><span></span>$HADOOP_PREFIX/bin/hdfs namenode -format &lt;cluster_name&gt;
+</pre></div>
 
 <p>NameNode 데몬을 구동합니다.</p>
 
-<pre class="codehilite"><code>$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode</code></pre>
+<div class="codehilite"><pre><span></span>$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
+</pre></div>
 
 <p>그 후 NameNode에서 DataNode 데몬을 구동합니다.</p>
 
-<pre class="codehilite"><code>$HADOOP_PREFIX/sbin/hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode</code></pre>
+<div class="codehilite"><pre><span></span>$HADOOP_PREFIX/sbin/hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
+</pre></div>
 
 <p>여기서 뜨는 로그를 확인하셔서 오류메시지 없이 다음과 같은 로그가 나오면 제대로 구동이 된 것입니다.</p>
 
@@ -259,16 +279,18 @@ datanode2</code></pre>
 
 <p>앞의 데몬 구동 명령과 중복되는 부분이 있지만 secondary namenode까지 완전히 구동하는 스크립트는 <code>start-dfs.sh</code> 파일입니다.</p>
 
-<pre class="codehilite"><code>$HADOOP_PREFIX/sbin/start-dfs.sh</code></pre>
+<div class="codehilite"><pre><span></span>$HADOOP_PREFIX/sbin/start-dfs.sh
+</pre></div>
 
 <p>구동이 되면 <a href="//hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html">공식 문서</a>의 <em>Pseudo-Distributed Operation</em>에서 MapReduce 작업을 테스트하는 과정을 따라가봅니다.</p>
 
-<pre class="codehilite"><code>bin/hdfs dfs -mkdir /user
+<div class="codehilite"><pre><span></span>bin/hdfs dfs -mkdir /user
 bin/hdfs dfs -mkdir /user/jongwon
 bin/hdfs dfs -put etc/hadoop /user/jongwon
-bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar grep /user/jongwon/hadoop /user/hadoop/output 'dfs[a-z.]+'
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar grep /user/jongwon/hadoop /user/hadoop/output &#39;dfs[a-z.]+&#39;
 bin/hdfs dfs -ls /user/hadoop/output
-bin/hdfs dfs -cat /user/hadoop/output/part-r-00000</code></pre>
+bin/hdfs dfs -cat /user/hadoop/output/part-r-00000
+</pre></div>
 
 <p><img alt="result" src="/image/hadoop/result.png" /></p>
 

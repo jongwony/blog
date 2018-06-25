@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -35,11 +36,12 @@
 
 <p>글을 쓰고나서 다시 보니 <code>views.py</code>에 <code>@cache_control</code>만 달아도 해결되는 문제였군요...</p>
 
-<pre class="codehilite"><code>from django.views.decorators.cache import cache_control
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">django.views.decorators.cache</span> <span class="kn">import</span> <span class="n">cache_control</span>
 
-@cache_control(private=True)
-def my_view(request):
-    ...</code></pre>
+<span class="nd">@cache_control</span><span class="p">(</span><span class="n">private</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
 
   </div>
 

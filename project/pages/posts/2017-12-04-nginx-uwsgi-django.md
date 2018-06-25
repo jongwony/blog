@@ -16,7 +16,7 @@ tags: ['nginx','uwsgi','django']
 
 글을 쓰고나서 다시 보니 `views.py`에 `@cache_control`만 달아도 해결되는 문제였군요...
 
-```
+```python
 from django.views.decorators.cache import cache_control
 
 @cache_control(private=True)

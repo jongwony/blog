@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -184,7 +185,8 @@
 
 <p>웹 개발자가 문자 인코딩을 지정할 곳이 <code>META</code> 태그에도 있습니다.</p>
 
-<pre class="codehilite"><code class="language-html">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
 
 <p>이는 <code>HEAD</code> 섹션에서 찾을 수 있으며 <code>charset</code>의 텍스트는 <strong>claim</strong> 인코딩입니다. HTML은 이 인코딩이라고 주장하지만 실제 적용되는지의 여부는 다른 요소에 따라 결정됩니다.</p>
 
@@ -196,7 +198,8 @@
 
 <p>웹 서버에서 전송되는 <code>Content-Type</code> HTTP 헤더에도 다음과 같은 형식으로 포함될 수 있습니다.</p>
 
-<pre class="codehilite"><code>Content-Type: text/html; charset=ISO-8859-1</code></pre>
+<div class="codehilite"><pre><span></span><span class="nt">Content-Type</span><span class="o">:</span> <span class="nt">text</span><span class="o">/</span><span class="nt">html</span><span class="o">;</span> <span class="nt">charset</span><span class="o">=</span><span class="nt">ISO-8859-1</span>
+</pre></div>
 
 <p>하지만 헤더와 태그는 결국 실제 웹 페이지의 실제 문자를 설명할 뿐이라는 것을 유념해야 합니다.</p>
 

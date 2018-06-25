@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -29,7 +30,8 @@
 <p>Git Shell을 쓰거나 Ruby, Python 스크립트를 쓸 경우</p>
 <p>혹은 cmd창에서 경로를 찾으러 매번 cd와 dir을 입력할 경우가 있습니다.</p>
 <p>시작 위치를 자주 찾는 위치로 변경하고 싶을 경우에는 다음과 같은 방법이 있습니다.</p>
-<pre class="codehilite"><code>C:\Windows\system32\cmd.exe</code></pre></p>
+<div class="codehilite"><pre><span></span>C:\Windows\system32\cmd.exe
+</pre></div></p>
 <p>위 파일의 바로가기를 하나 만듭니다.</p>
 
 <p><img style="width:320px;height:auto" src="/image/cmdstarting.png"/></p>
@@ -38,7 +40,8 @@
 
 <p>또는 <strong>실행</strong> 창에서</p>
 
-<pre class="codehilite"><code>cmd /k &quot;cd C:\&quot;</code></pre>
+<div class="codehilite"><pre><span></span>cmd /k &quot;cd C:\&quot;
+</pre></div>
 
 <p>이렇게 실행하는 방법이 있습니다.</p>
 
@@ -46,15 +49,17 @@
 
 <p>레지스트리에 간단한 스크립트를 넣어서 바꿀 수 있습니다.</p>
 
-<pre class="codehilite"><code>HKEY_CURRENT_USER\SOFTWARE\Microsoft\Command Processor
+<div class="codehilite"><pre><span></span>HKEY_CURRENT_USER\SOFTWARE\Microsoft\Command Processor
 Key : AutoRun
-Value : IF %COMSPEC%==%CD%\cmd.exe (cd {지정할 경로})</code></pre>
+Value : IF %COMSPEC%==%CD%\cmd.exe (cd {지정할 경로})
+</pre></div>
 
 <p><img alt="regadd" src="/image/regaddscript.png" /></p>
 
 <p>적용되었으면 cmd를 실행했을 때 AutoRun 스크립트가 먼저 동작해서 시작경로가 바뀌게 됩니다.</p>
 
-<pre class="codehilite"><code>reg add &quot;HKEY_CURRENT_USER\SOFTWARE\Microsoft\Command Processor&quot; /v AutoRun /d &quot;IF %COMSPEC%==%CD%\cmd.exe (cd C:\)&quot;</code></pre>
+<div class="codehilite"><pre><span></span>reg add &quot;HKEY_CURRENT_USER\SOFTWARE\Microsoft\Command Processor&quot; /v AutoRun /d &quot;IF %COMSPEC%==%CD%\cmd.exe (cd C:\)&quot;
+</pre></div>
 
 <div class="warn">
 

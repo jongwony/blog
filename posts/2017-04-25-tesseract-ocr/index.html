@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -40,18 +41,21 @@
 
 <p>최근에 이를 진행하지 않을 경우 <code>libgtk2.0-dev</code>의 URL을 찾을 수 없다는 에러 메시지가 나타났었습니다.</p>
 
-<pre class="codehilite"><code>sudo apt update
-sudo apt upgrade</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt update
+sudo apt upgrade
+</pre></div>
 
 <h4>Python Tools</h4>
 
 <p><code>python-pip</code>을 통해 여러 의존성 모듈이 함께 설치됩니다.</p>
 
-<pre class="codehilite"><code>sudo apt install python-pip python-dev python-numpy python-Imaging</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt install python-pip python-dev python-numpy python-Imaging
+</pre></div>
 
 <p>이렇게 설치된 <code>pip</code> 버전은 보통 <code>8.1.1</code> 버전입니다. 아래 명령을 통해 <code>9.0.1</code>로 업그레이드 합니다.</p>
 
-<pre class="codehilite"><code>sudo -H pip install --upgrade pip</code></pre>
+<div class="codehilite"><pre><span></span>sudo -H pip install --upgrade pip
+</pre></div>
 
 <h4>Compiler</h4>
 
@@ -66,49 +70,55 @@ sudo apt upgrade</code></pre>
 </li>
 </ul>
 
-<pre class="codehilite"><code># Opencv compile
+<div class="codehilite"><pre><span></span># Opencv compile
 sudo apt install cmake libatlas-base-dev
 
 # Tesseract compile
 sudo apt install autoconf automake libtool autoconf-archive
 
 # Compile interface
-sudo apt install pkg-config</code></pre>
+sudo apt install pkg-config
+</pre></div>
 
 <h4>GTK 2.0</h4>
 
 <p><a href="//www.gtk.org/">GTK</a>는 GUI 인터페이스를 위한 멀티플랫폼 도구입니다.</p>
 
-<pre class="codehilite"><code>sudo apt install libgtk2.0-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt install libgtk2.0-dev
+</pre></div>
 
 <h4>Image Extension</h4>
 
 <p><code>png</code>, <code>jpeg</code>, <code>tiff</code> 등의 이미지를 프로세싱하기 위한 확장입니다.</p>
 
-<pre class="codehilite"><code>sudo apt install libpng12-dev libjpeg8-dev libwebp-dev libtiff5-dev zlib1g-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt install libpng12-dev libjpeg8-dev libwebp-dev libtiff5-dev zlib1g-dev
+</pre></div>
 
 <h4>OpenCV math Optimization(Optional)</h4>
 
 <p><code>cmake</code>를 통해 선택할 수 있는 옵션이며 수학적인 계산을 최적화 해주는 도구입니다.</p>
 
-<pre class="codehilite"><code>sudo apt install libeigen3-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt install libeigen3-dev
+</pre></div>
 
 <h4>Image convert, processing</h4>
 
 <p>Tesseract의 경우 이미지를 <code>mv</code>로 확장자만 변경할 경우 DPI가 손실되어 이미지로 부터 글자를 인식할 수 없습니다. <code>imagemagick</code> 라이브러리는 이미지 컨버팅과 동시에 DPI를 조절할 수 있게 해줍니다.</p>
 
-<pre class="codehilite"><code># image convert, processing
-sudo apt install imagemagick graphicsmagick</code></pre>
+<div class="codehilite"><pre><span></span># image convert, processing
+sudo apt install imagemagick graphicsmagick
+</pre></div>
 
 <h4>Tesseract Training</h4>
 
 <p>Tesseract 학습을 위한 라이브러리이며 이 중 하나라도 설치되지 않으면 Tesseract를 build 할 때 <code>make training</code>을 통한 트레이닝 도구를 빌드할 수 없습니다.</p>
 
-<pre class="codehilite"><code>sudo apt install libicu-dev libpango1.0-dev libcairo2-dev</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt install libicu-dev libpango1.0-dev libcairo2-dev
+</pre></div>
 
 <h2>OpenCV Build</h2>
 
-<pre class="codehilite"><code>git clone https://github.com/Itseez/opencv.git
+<div class="codehilite"><pre><span></span>git clone https://github.com/Itseez/opencv.git
 cd opencv
 mkdir build
 cd build
@@ -119,7 +129,8 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 
 make -j4
 sudo make install
-sudo ldconfig</code></pre>
+sudo ldconfig
+</pre></div>
 
 <h2>Leptonica Build</h2>
 
@@ -162,13 +173,14 @@ sudo ldconfig</code></pre>
 </tbody>
 </table>
 
-<pre class="codehilite"><code>git clone https://github.com/DanBloomberg/leptonica.git
+<div class="codehilite"><pre><span></span>git clone https://github.com/DanBloomberg/leptonica.git
 cd leptonica
 ./autobuild
 ./configure
 make -j4
 sudo make install
-sudo ldconfig</code></pre>
+sudo ldconfig
+</pre></div>
 
 <h2>Tesseract Build</h2>
 
@@ -176,29 +188,33 @@ sudo ldconfig</code></pre>
 
 <p><code>unicharset</code> 파일 등을 생성하기 위해 필요합니다.</p>
 
-<pre class="codehilite"><code>git clone https://github.com/tesseract-ocr/langdata.git</code></pre>
+<div class="codehilite"><pre><span></span>git clone https://github.com/tesseract-ocr/langdata.git
+</pre></div>
 
 <p>Ubuntu 버전 및 Laptonica 버전에 따라 오류가 발생할 수 있습니다.</p>
 
 <p><code>./configure</code>에서 오류가 발생할 경우 <a href="//github.com/tesseract-ocr/tesseract/wiki/Compiling#compilation">설치 문서</a>를 참고하시기 바랍니다.</p>
 
-<pre class="codehilite"><code>git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
+<div class="codehilite"><pre><span></span>git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
 cd tesseract
 ./autogen.sh
 ./configure --enable-debug
 LDFLAGS=&quot;-L/usr/local/lib&quot; CFLAGS=&quot;-I/usr/local/include&quot; make
 sudo make install
-sudo ldconfig</code></pre>
+sudo ldconfig
+</pre></div>
 
 <p>설치 완료 후 학습 도구를 추가로 컴파일합니다.</p>
 
-<pre class="codehilite"><code>make training
-sudo make training-install</code></pre>
+<div class="codehilite"><pre><span></span>make training
+sudo make training-install
+</pre></div>
 
 <p>마지막으로 Python에서 Tesseract-ocr을 사용하기 위해 제공되는 언어 데이터와 <code>pytesseract</code>를 설치합니다.</p>
 
-<pre class="codehilite"><code>sudo apt install tesseract-ocr-eng tesseract-ocr-kor
-sudo -H pip install pytesseract</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt install tesseract-ocr-eng tesseract-ocr-kor
+sudo -H pip install pytesseract
+</pre></div>
 
 <h2>Version Check</h2>
 
@@ -206,50 +222,54 @@ sudo -H pip install pytesseract</code></pre>
 
 <h4>OpenCV</h4>
 
-<pre class="codehilite"><code class="language-python"># Python OpenCV
-import cv2
-cv2.__version__</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># Python OpenCV</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
 
 <h4>Tesseract</h4>
 
-<pre class="codehilite"><code># Tesseract
+<div class="codehilite"><pre><span></span># Tesseract
 tesseract --version
 
 # Tesseract repo
 cd ~/tesseract
-git log</code></pre>
+git log
+</pre></div>
 
 <h4>Leptonica</h4>
 
-<pre class="codehilite"><code># Leptonica repo
+<div class="codehilite"><pre><span></span># Leptonica repo
 cd ~/leptonica
-git describe</code></pre>
+git describe
+</pre></div>
 
 <h2>Hello World</h2>
 
 <p>설치가 완료되었습니다. 간단한 예제를 작성해 보겠습니다.</p>
 
-<pre class="codehilite"><code class="language-python">import os
-import cv2
-import Image
-import pytesseract
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">Image</span>
+<span class="kn">import</span> <span class="nn">pytesseract</span>
 
-os.environ['TESSDATA_PREFIX'] = '/usr/share/tesseract-ocr'
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TESSDATA_PREFIX&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/usr/share/tesseract-ocr&#39;</span>
 
-def cv2Threshold(path):
-    img = cv2.imread(path)
-    dest = 'result.png'
+<span class="k">def</span> <span class="nf">cv2Threshold</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">dest</span> <span class="o">=</span> <span class="s1">&#39;result.png&#39;</span>
 
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    ret, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="n">ret</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
 
-    cv2.imwrite(dest, thr)
-    print(pytesseract.image_to_string(Image.open(dest)))
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">thr</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">pytesseract</span><span class="o">.</span><span class="n">image_to_string</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dest</span><span class="p">)))</span>
 
-    return dest
+    <span class="k">return</span> <span class="n">dest</span>
 
-if __name__ == '__main__':
-    cv2Threshold('test.png')</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">cv2Threshold</span><span class="p">(</span><span class="s1">&#39;test.png&#39;</span><span class="p">)</span>
+</pre></div>
 
 <h6>hello.py</h6>
 

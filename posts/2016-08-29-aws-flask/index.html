@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -45,69 +46,78 @@ EC2 인스턴스에 Python 2.6 환경을 모두 통일 시켰기 때문에 따�
 
 <p><hr />
 <p>먼저 패키지 업데이트를 진행합니다.</p>
-<pre class="codehilite"><code>sudo apt-get update
-sudo apt-get upgrade</code></pre></p>
+<div class="codehilite"><pre><span></span>sudo apt-get update
+sudo apt-get upgrade
+</pre></div></p>
 <p>Flask uWSGI Nginx를 설치합니다.</p>
 
-<pre class="codehilite"><code>sudo apt-get install python-pip python-dev
+<div class="codehilite"><pre><span></span>sudo apt-get install python-pip python-dev
 sudo apt-get install nginx
-sudo -H pip install uwsgi flask</code></pre>
+sudo -H pip install uwsgi flask
+</pre></div>
 
 <p>홈 디렉터리와 /var/www 디렉터리를 연결하기 위해 디렉터리를 생성하고 소유권한을 부여합니다.</p>
 
-<pre class="codehilite"><code>sudo mkdir -p /var/www/myflask /var/log/uwsgi
-sudo chown -R ubuntu:ubuntu /var/www /var/log/uwsgi</code></pre>
+<div class="codehilite"><pre><span></span>sudo mkdir -p /var/www/myflask /var/log/uwsgi
+sudo chown -R ubuntu:ubuntu /var/www /var/log/uwsgi
+</pre></div>
 
 <p>홈 디렉터리에 작업할 공간을 만들어서 심볼릭 링크로 연결합니다.</p>
 
-<pre class="codehilite"><code>mkdir ~/myflask
-ln -s /var/www/myflask ~</code></pre>
+<div class="codehilite"><pre><span></span>mkdir ~/myflask
+ln -s /var/www/myflask ~
+</pre></div>
 
 <h2>uWSGI configuration</h2>
 
 <p>이제 uWSGI를 위한 application을 만들어 줍니다.</p>
 
-<pre class="codehilite"><code class="language-bash">cd ~/myflask
-vi hello.py</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> ~/myflask
+vi hello.py
+</pre></div>
 
-<pre class="codehilite"><code class="language-python">from flask import Flask
-app = Flask(__name__)
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-@app.route('/')
-def index():
-  return 'Index Page'
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+  <span class="k">return</span> <span class="s1">&#39;Index Page&#39;</span>
 
-if __name__ == &quot;__main__&quot;:
-  app.run()</code></pre>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+  <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
 
 <p>uWSGI 소켓을 생성하기 위해 ini 파일을 생성합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">cd ~/myflask
-vi uwsgi.ini</code></pre>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> ~/myflask
+vi uwsgi.ini
+</pre></div>
 
-<pre class="codehilite"><code class="language-ini">[uwsgi]
-master = true
-shared-socket = 0.0.0.0:443
-socket = /var/www/%n.sock
-chmod-socket = 666
-logto = /var/log/uwsgi/%n.log
-plugin = python
-enable-threads = true
-single-interpreter = true
-module = hello
-callable = app
-manage-script-name = true
-vacuum = true
-env = HTTPS=on</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">[uwsgi]</span>
+<span class="na">master</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">shared-socket</span> <span class="o">=</span> <span class="s">0.0.0.0:443</span>
+<span class="na">socket</span> <span class="o">=</span> <span class="s">/var/www/%n.sock</span>
+<span class="na">chmod-socket</span> <span class="o">=</span> <span class="s">666</span>
+<span class="na">logto</span> <span class="o">=</span> <span class="s">/var/log/uwsgi/%n.log</span>
+<span class="na">plugin</span> <span class="o">=</span> <span class="s">python</span>
+<span class="na">enable-threads</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">single-interpreter</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">hello</span>
+<span class="na">callable</span> <span class="o">=</span> <span class="s">app</span>
+<span class="na">manage-script-name</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">vacuum</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">env</span> <span class="o">=</span> <span class="s">HTTPS=on</span>
+</pre></div>
 
 <h2>HTTPS Nginx</h2>
 
 <p>HTTPS를 사용하는 이유는 추후에 WebRTC를 이 웹서버에 사용하기 위함입니다.</p>
 
-<pre class="codehilite"><code class="language-bash">mkdir ~/ssl
-cd ~/ssl
-openssl genrsa -out privkey.pem 2048
-openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095</code></pre>
+<div class="codehilite"><pre><span></span>mkdir ~/ssl
+<span class="nb">cd</span> ~/ssl
+openssl genrsa -out privkey.pem <span class="m">2048</span>
+openssl req -new -x509 -key privkey.pem -out cacert.pem -days <span class="m">1095</span>
+</pre></div>
 
 <div class='warn'>
 테스트를 위한 서명되지 않은 인증서입니다. <br> 웹페이지에 접속할 경우 경고창이 뜨며 무시하고 https로 접속할 수 있습니다.
@@ -121,50 +131,54 @@ openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095</code></pre>
 
 <h2>Nginx configuration</h2>
 
-<pre class="codehilite"><code class="language-bash">sudo vi /etc/nginx/sites-available/myflask</code></pre>
+<div class="codehilite"><pre><span></span>sudo vi /etc/nginx/sites-available/myflask
+</pre></div>
 
-<pre class="codehilite"><code class="language-nginx">upstream uwsgicluster {
-  server unix:///var/www/uwsgi.sock;
-  # server 127.0.0.1
-}
+<div class="codehilite"><pre><span></span><span class="k">upstream</span> <span class="s">uwsgicluster</span> <span class="p">{</span>
+  <span class="kn">server</span> <span class="s">unix:///var/www/uwsgi.sock</span><span class="p">;</span>
+  <span class="c1"># server 127.0.0.1</span>
+<span class="p">}</span>
 
-server {
-  listen 80;
-  server_name _;
-  rewrite ^ https://$http_host$request_uri? permanent;
-}
+<span class="k">server</span> <span class="p">{</span>
+  <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+  <span class="kn">server_name</span> <span class="s">_</span><span class="p">;</span>
+  <span class="kn">rewrite</span> <span class="s">^</span> <span class="s">https://</span><span class="nv">$http_host$request_uri?</span> <span class="s">permanent</span><span class="p">;</span>
+<span class="p">}</span>
 
-server {
-  listen 443;
-  server_name _;
-  ssl on;
-  ssl_certificate /home/ubuntu/ssl/cacert.pem;
-  ssl_certificate_key /home/ubuntu/ssl/privkey.pem;
-  access_log /var/log/uwsgi/access_log;
+<span class="k">server</span> <span class="p">{</span>
+  <span class="kn">listen</span> <span class="mi">443</span><span class="p">;</span>
+  <span class="kn">server_name</span> <span class="s">_</span><span class="p">;</span>
+  <span class="kn">ssl</span> <span class="no">on</span><span class="p">;</span>
+  <span class="kn">ssl_certificate</span> <span class="s">/home/ubuntu/ssl/cacert.pem</span><span class="p">;</span>
+  <span class="kn">ssl_certificate_key</span> <span class="s">/home/ubuntu/ssl/privkey.pem</span><span class="p">;</span>
+  <span class="kn">access_log</span> <span class="s">/var/log/uwsgi/access_log</span><span class="p">;</span>
 
-  location / {
-    root /var/www/myflask;
-    uwsgi_pass uwsgicluster;
-    include uwsgi_params;
-    uwsgi_param UWSGI_SCRIPT hello.py;
-  }
+  <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+    <span class="kn">root</span> <span class="s">/var/www/myflask</span><span class="p">;</span>
+    <span class="kn">uwsgi_pass</span> <span class="s">uwsgicluster</span><span class="p">;</span>
+    <span class="kn">include</span> <span class="s">uwsgi_params</span><span class="p">;</span>
+    <span class="kn">uwsgi_param</span> <span class="s">UWSGI_SCRIPT</span> <span class="s">hello.py</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  location /static {
-    alias /var/www/myflask/static;
+  <span class="kn">location</span> <span class="s">/static</span> <span class="p">{</span>
+    <span class="kn">alias</span> <span class="s">/var/www/myflask/static</span><span class="p">;</span>
 
-    if (!-f $request_filename) {
-      uwsgi_pass uwsgicluster;
-    }
-  }
-}</code></pre>
+    <span class="kn">if</span> <span class="s">(!-f</span> <span class="nv">$request_filename</span><span class="s">)</span> <span class="p">{</span>
+      <span class="kn">uwsgi_pass</span> <span class="s">uwsgicluster</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
-<pre class="codehilite"><code class="language-bash">sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/myflask /etc/nginx/sites-enabled/myflask</code></pre>
+<div class="codehilite"><pre><span></span>sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/myflask /etc/nginx/sites-enabled/myflask
+</pre></div>
 
 <h2>Service</h2>
 
-<pre class="codehilite"><code>sudo service nginx start
-uwsgi --ini ~/myflask/uwsgi.ini &amp;</code></pre>
+<div class="codehilite"><pre><span></span>sudo service nginx start
+uwsgi --ini ~/myflask/uwsgi.ini &amp;
+</pre></div>
 
   </div>
 

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -33,20 +34,21 @@
 
 <p>우선 Javascript 코드를 보면서 천천히 짚어보도록 합니다.</p>
 
-<pre class="codehilite"><code class="language-javascript">function closure() {
-    var num = 0;
-    var anony = function() {
-        console.log(num);
-        num += 1;
-    }
-    return anony
-}
+<div class="codehilite"><pre><span></span><span class="kd">function</span> <span class="nx">closure</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">anony</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">);</span>
+        <span class="nx">num</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">anony</span>
+<span class="p">}</span>
 
-var func = closure();
+<span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="nx">closure</span><span class="p">();</span>
 
-func();  // 0
-func();  // 1
-func();  // 2</code></pre>
+<span class="nx">func</span><span class="p">();</span>  <span class="c1">// 0</span>
+<span class="nx">func</span><span class="p">();</span>  <span class="c1">// 1</span>
+<span class="nx">func</span><span class="p">();</span>  <span class="c1">// 2</span>
+</pre></div>
 
 <p>먼저 <em>first-class</em> 함수의 성질을 살펴 볼 수 있습니다.<br />
 <code>closure</code> 함수 내부에 익명 함수가 보이는데 이 익명함수를 <code>anony</code> 로컬 변수에 할당하였으며 결론적으로 익명 함수를 리턴하게 됩니다.</p>
@@ -54,19 +56,20 @@ func();  // 2</code></pre>
 <p><em>closure</em> 개념은 <em>first-class</em> 함수의 성질을 만족하는 대부분의 언어에 존재합니다. <a href="//en.wikipedia.org/wiki/First-class_function">도표 참조.</a>
 예를 들어 Python 코드에서는 다음과 같이 구현할 수 있습니다.</p>
 
-<pre class="codehilite"><code class="language-python">def closure():
-    num = 0
-    def anony():
-        nonlocal num
-        print(num)
-        num += 1
-    return anony
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">anony</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">num</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">anony</span>
 
-func = closure()
+<span class="n">func</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>
 
-func()  # 0
-func()  # 1
-func()  # 2</code></pre>
+<span class="n">func</span><span class="p">()</span>  <span class="c1"># 0</span>
+<span class="n">func</span><span class="p">()</span>  <span class="c1"># 1</span>
+<span class="n">func</span><span class="p">()</span>  <span class="c1"># 2</span>
+</pre></div>
 
 <p>Javascript에서는 <em>scope</em> 규칙이 적용되어 익명 함수 안에서도 외부 변수가 참조 가능하지만 Python에서는 <code>nonlocal</code>을 명시적으로 지정하여 <em>scope</em> 규칙을 명확히 하는 모습입니다.</p>
 
@@ -74,9 +77,10 @@ func()  # 2</code></pre>
 
 <p>앞서 <em>stack frame</em>을 언급했지만 이는 다음과 같은 실험으로도 감을 잡으실 수 있습니다.</p>
 
-<pre class="codehilite"><code class="language-python">closure()()     # 0
-closure()()     # 0
-closure()()     # 0</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">closure</span><span class="p">()()</span>     <span class="c1"># 0</span>
+<span class="n">closure</span><span class="p">()()</span>     <span class="c1"># 0</span>
+<span class="n">closure</span><span class="p">()()</span>     <span class="c1"># 0</span>
+</pre></div>
 
 <p>첫번째로 <code>closure()()</code>와 같이 호출 할 수 있다는 점과 두번째로 <code>num</code>이 원래 로컬 변수처럼 <code>0</code>을 리턴하였습니다.</p>
 
@@ -88,16 +92,17 @@ closure()()     # 0</code></pre>
 일반적으로 이 정보는 <em>heap</em>에 할당되며 <em>stack</em>에서 EBP 레지스터를 통해 참조합니다.
 예를 들어 다음과 같이 함수 내부에 함수가 호출되면</p>
 
-<pre class="codehilite"><code class="language-python">def a():
-    b()
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">a</span><span class="p">():</span>
+    <span class="n">b</span><span class="p">()</span>
 
-def b():
-    c()
+<span class="k">def</span> <span class="nf">b</span><span class="p">():</span>
+    <span class="n">c</span><span class="p">()</span>
 
-def c():
-    pass
+<span class="k">def</span> <span class="nf">c</span><span class="p">():</span>
+    <span class="k">pass</span>
 
-a()</code></pre>
+<span class="n">a</span><span class="p">()</span>
+</pre></div>
 
 <p><code>a()</code>를 통해 호출하면 <code>b()</code> 호출 시 <em>stack frame</em>이 생성되며 마찬가지로 <code>c()</code> 호출 후 먼저 <code>c()</code>가 종료되어 <em>stack frame</em>을 참조하여 <code>b()</code>로 되돌아가서 <code>b()</code>가 종료되고 마찬가지로 <code>a()</code>가 가장 마지막에 종료됩니다.</p>
 
@@ -115,52 +120,54 @@ a()</code></pre>
 
 <p>실제로 코드 사이사이에 이를 집어넣어 확인해 보면</p>
 
-<pre class="codehilite"><code class="language-python">import sys
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 
-def closure():
-    num = 0
-    print(sys._getframe(0).f_locals)
-    def anony():
-        num += 1
-        print(sys._getframe(0).f_locals)
-    return anony
+<span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">anony</span><span class="p">():</span>
+        <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">anony</span>
 
-func = closure()    # {'num': 0}
-func()              # {'num': 1}
-func()              # {'num': 2}
-func()              # {'num': 3}</code></pre>
+<span class="n">func</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>    <span class="c1"># {&#39;num&#39;: 0}</span>
+<span class="n">func</span><span class="p">()</span>              <span class="c1"># {&#39;num&#39;: 1}</span>
+<span class="n">func</span><span class="p">()</span>              <span class="c1"># {&#39;num&#39;: 2}</span>
+<span class="n">func</span><span class="p">()</span>              <span class="c1"># {&#39;num&#39;: 3}</span>
+</pre></div>
 
 <p>그렇다면 이 성질을 이용하여 <code>closure()()()()...</code> 형태도 가능함을 알 수 있습니다.
 실제로 다음과 같은 3중으로 중첩된 <em>closure</em>도 만들 수 있습니다.</p>
 
-<pre class="codehilite"><code class="language-python">def closure():
-    v = 0
-    w = 0
-    print(sys._getframe(0).f_locals)
-    def anony():
-        nonlocal v
-        v += 1
-        print(sys._getframe(0).f_locals)
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">anony</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">v</span>
+        <span class="n">v</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
 
-        def anony2():
-            nonlocal v
-            nonlocal w
-            w -= 1
-            print(sys._getframe(0).f_locals)
-        return anony2
-    return anony
+        <span class="k">def</span> <span class="nf">anony2</span><span class="p">():</span>
+            <span class="n">nonlocal</span> <span class="n">v</span>
+            <span class="n">nonlocal</span> <span class="n">w</span>
+            <span class="n">w</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">anony2</span>
+    <span class="k">return</span> <span class="n">anony</span>
 
-func = closure()    # {'w': 0, 'v': 0}
+<span class="n">func</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()</span>    <span class="c1"># {&#39;w&#39;: 0, &#39;v&#39;: 0}</span>
 
-func()              # {'w': 0, 'v': 1}
-func()              # {'w': 0, 'v': 2}
-func()              # {'w': 0, 'v': 3}
+<span class="n">func</span><span class="p">()</span>              <span class="c1"># {&#39;w&#39;: 0, &#39;v&#39;: 1}</span>
+<span class="n">func</span><span class="p">()</span>              <span class="c1"># {&#39;w&#39;: 0, &#39;v&#39;: 2}</span>
+<span class="n">func</span><span class="p">()</span>              <span class="c1"># {&#39;w&#39;: 0, &#39;v&#39;: 3}</span>
 
-func2 = closure()() # {'w': 0, 'v': 0} {'w': 0, 'v': 1}
+<span class="n">func2</span> <span class="o">=</span> <span class="n">closure</span><span class="p">()()</span> <span class="c1"># {&#39;w&#39;: 0, &#39;v&#39;: 0} {&#39;w&#39;: 0, &#39;v&#39;: 1}</span>
 
-func2()             # {'w': -1, 'v': 1}
-func2()             # {'w': -2, 'v': 1}
-func2()             # {'w': -3, 'v': 1}</code></pre>
+<span class="n">func2</span><span class="p">()</span>             <span class="c1"># {&#39;w&#39;: -1, &#39;v&#39;: 1}</span>
+<span class="n">func2</span><span class="p">()</span>             <span class="c1"># {&#39;w&#39;: -2, &#39;v&#39;: 1}</span>
+<span class="n">func2</span><span class="p">()</span>             <span class="c1"># {&#39;w&#39;: -3, &#39;v&#39;: 1}</span>
+</pre></div>
 
 <p>Python에서는 <code>nonlocal</code>을 사용하지 않음으로써 <em>scope</em>가 조절이 가능해 해당 변수를 제외시킬 수도 있습니다.</p>
 

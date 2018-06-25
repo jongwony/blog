@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -32,24 +33,28 @@
 
 <p>실행 정책을 스크립트를 실행 가능하도록 합니다.</p>
 
-<pre class="codehilite"><code class="language-powershell"># Run Administrator
-Set-ExecutionPolicy BYPASS</code></pre>
+<div class="codehilite"><pre><span></span><span class="c"># Run Administrator</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">BYPASS</span>
+</pre></div>
 
 <p>관리자 권한으로 PowerShell을 실행한 후 <em>Chocolatey</em>를 사용하여 <em>putty</em>를 설치합니다.</p>
 
-<pre class="codehilite"><code class="language-powershell"># Run Administrator
-choco install putty</code></pre>
+<div class="codehilite"><pre><span></span><span class="c"># Run Administrator</span>
+<span class="n">choco</span> <span class="n">install</span> <span class="n">putty</span>
+</pre></div>
 
 <p>터미널에서 <code>plink</code> 키워드로 실행할 수 있습니다.<br />
 (개인적으로 이런 터미널 스타트 명령어쯤은 chocolatey 설치 페이지에 같이 소개했으면 하는 바람이...)</p>
 
 <p>추가로 <code>pscp</code>, <code>psftp</code> 명령을 실행할 수도 있습니다.</p>
 
-<pre class="codehilite"><code>plink --help</code></pre>
+<div class="codehilite"><pre><span></span>plink --help
+</pre></div>
 
 <p>간단한 사용 예(ubuntu, 운영체제마다 AWS Connect 참조)</p>
 
-<pre class="codehilite"><code>plink -ssh -i [puttygen으로 keypair pem -&gt; ppk 변환] ubuntu@[AWS Instance Public DNS]</code></pre>
+<div class="codehilite"><pre><span></span>plink -ssh -i [puttygen으로 keypair pem -&gt; ppk 변환] ubuntu@[AWS Instance Public DNS]
+</pre></div>
 
 <h2>Trouble?</h2>
 
@@ -67,7 +72,8 @@ choco install putty</code></pre>
 
 <p>PowerShell 인터럽트가 먼저 처리되어 종료되는 것 같습니다. 저의 경우는 <code>stty</code>를 통해 키맵을 변경하였습니다. 예를 들어 Ubuntu에서</p>
 
-<pre class="codehilite"><code>stty intr ^W</code></pre>
+<div class="codehilite"><pre><span></span>stty intr ^W
+</pre></div>
 
 <h6>.profile(SIGINT를 Ctrl + W로 변경)</h6>
 
@@ -81,17 +87,19 @@ vim에서 동작이 안되는 키가 있습니다.
 
 <p>예를 들어 <code>insert</code> 모드에서의 키맵은</p>
 
-<pre class="codehilite"><code>imap `` &lt;Esc&gt;</code></pre>
+<div class="codehilite"><pre><span></span>imap `` &lt;Esc&gt;
+</pre></div>
 
 <h6>` 두번 입력으로 ESC 역할 변경</h6>
 
-<pre class="codehilite"><code>:nmap - Display normal mode maps
+<div class="codehilite"><pre><span></span>:nmap - Display normal mode maps
 :imap - Display insert mode maps
 :vmap - Display visual and select mode maps
 :smap - Display select mode maps
 :xmap - Display visual mode maps
 :cmap - Display command-line mode maps
-:omap - Display operator pending mode maps</code></pre>
+:omap - Display operator pending mode maps
+</pre></div>
 
 <p>위와 같이 다양한 모드에서의 키 변경을 할 수 있습니다.</p>
 

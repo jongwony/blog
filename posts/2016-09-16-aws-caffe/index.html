@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="/blog/static/css/style.css">
     <link rel="stylesheet" href="/blog/static/css/custom.css">
+    <link rel="stylesheet" href="/blog/static/css/vim.css">
 </head>
 
 <body class="box">
@@ -47,28 +48,33 @@
 <li>-d : detach, -R : new screen or reattach, -ls : list</li>
 </ul>
 
-<pre class="codehilite"><code>screen -ls
-screen -d -R newname</code></pre>
+<div class="codehilite"><pre><span></span>screen -ls
+screen -d -R newname
+</pre></div>
 
 <p>SFTP 등을 이용하여 <a href="//developer.nvidia.com/cuda-downloads">CUDA 다운로드 패키지</a>를 EC2로 전송합니다.</p>
 
-<pre class="codehilite"><code>sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb</code></pre>
+<div class="codehilite"><pre><span></span>sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb
+</pre></div>
 
 <p>패키지 업데이트 &amp; 업그레이드를 진행하여 CUDA 패키지를 추가합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get update
-sudo apt-get upgrade</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get update
+sudo apt-get upgrade
+</pre></div>
 
 <p>Git과 개발 도구를 설치합니다.</p>
 
-<pre class="codehilite"><code>sudo apt-get install git
+<div class="codehilite"><pre><span></span>sudo apt-get install git
 sudo apt-get install python-pip python-dev
-sudo apt-get install gcc g++ gfortran</code></pre>
+sudo apt-get install gcc g++ gfortran
+</pre></div>
 
 <p>드라이버가 포함된 패키지입니다. 이 과정을 건너뛸 경우 CUDA 설치가 제대로 안될 수 있습니다.
 linux-image, linux-headers는 인스턴스에 미리 설치되어 있었습니다.</p>
 
-<pre class="codehilite"><code class="language-bash">sudo apt-get install linux-image-extra-`uname -r`</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install linux-image-extra-<span class="sb">`</span>uname -r<span class="sb">`</span>
+</pre></div>
 
 <h2>Caffe Prerequisite</h2>
 
@@ -76,40 +82,45 @@ linux-image, linux-headers는 인스턴스에 미리 설치되어 있었습니�
 
 <p><a href="http://caffe.berkeleyvision.org/install_apt.html">http://caffe.berkeleyvision.org/install_apt.html</a></p>
 
-<pre class="codehilite"><code>sudo apt-get install opencl-headers build-essential \
+<div class="codehilite"><pre><span></span>sudo apt-get install opencl-headers build-essential \
   protobuf-compiler libprotoc-dev libboost-all-dev libleveldb-dev \
   hdf5-tools libhdf5-serial-dev \
   libopencv-core-dev libopencv-highgui-dev \
   libsnappy-dev libsnappy1 libatlas-base-dev cmake libstdc++6-4.8-dbg \
-  libgoogle-glog0 libgoogle-glog-dev libgflags-dev liblmdb-dev</code></pre>
+  libgoogle-glog0 libgoogle-glog-dev libgflags-dev liblmdb-dev
+</pre></div>
 
 <h4>CUDA 7.5 설치</h4>
 
-<pre class="codehilite"><code>sudo apt-get install cuda
-sudo apt-get clean</code></pre>
+<div class="codehilite"><pre><span></span>sudo apt-get install cuda
+sudo apt-get clean
+</pre></div>
 
 <h4>cuDNN v5.1 설치</h4>
 
 <p>GPU를 이용한 딥러닝을 위한 <a href="https://developer.nvidia.com/cudnn">cuDNN을 설치</a>합니다.
 NVIDIA 멤버십 가입이 필요합니다.</p>
 
-<pre class="codehilite"><code>tar xvzf cudnn-7.5-linux-x64-v5.1.solitairetheme8
+<div class="codehilite"><pre><span></span>tar xvzf cudnn-7.5-linux-x64-v5.1.solitairetheme8
 sudo cp -v cuda/include/* /usr/local/cuda/include
 sudo cp -v cuda/lib64/libcudnn* /usr/local/cuda/lib64/
-sudo ldconfig /usr/local/cuda/lib64</code></pre>
+sudo ldconfig /usr/local/cuda/lib64
+</pre></div>
 
 <p><code>sudo ldconfig</code> 를 진행했을 때 아래의 메시지가 나타나는 것은 영향이 없습니다.</p>
 
-<pre class="codehilite"><code>/usr/local/cuda/lib64/libcudnn.so.5 is not a symbolic link</code></pre>
+<div class="codehilite"><pre><span></span>/usr/local/cuda/lib64/libcudnn.so.5 is not a symbolic link
+</pre></div>
 
 <h4>CUDA 환경변수 설정</h4>
 
-<pre class="codehilite"><code class="language-bash">vi ~/.bashrc
-export PATH=/usr/local/cuda/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+<div class="codehilite"><pre><span></span>vi ~/.bashrc
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/cuda/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/local/cuda/lib64:<span class="nv">$LD_LIBRARY_PATH</span>
 
 sudo -i
-reboot</code></pre>
+reboot
+</pre></div>
 
 <p>Caffe와 py-faster-rcnn/caffe-fast-rcnn을 둘다 컴파일 할 경우 cuDNN 호환 에러가 발생합니다.</p>
 
@@ -117,19 +128,21 @@ reboot</code></pre>
 
 <p><a href="//github.com/rbgirshick/py-faster-rcnn/issues/237">https://github.com/rbgirshick/py-faster-rcnn/issues/237</a></p>
 
-<pre class="codehilite"><code class="language-bash">git clone --recursive https://github.com/rbgirshick/py-faster-rcnn.git
+<div class="codehilite"><pre><span></span>git clone --recursive https://github.com/rbgirshick/py-faster-rcnn.git
 
-cd py-faster-rcnn/caffe-fast-rcnn
+<span class="nb">cd</span> py-faster-rcnn/caffe-fast-rcnn
 git remote add https://github.com/BVLC/caffe.git
 git fetch caffe
-git merge caffe/master</code></pre>
+git merge caffe/master
+</pre></div>
 
 <p>위 링크를 보시면 merge 한 후 충돌이 일어난 부분을 주석처리합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">vi include/caffe/layers/python_layer.hpp
+<div class="codehilite"><pre><span></span>vi include/caffe/layers/python_layer.hpp
 
-# 주석처리
-// self_.attr(&quot;phase&quot;) = static_cast&lt;int&gt;(this-&gt;phase_);</code></pre>
+<span class="c1"># 주석처리</span>
+// self_.attr<span class="o">(</span><span class="s2">&quot;phase&quot;</span><span class="o">)</span> <span class="o">=</span> static_cast&lt;int&gt;<span class="o">(</span>this-&gt;phase_<span class="o">)</span><span class="p">;</span>
+</pre></div>
 
 <!--
 
@@ -139,9 +152,10 @@ wzxhzdk:12
 
 <p>아래 경로의 requirements.txt에 따른 python 모듈을 모두 설치합니다.</p>
 
-<pre class="codehilite"><code class="language-bash"># sudo -H pip install --upgrade setuptools
-cd py-faster-rcnn/caffe-faster-rcnn/python
-for req in $(cat requirements.txt); do sudo -H pip install $req | cut -d &quot;&gt;&quot; -f1; done</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># sudo -H pip install --upgrade setuptools</span>
+<span class="nb">cd</span> py-faster-rcnn/caffe-faster-rcnn/python
+<span class="k">for</span> req in <span class="k">$(</span>cat requirements.txt<span class="k">)</span><span class="p">;</span> <span class="k">do</span> sudo -H pip install <span class="nv">$req</span> <span class="p">|</span> cut -d <span class="s2">&quot;&gt;&quot;</span> -f1<span class="p">;</span> <span class="k">done</span>
+</pre></div>
 
 <h2>OpenCV GPU 설치</h2>
 
@@ -159,41 +173,45 @@ for req in $(cat requirements.txt); do sudo -H pip install $req | cut -d &quot;&
 
 <p>라이브러리 대부분이 CUDA 설치 시에 설치 되었습니다.</p>
 
-<pre class="codehilite"><code class="language-bash"># sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev (설치되어 있음)
-sudo apt-get install libv4l-dev</code></pre>
+<div class="codehilite"><pre><span></span><span class="c1"># sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev (설치되어 있음)</span>
+sudo apt-get install libv4l-dev
+</pre></div>
 
 <!-- sudo apt-get install unzip
 wget https://github.com/Itseez/opencv/archive/2.4.13.zip
 unzip 2.4.13.zip
 cd opencv-2.4.13 -->
 
-<pre class="codehilite"><code class="language-bash">git clone https://github.com/opencv/opencv.git
-cd opencv
+<div class="codehilite"><pre><span></span>git clone https://github.com/opencv/opencv.git
+<span class="nb">cd</span> opencv
 mkdir build
-cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-  -D CMAKE_INSTALL_PREFIX=/usr/local \
-  -D WITH_CUDA=ON \
-  -D WITH_CUBLAS=1 \
-  -D INSTALL_PYTHON_EXAMPLES=ON \
-  -D BUILD_EXAMPLES=ON ..
+<span class="nb">cd</span> build
+cmake -D <span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>RELEASE <span class="se">\</span>
+  -D <span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span>/usr/local <span class="se">\</span>
+  -D <span class="nv">WITH_CUDA</span><span class="o">=</span>ON <span class="se">\</span>
+  -D <span class="nv">WITH_CUBLAS</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+  -D <span class="nv">INSTALL_PYTHON_EXAMPLES</span><span class="o">=</span>ON <span class="se">\</span>
+  -D <span class="nv">BUILD_EXAMPLES</span><span class="o">=</span>ON ..
 
 make -j8
 sudo make -j8 install
-sudo ldconfig</code></pre>
+sudo ldconfig
+</pre></div>
 
 <p><a href="//stackoverflow.com/questions/29274638/opencv-libdc1394-error-failed-to-initialize-libdc1394">http://stackoverflow.com/questions/29274638/opencv-libdc1394-error-failed-to-initialize-libdc1394</a></p>
 
-<pre class="codehilite"><code class="language-bash"># sudo apt-get install libdc1394-22 libdc1394-22-dev(설치되어 있음)
+<div class="codehilite"><pre><span></span><span class="c1"># sudo apt-get install libdc1394-22 libdc1394-22-dev(설치되어 있음)</span>
 sudo apt-get install libdc1394-utils
-sudo ln /dev/null /dev/raw1394</code></pre>
+sudo ln /dev/null /dev/raw1394
+</pre></div>
 
 <p>버전이 제대로 설치 되었는지 확인합니다.</p>
 
-<pre class="codehilite"><code class="language-python">python
-&gt;&gt;&gt; import cv2
-&gt;&gt;&gt; cv2.__version__
-'3.1.0-dev'</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">python</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">cv2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cv2</span><span class="o">.</span><span class="n">__version__</span>
+<span class="s1">&#39;3.1.0-dev&#39;</span>
+</pre></div>
 
 <h2>py-faster-rcnn - caffe 설치</h2>
 
@@ -201,50 +219,54 @@ sudo ln /dev/null /dev/raw1394</code></pre>
 
 <p>Caffe를 설치 한 후에 EC2 인스턴스의 GPU 장치가 올바르지 않다는 오류가 발생합니다. 이 오류를 해결하는 링크가 아래에 있습니다.</p>
 
-<pre class="codehilite"><code class="language-bash">cd py-faster-rcnn/lib
-# https://github.com/rbgirshick/py-faster-rcnn/issues/2
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> py-faster-rcnn/lib
+<span class="c1"># https://github.com/rbgirshick/py-faster-rcnn/issues/2</span>
 vi fast_rcnn/config.py
-__C.USE_GPU_NMS = False
+__C.USE_GPU_NMS <span class="o">=</span> False
 
-make -j8</code></pre>
+make -j8
+</pre></div>
 
 <h4>build caffe, pycaffe</h4>
 
 <p>주석을 읽어보시고 환경에 맞게 설정하셔야 합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">cd py-faster-rcnn/caffe-faster-rcnn
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> py-faster-rcnn/caffe-faster-rcnn
 cp -v Makefile.config.example Makefile.config
 vi Makefile.config
 
-#### 주석 해제 ####
-# CUDNN 활성화
-USE_CUDNN := 1
-# OpenCV 3.0.0 이상 버전
-OPENCV_VERSION := 3
-# 로컬 경로 numpy 추가
-PYTHON_INCLUDE := /usr/include/python2.7 \
-                /usr/lib/python2.7/dist-packages/numpy/core/include \
+<span class="c1">#### 주석 해제 ####</span>
+<span class="c1"># CUDNN 활성화</span>
+USE_CUDNN :<span class="o">=</span> <span class="m">1</span>
+<span class="c1"># OpenCV 3.0.0 이상 버전</span>
+OPENCV_VERSION :<span class="o">=</span> <span class="m">3</span>
+<span class="c1"># 로컬 경로 numpy 추가</span>
+PYTHON_INCLUDE :<span class="o">=</span> /usr/include/python2.7 <span class="se">\</span>
+                /usr/lib/python2.7/dist-packages/numpy/core/include <span class="se">\</span>
                 /usr/local/lib/python2.7/dist-packages/numpy/core/include
-# caffe installation 조건
-WITH_PYTHON_LAYER := 1
-# sudo apt-get install pkg-config가 설치되어 있음
-USE_PKG_CONFIG := 1</code></pre>
+<span class="c1"># caffe installation 조건</span>
+WITH_PYTHON_LAYER :<span class="o">=</span> <span class="m">1</span>
+<span class="c1"># sudo apt-get install pkg-config가 설치되어 있음</span>
+USE_PKG_CONFIG :<span class="o">=</span> <span class="m">1</span>
+</pre></div>
 
-<pre class="codehilite"><code class="language-bash">mkdir build
-cd build
+<div class="codehilite"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
 cmake ..
 make -j8 all
 make -j8 pycaffe
 make -j8 install
-make -j8 runtest</code></pre>
+make -j8 runtest
+</pre></div>
 
 <h4>Caffe 환경 변수 설정</h4>
 
 <p>이 설정을 하지 않으면 설치를 해도 import 에러가 발생합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">vi ~/.bashrc
-export CAFFE_ROOT=/home/ubuntu/py-faster-rcnn/caffe-fast-rcnn
-export PYTHONPATH=/home/ubuntu/py-faster-rcnn/caffe-fast-rcnn/python:$PYTHONPATH</code></pre>
+<div class="codehilite"><pre><span></span>vi ~/.bashrc
+<span class="nb">export</span> <span class="nv">CAFFE_ROOT</span><span class="o">=</span>/home/ubuntu/py-faster-rcnn/caffe-fast-rcnn
+<span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>/home/ubuntu/py-faster-rcnn/caffe-fast-rcnn/python:<span class="nv">$PYTHONPATH</span>
+</pre></div>
 
 <h4>X Windows</h4>
 
@@ -254,31 +276,34 @@ export PYTHONPATH=/home/ubuntu/py-faster-rcnn/caffe-fast-rcnn/python:$PYTHONPATH
 
 <p>드라이버 설치 시 GTK가 설치 되어 있기 때문에 열려있는 포트번호를 확인하고 DISPLAY 환경 변수를 추가합니다.</p>
 
-<pre class="codehilite"><code class="language-bash">netstat -an | grep &quot;LISTEN &quot;
-# 60xx port일 경우
-export DISPLAY=localhost:xx.0</code></pre>
+<div class="codehilite"><pre><span></span>netstat -an <span class="p">|</span> grep <span class="s2">&quot;LISTEN &quot;</span>
+<span class="c1"># 60xx port일 경우</span>
+<span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>localhost:xx.0
+</pre></div>
 
 <p>Caffe 설치를 완료하였습니다.</p>
 
 <p>설치가 제대로 되었는지 확인합니다.</p>
 
-<pre class="codehilite"><code class="language-python">python
-&gt;&gt;&gt; import caffe
-&gt;&gt;&gt; caffe.__version__
-'1.0.0-rc3'</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">python</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">caffe</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">caffe</span><span class="o">.</span><span class="n">__version__</span>
+<span class="s1">&#39;1.0.0-rc3&#39;</span>
+</pre></div>
 
 <h2>Test</h2>
 
 <p><a href="//github.com/rbgirshick/py-faster-rcnn">https://github.com/rbgirshick/py-faster-rcnn</a></p>
 
-<pre class="codehilite"><code class="language-bash">sudo -H pip install easydict
+<div class="codehilite"><pre><span></span>sudo -H pip install easydict
 
-# https://github.com/jflesch/paperwork/issues/283 python-gi-cairo or python-gobject-cairo
+<span class="c1"># https://github.com/jflesch/paperwork/issues/283 python-gi-cairo or python-gobject-cairo</span>
 sudo apt-get install python-gi-cairo
 
 sh py-faster-rcnn/data/scripts/fetch_faster_rcnn_models.sh
 
-py-faster-rcnn/tools/demo.py</code></pre>
+py-faster-rcnn/tools/demo.py
+</pre></div>
 
 <p>demo.py를 실행했을 때 아래와 같은 화면이 뜨면 성공입니다!</p>
 
