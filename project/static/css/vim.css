@@ -1,6 +1,5 @@
 .codehilite .hll { background-color: #222222 }
-.codehilite  { background: #333333; color: #cccccc }
-.codehilite .c { color: #000080 } /* Comment */
+.codehilite .c { color: #808080 } /* Comment */
 .codehilite .err { color: #cccccc; border: 1px solid #FF0000 } /* Error */
 .codehilite .esc { color: #cccccc } /* Escape */
 .codehilite .g { color: #cccccc } /* Generic */
@@ -10,19 +9,19 @@
 .codehilite .o { color: #3399cc } /* Operator */
 .codehilite .x { color: #cccccc } /* Other */
 .codehilite .p { color: #cccccc } /* Punctuation */
-.codehilite .ch { color: #000080 } /* Comment.Hashbang */
-.codehilite .cm { color: #000080 } /* Comment.Multiline */
-.codehilite .cp { color: #000080 } /* Comment.Preproc */
-.codehilite .cpf { color: #000080 } /* Comment.PreprocFile */
-.codehilite .c1 { color: #000080 } /* Comment.Single */
+.codehilite .ch { color: #808080 } /* Comment.Hashbang */
+.codehilite .cm { color: #808080 } /* Comment.Multiline */
+.codehilite .cp { color: #808080 } /* Comment.Preproc */
+.codehilite .cpf { color: #808080 } /* Comment.PreprocFile */
+.codehilite .c1 { color: #808080 } /* Comment.Single */
 .codehilite .cs { color: #cd0000; font-weight: bold } /* Comment.Special */
 .codehilite .gd { color: #cd0000 } /* Generic.Deleted */
 .codehilite .ge { color: #cccccc; font-style: italic } /* Generic.Emph */
 .codehilite .gr { color: #FF0000 } /* Generic.Error */
-.codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.codehilite .gh { color: #808080; font-weight: bold } /* Generic.Heading */
 .codehilite .gi { color: #00cd00 } /* Generic.Inserted */
 .codehilite .go { color: #888888 } /* Generic.Output */
-.codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.codehilite .gp { color: #808080; font-weight: bold } /* Generic.Prompt */
 .codehilite .gs { color: #cccccc; font-weight: bold } /* Generic.Strong */
 .codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
 .codehilite .gt { color: #0044DD } /* Generic.Traceback */

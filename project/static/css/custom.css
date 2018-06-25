@@ -126,4 +126,8 @@ td {
 tr {
   border-bottom: 1px solid #dddddd; }
 
+.codehilite pre {
+  background-color: #333333;
+  color: #cccccc; }
+
 /*# sourceMappingURL=custom.css.map */
