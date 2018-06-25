@@ -4,7 +4,6 @@ from pygments.styles import get_style_by_name
 
 from .app import app, pages
 
-
 markdown_ext = ['codehilite', 'extra']
 
 
@@ -13,6 +12,18 @@ def home():
     posts = [p for p in pages if p.meta.get('layout') == 'post']
 
     # sort by date
+    sorted_posts = sorted(posts, reverse=True, key=lambda p: p.meta.get('date'))
+
+    return render_template('index.html', pages=sorted_posts)
+
+
+@app.route('/search/<tag>')
+def search(tag):
+    def tags(p):
+        return p.meta.get('tags')
+
+    posts = [p for p in pages if tags(p) and tag in tags(p)]
+
     sorted_posts = sorted(posts, reverse=True, key=lambda p: p.meta.get('date'))
 
     return render_template('index.html', pages=sorted_posts)

@@ -8,7 +8,7 @@
     <br>
 
 {% for tag in page.tags %}
-    <a id="tag" href="/blog#{{ tag }}">
+    <a id="tag" href="/search/{{ tag }}">
       <img src="//img.shields.io/badge/-{{ tag | capitalize }}-orange.svg" alt="{{ tag }}" />
     </a>
 {% endfor %}
