@@ -10,20 +10,42 @@
 
 <body class="box">
 
-<nav class="nav-menu">
-    <ul>
-        <li><a href="/blog/">Home</a></li>
-        <li><a href="/blog/about.html">About me</a></li>
-        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="/blog/about.html">Jongwony</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/blog/">Home</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="https://github.com/lastone9182/blog">Source</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
 
   <div class="content" role="main">
     
+
 <h1>SQLite Bug</h1>
-<p>2017-06-29 00:00:00</p>
+
+<small class="date">2017-06-29 00:00:00</small>
+
+    <br>
+
+
+    <a id="tag" href="/blog#sqlite">
+      <img src="//img.shields.io/badge/-Sqlite-orange.svg" alt="sqlite" />
+    </a>
+
+
+    <hr>
+
 <p>SQLite에서  <code>INTEGER</code> 와 <code>PRIMARY KEY</code>를 혼합한 컬럼을 구성하게 되면 해당 컬럼에 데이터를 <code>INSERT</code>할 경우 제멋대로 값이 바뀌는 현상이 나타납니다.</p>
 
 <p>예를 들어 다음과 같은 형식의 테이블 들을 구성하게 되면</p>
@@ -56,13 +78,14 @@
 <div class="codehilite"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t</span><span class="p">(</span><span class="n">x</span> <span class="nb">INTEGER</span> <span class="n">y</span> <span class="nb">INTEGER</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="k">CONSTRAINT</span> <span class="n">xy</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">));</span>
 </pre></div>
 
+
   </div>
 
 </div><!-- end container -->
 
 <script src="/blog/static/js/script.js"></script>
 <script src="/blog/static/js/custom.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 </html>

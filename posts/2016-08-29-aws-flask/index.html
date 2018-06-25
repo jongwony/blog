@@ -10,20 +10,54 @@
 
 <body class="box">
 
-<nav class="nav-menu">
-    <ul>
-        <li><a href="/blog/">Home</a></li>
-        <li><a href="/blog/about.html">About me</a></li>
-        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="/blog/about.html">Jongwony</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/blog/">Home</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="https://github.com/lastone9182/blog">Source</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
 
   <div class="content" role="main">
     
+
 <h1>Flask uWSGI Nginx</h1>
-<p>2016-08-29 00:00:00</p>
+
+<small class="date">2016-08-29 00:00:00</small>
+
+    <br>
+
+
+    <a id="tag" href="/blog#aws">
+      <img src="//img.shields.io/badge/-Aws-orange.svg" alt="aws" />
+    </a>
+
+    <a id="tag" href="/blog#flask">
+      <img src="//img.shields.io/badge/-Flask-orange.svg" alt="flask" />
+    </a>
+
+    <a id="tag" href="/blog#uwsgi">
+      <img src="//img.shields.io/badge/-Uwsgi-orange.svg" alt="uwsgi" />
+    </a>
+
+    <a id="tag" href="/blog#nginx">
+      <img src="//img.shields.io/badge/-Nginx-orange.svg" alt="nginx" />
+    </a>
+
+
+    <hr>
+
 <p>Python 기반의 Webserver 구축에 대한 내용입니다.</p>
 
 <p>Ubuntu 14.04 (AWS EC2)에서 테스트 하였습니다.</p>
@@ -180,13 +214,14 @@ sudo ln -s /etc/nginx/sites-available/myflask /etc/nginx/sites-enabled/myflask
 uwsgi --ini ~/myflask/uwsgi.ini &amp;
 </pre></div>
 
+
   </div>
 
 </div><!-- end container -->
 
 <script src="/blog/static/js/script.js"></script>
 <script src="/blog/static/js/custom.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 </html>

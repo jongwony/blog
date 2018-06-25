@@ -10,20 +10,50 @@
 
 <body class="box">
 
-<nav class="nav-menu">
-    <ul>
-        <li><a href="/blog/">Home</a></li>
-        <li><a href="/blog/about.html">About me</a></li>
-        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="/blog/about.html">Jongwony</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/blog/">Home</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="https://github.com/lastone9182/blog">Source</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
 
   <div class="content" role="main">
     
+
 <h1>Php-fpm, Nginx, Oracle</h1>
-<p>2016-03-24 00:00:00</p>
+
+<small class="date">2016-03-24 00:00:00</small>
+
+    <br>
+
+
+    <a id="tag" href="/blog#oracle">
+      <img src="//img.shields.io/badge/-Oracle-orange.svg" alt="oracle" />
+    </a>
+
+    <a id="tag" href="/blog#php">
+      <img src="//img.shields.io/badge/-Php-orange.svg" alt="php" />
+    </a>
+
+    <a id="tag" href="/blog#nginx">
+      <img src="//img.shields.io/badge/-Nginx-orange.svg" alt="nginx" />
+    </a>
+
+
+    <hr>
+
 <p>OEL6(Oracle Enterprise Linux 6)에 Oracle이 설치된 환경에서</p>
 
 <p><strong>한 로컬 서버에</strong> Oracle, Nginx, Php-fpm 모두를 설치하는 과정입니다.</p>
@@ -349,13 +379,14 @@ service php-fpm restart
 <p><a href="http://php.net/manual/en/book.oci8.php">http://php.net/manual/en/book.oci8.php</a></p>
 <p><a href="http://www.oracle.com/technetwork/database/database-technologies/php/201212-ug-php-oracle-1884760.pdf">PDF - The Understand PHP and Oracle Manual</a></p></p>
 
+
   </div>
 
 </div><!-- end container -->
 
 <script src="/blog/static/js/script.js"></script>
 <script src="/blog/static/js/custom.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
+
 <h1>{{ page.meta.title }}</h1>
-<p>{{ page.meta.date }}</p>
+
+<small class="date">{{ page.meta.date }}</small>
+
+    <br>
+
+{% for tag in page.tags %}
+    <a id="tag" href="/blog#{{ tag }}">
+      <img src="//img.shields.io/badge/-{{ tag | capitalize }}-orange.svg" alt="{{ tag }}" />
+    </a>
+{% endfor %}
+
+    <hr>
+
 {{ page }}
+
 {% endblock %}

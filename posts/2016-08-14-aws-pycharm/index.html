@@ -10,20 +10,46 @@
 
 <body class="box">
 
-<nav class="nav-menu">
-    <ul>
-        <li><a href="/blog/">Home</a></li>
-        <li><a href="/blog/about.html">About me</a></li>
-        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="/blog/about.html">Jongwony</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/blog/">Home</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="https://github.com/lastone9182/blog">Source</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
 
   <div class="content" role="main">
     
+
 <h1>EC2에 Pycharm IDE 동기화</h1>
-<p>2016-08-14 00:00:00</p>
+
+<small class="date">2016-08-14 00:00:00</small>
+
+    <br>
+
+
+    <a id="tag" href="/blog#aws">
+      <img src="//img.shields.io/badge/-Aws-orange.svg" alt="aws" />
+    </a>
+
+    <a id="tag" href="/blog#pycharm">
+      <img src="//img.shields.io/badge/-Pycharm-orange.svg" alt="pycharm" />
+    </a>
+
+
+    <hr>
+
 <p>이전 포스트에서 EC2에 OpenCV와 Tensorflow를 설치하였습니다.</p>
 
 <p>Pycharm 패키지를 그냥 EC2에 설치하여 X window를 이용하여 작업하는 방법도 있지만</p>
@@ -124,13 +150,14 @@ SFTP를 이용하여 EC2의 /home/ubuntu/pycharm 경로로 업로드 할 수 있
 
 <p><a href="//confluence.jetbrains.com/display/PYH/Code+completion">Auto Completion</a></p>
 
+
   </div>
 
 </div><!-- end container -->
 
 <script src="/blog/static/js/script.js"></script>
 <script src="/blog/static/js/custom.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 </html>

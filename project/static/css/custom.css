@@ -33,7 +33,24 @@ ol {
   margin-bottom: 4.8em; }
 
 a {
-  padding-left: 2.4em; }
+  color: #F05F40; }
+  a:hover {
+    text-decoration: none;
+    color: #7fdbff; }
+
+hr {
+  margin: 24px 0;
+  clear: right; }
+
+nav .navbar-brand {
+  color: #F05F40;
+  font-weight: 700; }
+  nav .navbar-brand:hover, nav .navbar-brand:focus {
+    color: #eb3812; }
+
+.date {
+  display: inline-block;
+  color: #9eabb3; }
 
 h2 {
   font-size: 25px;
@@ -55,10 +72,10 @@ h2 {
 
 .post {
   position: relative;
-  width: 90%;
+  width: 100%;
   max-width: 800px;
-  margin: 0 auto 80px auto;
-  padding-bottom: 60px;
+  margin: 0 auto 20px auto;
+  padding-bottom: 20px;
   border-bottom: #EBF2F6 1px solid;
   word-break: break-word; }
   .post section {
@@ -114,20 +131,30 @@ h2 {
 
 table {
   width: 100%;
-  margin-top: 2em; }
+  margin: 2em 0; }
+  table tr {
+    border-bottom: 1px solid #dddddd; }
+    table tr th {
+      background-color: #efe0e0;
+      padding: 15px; }
+    table tr td {
+      padding: 15px; }
 
-th {
-  background-color: #efe0e0;
-  padding: 15px; }
-
-td {
-  padding: 15px; }
-
-tr {
-  border-bottom: 1px solid #dddddd; }
-
-.codehilite pre {
+pre {
+  font-size: 0.8em;
+  padding: 1.2em;
+  line-height: 1.8em;
   background-color: #333333;
   color: #cccccc; }
+
+code {
+  font-size: 0.8em;
+  background-color: #333333;
+  color: #cccccc; }
+
+.copyright {
+  text-align: center;
+  margin: 16px auto;
+  color: #9eabb3; }
 
 /*# sourceMappingURL=custom.css.map */

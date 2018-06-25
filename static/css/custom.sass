@@ -1,5 +1,9 @@
 @charset "utf-8"
 
+$sup_margin: 24px 0 0 0
+$theme-primary: #F05F40
+$hover-color: #7fdbff
+
 html
   direction: ltr
   box-sizing: border-box
@@ -35,7 +39,28 @@ ol
   margin-bottom: 4.8em
 
 a
-  padding-left: 2.4em
+  color: $theme-primary
+  &:hover
+    text-decoration: none
+    color: $hover-color
+
+hr
+  margin: 24px 0
+  clear: right
+
+// nav
+nav
+  .navbar-brand
+    color: $theme-primary
+    font-weight: 700
+    &:hover,
+    &:focus
+      color: darken($theme-primary, 10%)
+
+
+.date
+  display: inline-block
+  color: #9eabb3
 
 h2
   font-size: 25px
@@ -58,10 +83,10 @@ h2
 
 .post
   position: relative
-  width: 90%
+  width: 100%
   max-width: 800px
-  margin: 0 auto 80px auto
-  padding-bottom: 60px
+  margin: 0 auto 20px auto
+  padding-bottom: 20px
   border-bottom: #EBF2F6 1px solid
   word-break: break-word
 
@@ -120,19 +145,34 @@ h2
 
 table
   width: 100%
-  margin-top: 2em
+  margin: 2em 0
 
-th
-  background-color: #efe0e0
-  padding: 15px
+  tr
+    border-bottom: 1px solid #dddddd
 
-td
-  padding: 15px
+    th
+      background-color: #efe0e0
+      padding: 15px
 
-tr
-  border-bottom: 1px solid #dddddd
+    td
+      padding: 15px
 
-.codehilite
-  pre
-    background-color: #333333
-    color: #cccccc
+
+pre
+  font-size: 0.8em
+  padding: 1.2em
+  line-height: 1.8em
+  background-color: #333333
+  color: #cccccc
+
+code
+  font-size: 0.8em
+  background-color: #333333
+  color: #cccccc
+
+
+// copyright
+.copyright
+  text-align: center
+  margin: 16px auto
+  color: #9eabb3

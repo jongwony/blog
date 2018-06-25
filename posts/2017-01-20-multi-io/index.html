@@ -10,20 +10,54 @@
 
 <body class="box">
 
-<nav class="nav-menu">
-    <ul>
-        <li><a href="/blog/">Home</a></li>
-        <li><a href="/blog/about.html">About me</a></li>
-        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="/blog/about.html">Jongwony</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/blog/">Home</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="https://github.com/lastone9182/blog">Source</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
 
   <div class="content" role="main">
     
+
 <h1>I/O Model</h1>
-<p>2017-01-20 00:00:00</p>
+
+<small class="date">2017-01-20 00:00:00</small>
+
+    <br>
+
+
+    <a id="tag" href="/blog#synchronous">
+      <img src="//img.shields.io/badge/-Synchronous-orange.svg" alt="synchronous" />
+    </a>
+
+    <a id="tag" href="/blog#asynchronous">
+      <img src="//img.shields.io/badge/-Asynchronous-orange.svg" alt="asynchronous" />
+    </a>
+
+    <a id="tag" href="/blog#blocking">
+      <img src="//img.shields.io/badge/-Blocking-orange.svg" alt="blocking" />
+    </a>
+
+    <a id="tag" href="/blog#multiplexing">
+      <img src="//img.shields.io/badge/-Multiplexing-orange.svg" alt="multiplexing" />
+    </a>
+
+
+    <hr>
+
 <div class='def'>
 이 문서는 IBM의 <a href='http://www.ibm.com/developerworks/library/l-async/'>Boost application performance using asynchronous I/O</a>를 번역한 것입니다.
 </div>
@@ -478,13 +512,14 @@ AIO는 리눅스 커널 2.5에서 처음 도입되고 2.6 프로덕션 커널의
 
 <p>비동기 I/O 사용은 보다 빠르고 효율적인 I/O 애플리케이션을 작성할 수 있습니다. 애플리케이션이 프로세싱과 I/O를 <code>overlap</code> 할 수 있다면, AIO는 더 효율적으로 CPU 자원을 사용 가능하게 하는 애플리케이션 작성할 수 있습니다. 이 I/O 모델은 대부분의 리눅스 애플리케이션에 있는 기존 <code>blocking</code> 패턴과는 다르지만, 비동기 통지 모델은 개념적으로 간단하고, 설계를 단순화 할 수 있습니다.</p>
 
+
   </div>
 
 </div><!-- end container -->
 
 <script src="/blog/static/js/script.js"></script>
 <script src="/blog/static/js/custom.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 </html>

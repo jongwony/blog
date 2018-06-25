@@ -10,20 +10,50 @@
 
 <body class="box">
 
-<nav class="nav-menu">
-    <ul>
-        <li><a href="/blog/">Home</a></li>
-        <li><a href="/blog/about.html">About me</a></li>
-        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="/blog/about.html">Jongwony</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="/blog/">Home</a></li>
+
+            <li class="nav-item"><a class="nav-link" href="https://github.com/lastone9182/blog">Source</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
 
   <div class="content" role="main">
     
+
 <h1>AWS Route 53로 GitHub Page 도메인 설정</h1>
-<p>2017-10-15 00:00:00</p>
+
+<small class="date">2017-10-15 00:00:00</small>
+
+    <br>
+
+
+    <a id="tag" href="/blog#AWS">
+      <img src="//img.shields.io/badge/-Aws-orange.svg" alt="AWS" />
+    </a>
+
+    <a id="tag" href="/blog#Route 53">
+      <img src="//img.shields.io/badge/-Route 53-orange.svg" alt="Route 53" />
+    </a>
+
+    <a id="tag" href="/blog#Github Page">
+      <img src="//img.shields.io/badge/-Github page-orange.svg" alt="Github Page" />
+    </a>
+
+
+    <hr>
+
 <div class='warn'>
 기존 도메인 주소가 있어야 합니다.
 </div>
@@ -73,13 +103,14 @@ GitHub가 알아서 CNAME 파일을 생성해 줌</p>
 <li><a href="//docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/registrar.html">Amazon Route 53을 사용해 도메인 이름 등록하기</a></li>
 </ul>
 
+
   </div>
 
 </div><!-- end container -->
 
 <script src="/blog/static/js/script.js"></script>
 <script src="/blog/static/js/custom.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 </html>
