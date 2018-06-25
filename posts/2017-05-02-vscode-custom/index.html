@@ -24,50 +24,62 @@
 <h1>Customize vscode keybinding</h1>
 <p>2017-05-02 00:00:00</p>
 <h2>Key binding example</h2>
+
 <p>| <code>Ctrl+p</code> -&gt; <code>keybindings.json</code> |</p>
-<p>```json
-[
+
+<pre class="codehilite"><code class="language-json">[
     {
-        "key": "ctrl+y",
-        "command": "redo",
-        "when": "editorTextFocus"
+        &quot;key&quot;: &quot;ctrl+y&quot;,
+        &quot;command&quot;: &quot;redo&quot;,
+        &quot;when&quot;: &quot;editorTextFocus&quot;
     },
     {
-        "key": "ctrl+right",
-        "command": "workbench.action.terminal.focusNext",
-        "when": "terminalFocus"
+        &quot;key&quot;: &quot;ctrl+right&quot;,
+        &quot;command&quot;: &quot;workbench.action.terminal.focusNext&quot;,
+        &quot;when&quot;: &quot;terminalFocus&quot;
     },
     {
-        "key": "ctrl+left",
-        "command": "workbench.action.terminal.focusPrevious",
-        "when": "terminalFocus"
+        &quot;key&quot;: &quot;ctrl+left&quot;,
+        &quot;command&quot;: &quot;workbench.action.terminal.focusPrevious&quot;,
+        &quot;when&quot;: &quot;terminalFocus&quot;
     },
     {
-        "key": "ctrl+down",
-        "command": "workbench.action.terminal.focus",
-        "when": "!terminalFocus"
-    }</p>
-<p>]
-```</p>
+        &quot;key&quot;: &quot;ctrl+down&quot;,
+        &quot;command&quot;: &quot;workbench.action.terminal.focus&quot;,
+        &quot;when&quot;: &quot;!terminalFocus&quot;
+    }
+
+]</code></pre>
+
 <h6>keybindings.json</h6>
+
 <p>위 코드는 제가 필요한 부분을 커스텀한 것입니다.</p>
+
 <p>VSCode에서 에디터에서 터미널로 커서를 옮기기가 불편해서 <code>Ctrl+방향키</code>로 활성화 창을 옮깁니다.
 되돌아오는 경우는 기본적으로 <code>Ctrl+1</code>로 기본 설정이 되어 있었습니다.</p>
+
 <p>많은 단축키가 기본으로 설정되어 있으며 커스터마이즈 할 수 있습니다.
 하단의 홈페이지들을 참고하시면 됩니다.</p>
+
 <h2>Python Interpreter Setting</h2>
+
 <ul>
 <li>Marketplace에서 Python 설치 <a href="//github.com/DonJayamanne/pythonVSCode/wiki">pythonVSCode</a></li>
 </ul>
+
 <p>| <code>Ctrl+p</code> -&gt; <code>settings.json</code> |</p>
-<p><code>json
-{
-    "python.pythonPath": "%WORKDIR%/test/_tf/Scripts/python.exe"
-}</code></p>
+
+<pre class="codehilite"><code class="language-json">{
+    &quot;python.pythonPath&quot;: &quot;%WORKDIR%/test/_tf/Scripts/python.exe&quot;
+}</code></pre>
+
 <h6>settings.json</h6>
+
 <p>위는 기본 설정된 Python 외에 virtualenv를 설정할 경우의 경로를 인식합니다.
 이렇게 설정하여 코드 자동완성을 따라갈 수 있습니다.</p>
+
 <h2>Reference</h2>
+
 <ul>
 <li><a href="//github.com/Microsoft/vscode-tips-and-tricks?wt.mc_id=DX_881390#extension-recommendations">GitHub vscode-tips-and-tricks</a></li>
 <li><a href="//code.visualstudio.com/docs/getstarted/keybindings">Key Bindings for VSCode</a></li>

@@ -1,7 +1,10 @@
+import markdown
 from flask import render_template
 
 from .app import app, pages
 
+
+markdown_ext = ['codehilite', 'extra']
 
 @app.route('/')
 def home():
@@ -17,6 +20,7 @@ def home():
 def page(path):
     # path is the filename of a page, without the file extension
     post = pages.get_or_404(path)
+    post.body = markdown.markdown(post.body, extensions=markdown_ext)
     return render_template('page.html', page=post)
 
 

@@ -24,11 +24,17 @@
 <h1>Flask uWSGI Nginx</h1>
 <p>2016-08-29 00:00:00</p>
 <p>Python 기반의 Webserver 구축에 대한 내용입니다.</p>
+
 <p>Ubuntu 14.04 (AWS EC2)에서 테스트 하였습니다.</p>
+
 <p>제가 참조한 문서들입니다.</p>
+
 <p><a href="//uwsgi-docs.readthedocs.io/en/latest/Nginx.html">Nginx 설정</a></p>
+
 <p><a href="//uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html">uWSGI docs</a></p>
+
 <p><a href="//manual.seafile.com/deploy/https_with_nginx.html">Nginx HTTPS</a></p>
+
 <div class='warn'>
 EC2 인스턴스에 Python 2.6 환경을 모두 통일 시켰기 때문에 따로 Virtualenv 작업을 하지 않고 sudo -H 옵션을 이용한 설치를 하였습니다.<br>
 여러 프로젝트가 진행된 경우 <strong>python 및 pip 버전을 확인</strong>하시고
@@ -36,40 +42,50 @@ EC2 인스턴스에 Python 2.6 환경을 모두 통일 시켰기 때문에 따�
 </div>
 
 <p><a href="//flask.pocoo.org/docs/0.11/installation/#installation">Flask Virtualenv</a></p>
-<hr />
+
+<p><hr />
 <p>먼저 패키지 업데이트를 진행합니다.</p>
-<p><code>sudo apt-get update
-sudo apt-get upgrade</code></p>
+<pre class="codehilite"><code>sudo apt-get update
+sudo apt-get upgrade</code></pre></p>
 <p>Flask uWSGI Nginx를 설치합니다.</p>
-<p><code>sudo apt-get install python-pip python-dev
+
+<pre class="codehilite"><code>sudo apt-get install python-pip python-dev
 sudo apt-get install nginx
-sudo -H pip install uwsgi flask</code></p>
+sudo -H pip install uwsgi flask</code></pre>
+
 <p>홈 디렉터리와 /var/www 디렉터리를 연결하기 위해 디렉터리를 생성하고 소유권한을 부여합니다.</p>
-<p><code>sudo mkdir -p /var/www/myflask /var/log/uwsgi
-sudo chown -R ubuntu:ubuntu /var/www /var/log/uwsgi</code></p>
+
+<pre class="codehilite"><code>sudo mkdir -p /var/www/myflask /var/log/uwsgi
+sudo chown -R ubuntu:ubuntu /var/www /var/log/uwsgi</code></pre>
+
 <p>홈 디렉터리에 작업할 공간을 만들어서 심볼릭 링크로 연결합니다.</p>
-<p><code>mkdir ~/myflask
-ln -s /var/www/myflask ~</code></p>
+
+<pre class="codehilite"><code>mkdir ~/myflask
+ln -s /var/www/myflask ~</code></pre>
+
 <h2>uWSGI configuration</h2>
+
 <p>이제 uWSGI를 위한 application을 만들어 줍니다.</p>
-<p><code>bash
-cd ~/myflask
-vi hello.py</code></p>
-<p>```python
-from flask import Flask
-app = Flask(<strong>name</strong>)</p>
-<p>@app.route('/')
+
+<pre class="codehilite"><code class="language-bash">cd ~/myflask
+vi hello.py</code></pre>
+
+<pre class="codehilite"><code class="language-python">from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
 def index():
-  return 'Index Page'</p>
-<p>if <strong>name</strong> == "<strong>main</strong>":
-  app.run()
-```</p>
+  return 'Index Page'
+
+if __name__ == &quot;__main__&quot;:
+  app.run()</code></pre>
+
 <p>uWSGI 소켓을 생성하기 위해 ini 파일을 생성합니다.</p>
-<p><code>bash
-cd ~/myflask
-vi uwsgi.ini</code></p>
-<p><code>ini
-[uwsgi]
+
+<pre class="codehilite"><code class="language-bash">cd ~/myflask
+vi uwsgi.ini</code></pre>
+
+<pre class="codehilite"><code class="language-ini">[uwsgi]
 master = true
 shared-socket = 0.0.0.0:443
 socket = /var/www/%n.sock
@@ -82,14 +98,17 @@ module = hello
 callable = app
 manage-script-name = true
 vacuum = true
-env = HTTPS=on</code></p>
+env = HTTPS=on</code></pre>
+
 <h2>HTTPS Nginx</h2>
+
 <p>HTTPS를 사용하는 이유는 추후에 WebRTC를 이 웹서버에 사용하기 위함입니다.</p>
-<p><code>bash
-mkdir ~/ssl
+
+<pre class="codehilite"><code class="language-bash">mkdir ~/ssl
 cd ~/ssl
 openssl genrsa -out privkey.pem 2048
-openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095</code></p>
+openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095</code></pre>
+
 <div class='warn'>
 테스트를 위한 서명되지 않은 인증서입니다. <br> 웹페이지에 접속할 경우 경고창이 뜨며 무시하고 https로 접속할 수 있습니다.
 </div>
@@ -99,47 +118,53 @@ openssl req -new -x509 -key privkey.pem -out cacert.pem -days 1095</code></p>
 </div>
 
 <p>cacert.pem 파일을 생성할 때 정보를 묻는데 대괄호 안이 기본값이므로 계속 엔터를 입력하면 됩니다.</p>
+
 <h2>Nginx configuration</h2>
-<p><code>bash
-sudo vi /etc/nginx/sites-available/myflask</code></p>
-<p>```nginx
-upstream uwsgicluster {
+
+<pre class="codehilite"><code class="language-bash">sudo vi /etc/nginx/sites-available/myflask</code></pre>
+
+<pre class="codehilite"><code class="language-nginx">upstream uwsgicluster {
   server unix:///var/www/uwsgi.sock;
   # server 127.0.0.1
-}</p>
-<p>server {
+}
+
+server {
   listen 80;
   server_name _;
   rewrite ^ https://$http_host$request_uri? permanent;
-}</p>
-<p>server {
+}
+
+server {
   listen 443;
   server_name _;
   ssl on;
   ssl_certificate /home/ubuntu/ssl/cacert.pem;
   ssl_certificate_key /home/ubuntu/ssl/privkey.pem;
-  access_log /var/log/uwsgi/access_log;</p>
-<p>location / {
+  access_log /var/log/uwsgi/access_log;
+
+  location / {
     root /var/www/myflask;
     uwsgi_pass uwsgicluster;
     include uwsgi_params;
     uwsgi_param UWSGI_SCRIPT hello.py;
-  }</p>
-<p>location /static {
-    alias /var/www/myflask/static;</p>
-<pre><code>if (!-f $request_filename) {
-  uwsgi_pass uwsgicluster;
-}
-</code></pre>
-<p>}
-}
-```</p>
-<p><code>bash
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/myflask /etc/nginx/sites-enabled/myflask</code></p>
+  }
+
+  location /static {
+    alias /var/www/myflask/static;
+
+    if (!-f $request_filename) {
+      uwsgi_pass uwsgicluster;
+    }
+  }
+}</code></pre>
+
+<pre class="codehilite"><code class="language-bash">sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/myflask /etc/nginx/sites-enabled/myflask</code></pre>
+
 <h2>Service</h2>
-<p><code>sudo service nginx start
-uwsgi --ini ~/myflask/uwsgi.ini &amp;</code></p>
+
+<pre class="codehilite"><code>sudo service nginx start
+uwsgi --ini ~/myflask/uwsgi.ini &amp;</code></pre>
 
   </div>
 

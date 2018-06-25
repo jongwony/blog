@@ -1,0 +1,53 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Jongwony</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="/blog/static/css/style.css">
+    <link rel="stylesheet" href="/blog/static/css/custom.css">
+</head>
+
+<body class="box">
+
+<nav class="nav-menu">
+    <ul>
+        <li><a href="/blog/">Home</a></li>
+        <li><a href="/blog/about.html">About me</a></li>
+        <li><a href="https://github.com/lastone9182/blog">Source</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+  <div class="content" role="main">
+    
+<h1>Nginx uWSGI Django</h1>
+<p>2017-12-04 02:22:00</p>
+<p>기존의 프로젝트를 Django로 옮기는 데에 성공했고 uWSGI와 Nginx를 함께 사용하는 과정이 필요했습니다.</p>
+
+<p><a href="//developers.google.com/speed/pagespeed/insights/">페이지의 속도를 측정</a>하는 도구로 확인해보니 <code>브라우저 캐싱</code>이 없었고 웹 서버에서 처리하는 것이 필요했기 때문입니다.</p>
+
+<p>그동안 여러번 설치를 하면서 php-fpm nginx oracle도 연결해 보았고, nginx uwsgi flask도 연결해 보았습니다. 그래서 nginx uwsgi django 자체를 연결하는 데에는 <a href="//wikidocs.net/7387">NGINX 및 UWSGI 연동</a> 페이지를 차근차근 따라가면서 해도 큰 문제가 없었습니다.</p>
+
+<p>하지만 static 경로를 잡지 못하는 경우가 많았습니다. DEBUG 옵션을 <code>False</code>로 했을 때도 <code>STATIC_ROOT</code> 경로에 영향을 미치는 경우가 있었고 <code>nginx</code> 설정의 <code>root</code>와 <code>alias</code>의 차이도 있었습니다. <a href="//stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias">stackoverflow</a>에 차이가 나와 있지만 그래도 에러가 발생하는 경우가 있어 <code>location</code> 외부에 root를 사용하여 해결하였습니다.</p>
+
+<p>브라우저 캐싱 기능은 <a href="//stackoverflow.com/questions/20147587/how-to-leverage-browser-caching-in-django">https://stackoverflow.com/questions/20147587/how-to-leverage-browser-caching-in-django</a> 문서를 참고하였습니다.</p>
+
+<p>글을 쓰고나서 다시 보니 <code>views.py</code>에 <code>@cache_control</code>만 달아도 해결되는 문제였군요...</p>
+
+<pre class="codehilite"><code>from django.views.decorators.cache import cache_control
+
+@cache_control(private=True)
+def my_view(request):
+    ...</code></pre>
+
+  </div>
+
+</div><!-- end container -->
+
+<script src="/blog/static/js/script.js"></script>
+<script src="/blog/static/js/custom.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>
