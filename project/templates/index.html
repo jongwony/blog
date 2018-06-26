@@ -1,19 +1,16 @@
 {% extends "base.html" %}
+
+{% block content_class %}post{% endblock %}
+
 {% block content %}
-
-<article class="post">
-  {% for page in pages %}
-      <div class="post list">
-          <h5>
-              <a href="{{ url_for('page', path=page.path) }}">
-                  {{ page.meta.title }}
-              </a>
-          </h5>
-
-          <small class="date">{{ page.meta.date }}</small>
-
-      </div>
-  {% endfor %}
-</article>
-
+{% for page in pages %}
+  <div class="post list">
+      <h5>
+          <a href="{{ url_for('page', path=page.path) }}">
+              {{ page.meta.title }}
+          </a>
+      </h5>
+      <small class="date">{{ page.meta.date }}</small>
+  </div>
+{% endfor %}
 {% endblock %}

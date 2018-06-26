@@ -32,6 +32,23 @@ ol {
   margin-top: 4.8em;
   margin-bottom: 4.8em; }
 
+.profile div {
+  padding: 3em; }
+.profile li {
+  margin: 1.2em 0; }
+.profile h1, .profile h2, .profile h3 {
+  margin: 0 0 24px 0;
+  font-weight: 600; }
+.profile .github {
+  content: url("/images/base/GitHub-Mark.png"); }
+.profile .slideshare {
+  content: url("/images/base/SS_Logo.png"); }
+.profile .email {
+  content: url("/images/base/email.png"); }
+.profile .restrictedzone {
+  content: url("/images/base/restrictedzone.jpg");
+  width: 32px; }
+
 a {
   color: #F05F40; }
   a:hover {
