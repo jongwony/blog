@@ -35,8 +35,8 @@ ol {
 dt {
   margin: 1.2em 0; }
 
-.profile div {
-  padding: 3em; }
+.profile div.col-md-6 {
+  padding: 1.5em 3em; }
 .profile li {
   margin: 1.2em 0; }
 .profile h1, .profile h2, .profile h3 {
@@ -63,7 +63,7 @@ hr {
   clear: right; }
 
 nav {
-  margin: 0 20px; }
+  margin: 0 1.2em; }
   nav .navbar-brand {
     color: #F05F40;
     font-weight: 700; }
@@ -94,13 +94,11 @@ h2 {
 
 .post {
   position: relative;
-  width: 90%;
   margin: 20px auto 20px auto;
-  padding-bottom: 20px;
   border-bottom: #EBF2F6 1px solid;
   word-break: break-word; }
   .post .list {
-    padding: 20px; }
+    padding: 1.5em 3em; }
   .post section {
     padding: 0; }
 
