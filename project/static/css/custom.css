@@ -16,7 +16,7 @@ body {
   font-family: "나눔 고딕", "Nanum Gothic", "맑은 고딕", "Malgun Gothic", "Apple Gothic", "돋움", Dotum, "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
 
 ul {
-  list-style-image: url("/images/base/sqorange.gif");
+  list-style-image: url("images/base/sqorange.gif");
   margin-top: 1.2em;
   line-height: 1.8em; }
 
@@ -40,13 +40,13 @@ ol {
   margin: 0 0 24px 0;
   font-weight: 600; }
 .profile .github {
-  content: url("/images/base/GitHub-Mark.png"); }
+  content: url("images/base/GitHub-Mark.png"); }
 .profile .slideshare {
-  content: url("/images/base/SS_Logo.png"); }
+  content: url("images/base/SS_Logo.png"); }
 .profile .email {
-  content: url("/images/base/email.png"); }
+  content: url("images/base/email.png"); }
 .profile .restrictedzone {
-  content: url("/images/base/restrictedzone.jpg");
+  content: url("images/base/restrictedzone.jpg");
   width: 32px; }
 
 a {
@@ -59,11 +59,13 @@ hr {
   margin: 24px 0;
   clear: right; }
 
-nav .navbar-brand {
-  color: #F05F40;
-  font-weight: 700; }
-  nav .navbar-brand:hover, nav .navbar-brand:focus {
-    color: #eb3812; }
+nav {
+  margin: 0 20px; }
+  nav .navbar-brand {
+    color: #F05F40;
+    font-weight: 700; }
+    nav .navbar-brand:hover, nav .navbar-brand:focus {
+      color: #eb3812; }
 
 .date {
   display: inline-block;
@@ -89,12 +91,13 @@ h2 {
 
 .post {
   position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto 20px auto;
+  width: 90%;
+  margin: 20px auto 20px auto;
   padding-bottom: 20px;
   border-bottom: #EBF2F6 1px solid;
   word-break: break-word; }
+  .post .list {
+    padding: 20px; }
   .post section {
     padding: 0; }
 

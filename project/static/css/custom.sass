@@ -22,7 +22,7 @@ body
   font-family: "나눔 고딕","Nanum Gothic","맑은 고딕","Malgun Gothic","Apple Gothic","돋움",Dotum,"Helvetica Neue",Helvetica,Arial,sans-serif !important
 
 ul
-  list-style-image: url('/images/base/sqorange.gif')
+  list-style-image: url('images/base/sqorange.gif')
   margin-top: 1.2em
   line-height: 1.8em
 
@@ -50,13 +50,13 @@ ol
     font-weight: 600
 
   .github
-    content: url('/images/base/GitHub-Mark.png')
+    content: url('images/base/GitHub-Mark.png')
   .slideshare
-    content: url('/images/base/SS_Logo.png')
+    content: url('images/base/SS_Logo.png')
   .email
-    content: url('/images/base/email.png')
+    content: url('images/base/email.png')
   .restrictedzone
-    content: url('/images/base/restrictedzone.jpg')
+    content: url('images/base/restrictedzone.jpg')
     width: 32px
 
 a
@@ -71,6 +71,8 @@ hr
 
 // nav
 nav
+  margin: 0 20px
+
   .navbar-brand
     color: $theme-primary
     font-weight: 700
@@ -104,12 +106,14 @@ h2
 
 .post
   position: relative
-  width: 100%
-  max-width: 800px
-  margin: 0 auto 20px auto
+  width: 90%
+  margin: 20px auto 20px auto
   padding-bottom: 20px
   border-bottom: #EBF2F6 1px solid
   word-break: break-word
+
+  .list
+    padding: 20px
 
   section
     padding: 0
