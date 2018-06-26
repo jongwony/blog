@@ -51,6 +51,8 @@ dt {
 .profile .restrictedzone {
   content: url("/blog/images/base/restrictedzone.jpg");
   width: 32px; }
+.profile .dodo {
+  content: url("/blog/images/base/dodo.png"); }
 
 a {
   color: #F05F40; }
